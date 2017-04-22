@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TakeYourSeat</string>
+    <string name="username">Username</string>
+    <string name="pass">Password</string>
+    <string name="logIn">Log in</string>
+    <string name="registerHere">Register here</string>
+    <string name="confirm">Confirm password</string>
+    <string name="name">Name</string>
+    <string name="lastName">Last name</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="settings">Settings</string>
+</resources>
