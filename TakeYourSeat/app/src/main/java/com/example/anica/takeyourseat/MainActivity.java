@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import org.w3c.dom.Text;
 
+import reviewer.activities.HomePageActivity;
 import reviewer.activities.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
                 MainActivity.this.startActivity(registerIntent);
+            }
+        });
+
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+                MainActivity.this.startActivity(homePageIntent);
             }
         });
 
