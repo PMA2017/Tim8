@@ -12,6 +12,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,11 +26,16 @@
         </activity>
         <activity
             android:name="reviewer.activities.HomePageActivity"
-            android:label="Home page"
+            android:label="@string/homePage"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name="reviewer.activities.SettingsActivity"
+            android:label="@string/settings">
+
         </activity>
     </application>
 

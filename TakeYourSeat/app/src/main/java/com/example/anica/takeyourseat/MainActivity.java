@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
-import org.w3c.dom.Text;
-
 import reviewer.activities.HomePageActivity;
 import reviewer.activities.RegisterActivity;
 
@@ -45,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(homePageIntent);
             }
         });
+
+
 
     }
 }
