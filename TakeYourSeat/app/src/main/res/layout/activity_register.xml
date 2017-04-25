@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="309dp"
         android:layout_height="465dp"
-        android:layout_marginRight="47dp"
+        android:layout_marginRight="37dp"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="23dp">
 

@@ -21,9 +21,11 @@
             <ListView
                 android:id="@+id/restaurant_list_view"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content">
+            </ListView>
         </FrameLayout>
         <!-- The navigation drawer -->
+
         <ListView android:id="@+id/left_drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"

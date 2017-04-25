@@ -19,29 +19,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="22dp"
+            android:layout_below="@+id/imageView3"
+            android:layout_marginTop="33dp"
             android:text="Name"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="23dp"
             app:srcCompat="@drawable/restaurant_icon"
-            android:layout_below="@+id/textView3"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
             app:tabSelectedTextColor="?attr/actionMenuTextColor"
             app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
-            android:layout_below="@+id/imageView3"
+            android:layout_marginTop="33dp"
+            android:layout_below="@+id/textView3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 

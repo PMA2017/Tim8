@@ -35,11 +35,10 @@
         <activity
             android:name="reviewer.activities.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="reviewer.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-
+                android:value="reviewer.activities.HomePageActivity" />
         </activity>
         <activity
             android:name="reviewer.activities.DetailActivity"
@@ -48,7 +47,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="reviewer.activities.HomePageActivity" />
-
+        </activity>
+        <activity
+            android:name="reviewer.activities.ProfileActivity"
+            android:label="@string/nav_profile"
+            android:parentActivityName="reviewer.activities.HomePageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="reviewer.activities.HomePageActivity" />
         </activity>
     </application>
 
