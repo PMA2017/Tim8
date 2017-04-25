@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
@@ -22,6 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
     private String[] navDrawerItemTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
+
 
     private String[] listviewTitle = new String[]{
             "Restaurant 1", "Restaurant 2", "Restaurant 3", "Restaurant 4",
@@ -47,6 +49,7 @@ public class HomePageActivity extends AppCompatActivity {
         navDrawerItemTitles = getResources().getStringArray(R.array.nav_drawer_item_titles);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navDrawerItemTitles));
 
@@ -79,6 +82,15 @@ public class HomePageActivity extends AppCompatActivity {
         SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
         ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
         restaurantListView.setAdapter(simpleAdapter);
-    }
-}
 
+        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                {
+                    Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
+                    startActivity(detailView);
+                }
+        }
+    });
+}
+}
