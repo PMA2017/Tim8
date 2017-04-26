@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="reviewer.activities.RegisterActivity">
 
-    <RelativeLayout
-        android:layout_width="309dp"
-        android:layout_height="465dp"
-        android:layout_marginRight="37dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="23dp">
-
         <EditText
-            android:id="@+id/usernameReg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/lastNameReg"
-            android:layout_marginTop="21dp"
-            android:ems="10"
-            android:hint="@string/username"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/firstNameReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,37 +24,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/editText3"
+            android:layout_below="@+id/firstNameReg"
             android:layout_marginTop="19dp"
             android:ems="10"
             android:hint="@string/lastName"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/emailReg"
+            android:id="@+id/usernameReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textPersonName"
-            android:layout_below="@+id/rePassReg"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:id="@+id/button"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/button"
-            android:text="@string/register"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="97dp"
-            android:layout_marginEnd="97dp"
-            android:layout_marginBottom="14dp" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lastNameReg"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/passReg"
@@ -98,5 +65,28 @@
             android:fontFamily="sans-serif"
             android:hint="@string/confirm"
             android:inputType="textPassword" />
+
+
+        <EditText
+            android:id="@+id/emailReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textPersonName"
+            android:layout_below="@+id/rePassReg"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/button"
+            android:text="@string/register"
+            android:layout_below="@+id/emailReg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
