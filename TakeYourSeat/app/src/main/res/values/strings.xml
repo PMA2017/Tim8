@@ -20,6 +20,8 @@
     <string name="location">Location</string>
     <string name="change">Change profile picture</string>
 
+    <string name="errEmail">Invalid email</string>
+
 
     <string name="nav_home">Home</string>
     <string name="nav_restaurants">Restaurants</string>
