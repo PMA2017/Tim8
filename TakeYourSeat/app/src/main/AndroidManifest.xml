@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="reviewer.activities.RegisterActivity"
+            android:name="takeyourseat.activities.RegisterActivity"
             android:label="@string/register"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -25,7 +25,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="reviewer.activities.HomePageActivity"
+            android:name="takeyourseat.activities.HomePageActivity"
             android:label="@string/homePage"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -33,28 +33,28 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="reviewer.activities.SettingsActivity"
+            android:name="takeyourseat.activities.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName="reviewer.activities.HomePageActivity">
+            android:parentActivityName="takeyourseat.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="reviewer.activities.HomePageActivity" />
+                android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
         <activity
-            android:name="reviewer.activities.DetailActivity"
+            android:name="takeyourseat.activities.DetailActivity"
             android:label="@string/detail"
-            android:parentActivityName="reviewer.activities.HomePageActivity">
+            android:parentActivityName="takeyourseat.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="reviewer.activities.HomePageActivity" />
+                android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
         <activity
-            android:name="reviewer.activities.ProfileActivity"
+            android:name="takeyourseat.activities.ProfileActivity"
             android:label="@string/nav_profile"
-            android:parentActivityName="reviewer.activities.HomePageActivity">
+            android:parentActivityName="takeyourseat.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="reviewer.activities.HomePageActivity" />
+                android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
     </application>
 
