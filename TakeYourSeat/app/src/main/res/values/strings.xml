@@ -21,6 +21,8 @@
     <string name="change">Change profile picture</string>
     <string name="editProfile">Edit profile details</string>
 
+    <string name="errEmail">Invalid email</string>
+
 
     <string name="nav_home">Home</string>
     <string name="nav_restaurants">Restaurants</string>

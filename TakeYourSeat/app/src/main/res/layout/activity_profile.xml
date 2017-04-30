@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context="takeyourseat.activities.ProfileActivity">
 
     <Button
@@ -15,3 +16,7 @@
         tools:layout_editor_absoluteX="16dp" />
 
 </android.support.constraint.ConstraintLayout>
+=======
+    tools:context="reviewer.activities.ProfileActivity">
+</RelativeLayout>
+>>>>>>> 7d3aca128ae7dee68233359e24dd46aa4cc36177
