@@ -1,4 +1,4 @@
-package reviewer.activities;
+package takeyourseat.activities;
 
 
 import android.annotation.TargetApi;
@@ -22,8 +22,6 @@ import android.view.MenuItem;
 
 import java.util.List;
 import com.example.anica.takeyourseat.R;
-
-import reviewer.activities.AppCompatPreferenceActivity;
 
 
 /**

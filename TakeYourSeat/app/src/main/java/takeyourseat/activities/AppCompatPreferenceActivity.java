@@ -1,4 +1,4 @@
-package reviewer.activities;
+package takeyourseat.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package reviewer.activities;
+package takeyourseat.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -83,9 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
             email.setError("Please enter valid email");
             valid = false;
         }
-        
+
         return valid;
-        
+
     }
 
     private void initialize() {
