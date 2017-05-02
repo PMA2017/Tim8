@@ -18,5 +18,11 @@ namespace TakeYourSeatAPI.DataAccessLayer
             var columnsPart = string.Join(", ", columnNames.ToArray());
             return string.Format(Resources.Queries.SelectAll, columnsPart, tableName);
         }
+
+        public string GetSelectByColumnValueQuery(string tableName, List<string> columnNames, string columnName, string value)
+        {
+            var columnsPart = string.Join(", ", columnNames.ToArray());
+            return string.Format(Resources.Queries.SelectByColumnValue, columnsPart, tableName, columnName, "'" + value + "'");
+        }
     }
 }

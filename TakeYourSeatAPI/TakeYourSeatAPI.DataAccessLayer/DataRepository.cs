@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using log4net;
 
 namespace TakeYourSeatAPI.DataAccessLayer
@@ -31,25 +28,24 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
         public List<string> GetColumnNames(string tableName)
         {
-            var columnNames = new List<string>();
-
             var query = _queryProvider.GetSelectColumnNamesQuery(tableName);
             var sqlCommand = new SqlCommand(query, _connection);
             try
             {
+                var columnNames = new List<string>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
                     columnNames.Add(reader.GetString(0));
                 }
                 reader.Close();
+                return columnNames;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex.Message);
+                throw;
             }
-
-            return columnNames;
         }
 
         public List<Dictionary<string, object>> GetAll(string tableName)
@@ -57,10 +53,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             var columnNames = GetColumnNames(tableName);
             var query = _queryProvider.GetSelectAllQuery(tableName, columnNames);
             var sqlCommand = new SqlCommand(query, _connection);
-            var retVal = new List<Dictionary<string, object>>();
 
             try
             {
+                var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
@@ -68,13 +64,38 @@ namespace TakeYourSeatAPI.DataAccessLayer
                     retVal.Add(row);
                 }
                 reader.Close();
+                return retVal;
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.Message);                
+                _logger.Error(ex.Message);
+                throw;
             }
+        }
 
-            return retVal;
+        public List<Dictionary<string, object>> GetByColumnValue(string tableName, string columnName, string value)
+        {
+            var columnNames = GetColumnNames(tableName);
+            var query = _queryProvider.GetSelectByColumnValueQuery(tableName, columnNames, columnName, value);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = new List<Dictionary<string, object>>();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = columnNames.ToDictionary(column => column, column => reader[column]);
+                    retVal.Add(row);
+                }
+                reader.Close();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
         }
 
         public void Dispose()

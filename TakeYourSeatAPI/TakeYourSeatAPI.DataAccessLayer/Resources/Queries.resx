@@ -120,6 +120,9 @@
   <data name="SelectAll" xml:space="preserve">
     <value>SELECT {0} FROM [{1}]</value>
   </data>
+  <data name="SelectByColumnValue" xml:space="preserve">
+    <value>SELECT {0} FROM [{1}] WHERE {2} = {3}</value>
+  </data>
   <data name="SelectColumnNames" xml:space="preserve">
     <value>SELECT COLUMN_NAME
 FROM TakeYourSeatDB.INFORMATION_SCHEMA.COLUMNS

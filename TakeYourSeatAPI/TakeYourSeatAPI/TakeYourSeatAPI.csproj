@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\TakeYourSeatAPI.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -110,9 +111,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TakeYourSeatAPI.DataAccessLayer\TakeYourSeatAPI.DataAccessLayer.csproj">
-      <Project>{5cfe7394-5b57-4dcc-911e-8f8b82952735}</Project>
-      <Name>TakeYourSeatAPI.DataAccessLayer</Name>
+    <ProjectReference Include="..\TakeYourSeatAPI.Business\TakeYourSeatAPI.Business.csproj">
+      <Project>{d55c79f3-d5cb-40c4-8d9c-cd1110b05ab0}</Project>
+      <Name>TakeYourSeatAPI.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
