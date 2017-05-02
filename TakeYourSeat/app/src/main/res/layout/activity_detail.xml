@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="reviewer.activities.DetailActivity">
+    tools:context="takeyourseat.activities.DetailActivity">
 
         <TextView
             android:id="@+id/textView3"
@@ -34,30 +34,22 @@
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="?attr/actionMenuTextColor"
             app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
-            android:layout_marginTop="33dp"
             android:layout_below="@+id/textView3"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tables" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/contact" />
+            android:layout_alignParentStart="true"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:id="@+id/tabLayout">
         </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tabLayout">
+
+    </android.support.v4.view.ViewPager>
     </RelativeLayout>
 
