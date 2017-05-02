@@ -18,15 +18,17 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         currentUser = new User();
-        currentUser.setFirstName("Ime");
-        currentUser.setLastName("Prezime");
+        currentUser.setName("Marko Markovic");
+        currentUser.setAddress("Pastroviceva 8");
+        currentUser.setEmail("markomark@gmail.com");
 
-        TextView firstNameView = (TextView)findViewById(R.id.textViewFirstName);
-        TextView lastNameView = (TextView)findViewById(R.id.textViewLastName);
+        TextView nameView = (TextView)findViewById(R.id.textViewName);
+        TextView addressView = (TextView)findViewById(R.id.textViewAddress);
+        TextView emailView = (TextView)findViewById(R.id.textViewEmail);
 
-        firstNameView.setText(currentUser.getFirstName());
-        lastNameView.setText(currentUser.getLastName());
-
+        nameView.setText(currentUser.getName());
+        addressView.setText(currentUser.getAddress());
+        emailView.setText(currentUser.getEmail());
     }
 
 }

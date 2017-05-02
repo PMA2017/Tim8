@@ -54,11 +54,11 @@ public class HomePageActivity extends AppCompatActivity {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 2) {
+                if(position == 1) {
                     Intent profile = new Intent(HomePageActivity.this, ProfileActivity.class);
                     startActivity(profile);
                 }
-                if (position == 3) {
+                if (position == 2) {
                     Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
                     startActivity(settings);
                 }
