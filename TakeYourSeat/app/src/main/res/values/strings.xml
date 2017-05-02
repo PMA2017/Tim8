@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Take your seat!</string>
+    <string name="app_name">TakeYourSeat</string>
     <string name="username">Username</string>
     <string name="pass">Password</string>
     <string name="logIn">Log in</string>
