@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="reviewer.activities.HomePageActivity"
+    tools:context="takeyourseat.activities.HomePageActivity"
     android:id="@+id/drawer_layout">
 
         <!-- The main content view -->
