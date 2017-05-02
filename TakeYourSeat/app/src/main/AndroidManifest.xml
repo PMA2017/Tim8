@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="takeyourseat.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,18 +19,18 @@
         <activity
             android:name="takeyourseat.activities.RegisterActivity"
             android:label="@string/register"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="takeyourseat.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="takeyourseat.activities.MainActivity" />
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
             android:label="@string/homePage"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="takeyourseat.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="takeyourseat.activities.MainActivity" />
         </activity>
         <activity
             android:name="takeyourseat.activities.SettingsActivity"

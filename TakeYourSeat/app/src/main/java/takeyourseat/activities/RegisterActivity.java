@@ -3,14 +3,12 @@ package takeyourseat.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.anica.takeyourseat.MainActivity;
 import com.example.anica.takeyourseat.R;
 
 import static com.example.anica.takeyourseat.R.*;

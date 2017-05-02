@@ -1,4 +1,4 @@
-package com.example.anica.takeyourseat;
+package takeyourseat.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
-import takeyourseat.activities.HomePageActivity;
-import takeyourseat.activities.RegisterActivity;
+import com.example.anica.takeyourseat.R;
 
 public class MainActivity extends AppCompatActivity {
 
