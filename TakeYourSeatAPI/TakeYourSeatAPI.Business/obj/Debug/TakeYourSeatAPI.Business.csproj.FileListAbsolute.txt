@@ -1,7 +1,0 @@
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\bin\Debug\TakeYourSeatAPI.Business.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\bin\Debug\TakeYourSeatAPI.Business.pdb
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\bin\Debug\log4net.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\bin\Debug\log4net.xml
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\obj\Debug\TakeYourSeatAPI.Business.csprojResolveAssemblyReference.cache
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\obj\Debug\TakeYourSeatAPI.Business.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.Business\obj\Debug\TakeYourSeatAPI.Business.pdb

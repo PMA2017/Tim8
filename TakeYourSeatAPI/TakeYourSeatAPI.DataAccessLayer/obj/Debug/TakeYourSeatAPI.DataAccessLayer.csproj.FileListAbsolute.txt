@@ -1,9 +1,0 @@
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\bin\Debug\TakeYourSeatAPI.DataAccessLayer.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\bin\Debug\TakeYourSeatAPI.DataAccessLayer.pdb
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\bin\Debug\log4net.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\bin\Debug\log4net.xml
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\obj\Debug\TakeYourSeatAPI.DataAccessLayer.csprojResolveAssemblyReference.cache
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\obj\Debug\TakeYourSeatAPI.DataAccessLayer.dll
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\obj\Debug\TakeYourSeatAPI.DataAccessLayer.pdb
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\obj\Debug\TakeYourSeatAPI.DataAccessLayer.Resources.Queries.resources
-C:\Users\n.rad\Desktop\android\Tim8\TakeYourSeatAPI\TakeYourSeatAPI.DataAccessLayer\obj\Debug\TakeYourSeatAPI.DataAccessLayer.csproj.GenerateResource.Cache
