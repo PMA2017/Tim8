@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TakeYourSeatAPI.DataAccessLayer
 {
@@ -15,14 +12,21 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
         public string GetSelectAllQuery(string tableName, List<string> columnNames)
         {
-            var columnsPart = string.Join(", ", columnNames.ToArray());
+            var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
             return string.Format(Resources.Queries.SelectAll, columnsPart, tableName);
         }
 
-        public string GetSelectByColumnValueQuery(string tableName, List<string> columnNames, string columnName, string value)
+        public string GetSelectWhereQuery(string tableName, List<string> columnNames, string columnName, string value)
         {
-            var columnsPart = string.Join(", ", columnNames.ToArray());
-            return string.Format(Resources.Queries.SelectByColumnValue, columnsPart, tableName, columnName, "'" + value + "'");
+            var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
+            return string.Format(Resources.Queries.SelectWhere, columnsPart, tableName, columnName, $"'{value}'");
+        }
+
+        public string GetInsertQuery(string tableName, List<string> columnNames, List<string> values)
+        {
+            var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
+            var valuesPart = string.Join(", ", values.Select(v => $"'{v}'"));
+            return string.Format(Resources.Queries.Insert, tableName, columnsPart, valuesPart);
         }
     }
 }

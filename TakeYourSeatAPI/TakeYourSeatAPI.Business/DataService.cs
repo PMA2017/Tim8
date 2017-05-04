@@ -16,9 +16,16 @@ namespace TakeYourSeatAPI.Business
             return _dataRepository.GetAll(tableName);
         }
 
-        public object GetByColumnValue(string tableName, string columnName, string value)
+        public object GetBy(string tableName, string columnName, string value)
         {
-            return _dataRepository.GetByColumnValue(tableName, columnName, value);
+            return _dataRepository.GetBy(tableName, columnName, value);
+        }
+
+        public object Insert(string tableName, Dictionary<string, string> columnsValues)
+        {
+            var columnNames = columnsValues.Keys.ToList();
+            var values = columnsValues.Values.ToList();
+            return _dataRepository.Insert(tableName, columnNames, values);
         } 
     }
 }

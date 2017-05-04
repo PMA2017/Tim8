@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetadataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataRepository.cs" />
     <Compile Include="Resources\Queries.Designer.cs">
