@@ -67,13 +67,34 @@ namespace TakeYourSeatAPI.Controllers
         }
 
         [HttpPost]
+        [Route("api/Data/Update")]
+        public IHttpActionResult Update(JObject jsonData)
+        {
+            dynamic data = jsonData;
+            var tableName = data.TableName.ToString();
+            var columnName = data.ColumnName.ToString();
+            var value = data.Value.ToString();
+            try
+            {
+                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Data.ToString());
+                var retVal = _dataService.Update(tableName, columnsValues, columnName, value);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpPost]
         [Route("api/Data/Delete")]
         public IHttpActionResult Delete(JObject jsonData)
         {
             dynamic data = jsonData;
-            var tableName = data.tableName.ToString();
-            var columnName = data.columnName.ToString();
-            var value = data.value.ToString();
+            var tableName = data.TableName.ToString();
+            var columnName = data.ColumnName.ToString();
+            var value = data.Value.ToString();
 
             try
             {

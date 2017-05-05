@@ -29,6 +29,12 @@ namespace TakeYourSeatAPI.DataAccessLayer
             return string.Format(Resources.Queries.Insert, tableName, columnsPart, valuesPart);
         }
 
+        public string GetUpdateQuery(string tableName, Dictionary<string, string> columnsValues, string columnName, string value)
+        {
+            var columnValuesPart = string.Join(", ", columnsValues.Select(c => $"[{c.Key}] = '{c.Value}'"));
+            return string.Format(Resources.Queries.Update, tableName, columnValuesPart, columnName, value);
+        }
+
         public string GetDeleteQuery(string tableName, string columnName, string value)
         {
             return string.Format(Resources.Queries.Delete, tableName, columnName, value);

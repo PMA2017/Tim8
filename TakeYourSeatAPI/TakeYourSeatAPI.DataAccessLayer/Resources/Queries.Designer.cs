@@ -106,5 +106,14 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
                 return ResourceManager.GetString("SelectWhere", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE [{0}] SET {1} WHERE [{2}] = &apos;{3}&apos;.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
     }
 }
