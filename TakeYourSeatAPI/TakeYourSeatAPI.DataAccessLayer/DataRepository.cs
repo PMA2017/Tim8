@@ -115,6 +115,23 @@ namespace TakeYourSeatAPI.DataAccessLayer
             }
         }
 
+        public bool Delete(string tableName, string columnName, string value)
+        {
+            var query = _queryProvider.GetDeleteQuery(tableName, columnName, value);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = sqlCommand.ExecuteNonQuery();
+                return retVal != 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
+
         public void Dispose()
         {
             _connection.Dispose();

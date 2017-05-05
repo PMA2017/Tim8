@@ -61,7 +61,7 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DELETE FROM [{0}] WHERE {1} = &apos;{2}&apos;.
+        ///   Looks up a localized string similar to DELETE FROM [{0}] WHERE [{1}] = &apos;{2}&apos;.
         /// </summary>
         internal static string Delete {
             get {
@@ -99,20 +99,11 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE {2} = {3}.
+        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE [{2}] = &apos;{3}&apos;.
         /// </summary>
         internal static string SelectWhere {
             get {
                 return ResourceManager.GetString("SelectWhere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UPDATE [{0}] SET {1} WHERE {2} = &apos;{3}&apos;.
-        /// </summary>
-        internal static string Update {
-            get {
-                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
     }

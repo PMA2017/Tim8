@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TakeYourSeatAPI.DataAccessLayer;
@@ -26,6 +27,11 @@ namespace TakeYourSeatAPI.Business
             var columnNames = columnsValues.Keys.ToList();
             var values = columnsValues.Values.ToList();
             return _dataRepository.Insert(tableName, columnNames, values);
+        }
+
+        public bool Delete(string tableName, string columnName, string value)
+        {
+            return _dataRepository.Delete(tableName, columnName, value);
         } 
     }
 }

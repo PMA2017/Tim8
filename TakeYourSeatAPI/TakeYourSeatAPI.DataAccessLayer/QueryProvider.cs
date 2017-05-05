@@ -19,7 +19,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
         public string GetSelectWhereQuery(string tableName, List<string> columnNames, string columnName, string value)
         {
             var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
-            return string.Format(Resources.Queries.SelectWhere, columnsPart, tableName, columnName, $"'{value}'");
+            return string.Format(Resources.Queries.SelectWhere, columnsPart, tableName, columnName, value);
         }
 
         public string GetInsertQuery(string tableName, List<string> columnNames, List<string> values)
@@ -27,6 +27,11 @@ namespace TakeYourSeatAPI.DataAccessLayer
             var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
             var valuesPart = string.Join(", ", values.Select(v => $"'{v}'"));
             return string.Format(Resources.Queries.Insert, tableName, columnsPart, valuesPart);
+        }
+
+        public string GetDeleteQuery(string tableName, string columnName, string value)
+        {
+            return string.Format(Resources.Queries.Delete, tableName, columnName, value);
         }
     }
 }

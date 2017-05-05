@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TakeYourSeatAPI.Business;
-using TakeYourSeatAPI.Models;
 
 namespace TakeYourSeatAPI.Controllers
 {
@@ -51,12 +49,13 @@ namespace TakeYourSeatAPI.Controllers
 
         [HttpPost]
         [Route("api/Data/Insert")]
-        public IHttpActionResult Post(InsertDto data)
+        public IHttpActionResult Insert(JObject jsonData)
         {
+            dynamic data = jsonData;
+            var tableName = data.TableName.ToString();
             try
             {
-                var tableName = data.TableName;
-                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Data);
+                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Data.ToString());
                 var retVal = _dataService.Insert(tableName, columnsValues);
                 return Ok(retVal);
             }
@@ -67,5 +66,25 @@ namespace TakeYourSeatAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/Data/Delete")]
+        public IHttpActionResult Delete(JObject jsonData)
+        {
+            dynamic data = jsonData;
+            var tableName = data.tableName.ToString();
+            var columnName = data.columnName.ToString();
+            var value = data.value.ToString();
+
+            try
+            {
+                var retVal = _dataService.Delete(tableName, columnName, value);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
     }
 }
