@@ -19,6 +19,9 @@
     <string name="tables">Tables</string>
     <string name="location">Location</string>
     <string name="change">Change profile picture</string>
+    <string name="reservation">Reservation</string>
+    <string name="date">Date</string>
+    <string name="reserve">Reserve</string>
 
     <string name="editProfile">Edit profile details</string>
     <string name="profileDetails">Profile details</string>
