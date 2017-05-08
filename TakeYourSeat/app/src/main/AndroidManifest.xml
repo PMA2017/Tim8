@@ -56,6 +56,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
+        <activity android:name="takeyourseat.activities.ReservationActivity"
+            android:label="@string/reservation"
+            android:parentActivityName="takeyourseat.activities.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.DetailActivity" />
+        </activity>
     </application>
 
 </manifest>

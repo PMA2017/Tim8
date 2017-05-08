@@ -117,15 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Delete" xml:space="preserve">
+    <value>DELETE FROM [{0}] WHERE [{1}] = '{2}'</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>INSERT INTO [{0}] ({1}) VALUES ({2}); SELECT SCOPE_IDENTITY();</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>SELECT {0} FROM [{1}]</value>
-  </data>
-  <data name="SelectByColumnValue" xml:space="preserve">
-    <value>SELECT {0} FROM [{1}] WHERE {2} = {3}</value>
   </data>
   <data name="SelectColumnNames" xml:space="preserve">
     <value>SELECT COLUMN_NAME
 FROM TakeYourSeatDB.INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = '{0}'</value>
+  </data>
+  <data name="SelectWhere" xml:space="preserve">
+    <value>SELECT {0} FROM [{1}] WHERE [{2}] = '{3}'</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>UPDATE [{0}] SET {1} WHERE [{2}] = '{3}'</value>
   </data>
 </root>

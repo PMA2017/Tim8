@@ -73,10 +73,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             }
         }
 
-        public List<Dictionary<string, object>> GetByColumnValue(string tableName, string columnName, string value)
+        public List<Dictionary<string, object>> GetBy(string tableName, string columnName, string value)
         {
             var columnNames = GetColumnNames(tableName);
-            var query = _queryProvider.GetSelectByColumnValueQuery(tableName, columnNames, columnName, value);
+            var query = _queryProvider.GetSelectWhereQuery(tableName, columnNames, columnName, value);
             var sqlCommand = new SqlCommand(query, _connection);
 
             try
@@ -90,6 +90,57 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 }
                 reader.Close();
                 return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
+
+        public object Insert(string tableName, List<string> columnNames, List<string> values)
+        {
+            var query = _queryProvider.GetInsertQuery(tableName, columnNames, values);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = sqlCommand.ExecuteScalar();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
+
+        public bool Update(string tableName, Dictionary<string, string> columnsValuesPart, string columnName, string value)
+        {
+            var query = _queryProvider.GetUpdateQuery(tableName, columnsValuesPart, columnName, value);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = sqlCommand.ExecuteNonQuery();
+                return retVal != 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
+
+        public bool Delete(string tableName, string columnName, string value)
+        {
+            var query = _queryProvider.GetDeleteQuery(tableName, columnName, value);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = sqlCommand.ExecuteNonQuery();
+                return retVal != 0;
             }
             catch (Exception ex)
             {

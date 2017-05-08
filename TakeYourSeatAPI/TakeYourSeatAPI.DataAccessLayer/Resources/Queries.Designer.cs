@@ -61,20 +61,29 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [{0}] WHERE [{1}] = &apos;{2}&apos;.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO [{0}] ({1}) VALUES ({2}); SELECT SCOPE_IDENTITY();.
+        /// </summary>
+        internal static string Insert {
+            get {
+                return ResourceManager.GetString("Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT {0} FROM [{1}].
         /// </summary>
         internal static string SelectAll {
             get {
                 return ResourceManager.GetString("SelectAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE {2} = {3}.
-        /// </summary>
-        internal static string SelectByColumnValue {
-            get {
-                return ResourceManager.GetString("SelectByColumnValue", resourceCulture);
             }
         }
         
@@ -86,6 +95,24 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         internal static string SelectColumnNames {
             get {
                 return ResourceManager.GetString("SelectColumnNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE [{2}] = &apos;{3}&apos;.
+        /// </summary>
+        internal static string SelectWhere {
+            get {
+                return ResourceManager.GetString("SelectWhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE [{0}] SET {1} WHERE [{2}] = &apos;{3}&apos;.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
     }
