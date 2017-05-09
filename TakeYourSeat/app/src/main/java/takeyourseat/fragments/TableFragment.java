@@ -13,11 +13,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+
+import takeyourseat.activities.MainActivity;
+import takeyourseat.activities.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,14 +29,18 @@ import java.util.Calendar;
 public class TableFragment extends Fragment {
 
     private Button b1;
-    private EditText nameRes;
+    private EditText firstNameRes;
     private EditText lastNameRes;
-    private EditText date;
-    private Button reserve;
     private EditText dateRes;
     private EditText timeRes;
+    private Button reserve;
+    private Button cancel;
+    private Button dateButton;
+    private Button timeButton;
+
+    private String firstNameText,lastNameText,dateResText,timeResText;
     Calendar calendar = Calendar.getInstance();
-    DateFormat format = DateFormat.getDateTimeInstance();
+    AlertDialog dialog;
 
 
     public TableFragment() {
@@ -51,33 +59,93 @@ public class TableFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 View mView = LayoutInflater.from(getActivity()).inflate(R.layout.activity_reservation,null);
-                nameRes = (EditText) mView.findViewById(R.id.nameRes);
+                firstNameRes = (EditText) mView.findViewById(R.id.nameRes);
                 lastNameRes = (EditText) mView.findViewById(R.id.lastNameRes);
                 reserve = (Button) mView.findViewById(R.id.reserve);
+                dateButton = (Button) mView.findViewById(R.id.dateButton);
+                timeButton = (Button) mView.findViewById(R.id.timeButton);
+                cancel = (Button) mView.findViewById(R.id.cancel);
                 dateRes = (EditText) mView.findViewById(R.id.dateRes);
                 timeRes = (EditText) mView.findViewById(R.id.timeRes);
 
+                dateRes.setEnabled(false);
+                timeRes.setEnabled(false);
+
                 builder.setView(mView);
-                AlertDialog dialog = builder.create();
+                dialog = builder.create();
                 dialog.show();
 
-                dateRes.setOnClickListener(new View.OnClickListener() {
+                dateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         updateDate();
                     }
                 });
 
-                timeRes.setOnClickListener(new View.OnClickListener() {
+                timeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         updateTime();
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                reserve.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        reserve();
                     }
                 });
             }
         });
         // Inflate the layout for this fragment
         return v;
+    }
+
+    private void reserve() {
+        initialize();
+        if(!validate()) {
+            Toast.makeText(getActivity(),"Reservation failed",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(),"Reservation successful",Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        }
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+        if(firstNameText.isEmpty() || firstNameText.length() > 32) {
+            firstNameRes.setError("Please enter valid name");
+            valid = false;
+        }
+        if(lastNameText.isEmpty() || lastNameText.length() > 32) {
+            lastNameRes.setError("Please enter valid last name");
+            valid = false;
+        }
+        if(dateResText.isEmpty()) {
+            dateRes.setError("Please enter valid date");
+            valid = false;
+        }
+        if(timeResText.isEmpty() ) {
+            timeRes.setError("Please enter valid time");
+            valid = false;
+        }
+
+        return valid;
+
+    }
+
+    private void initialize() {
+        firstNameText = firstNameRes.getText().toString().trim();
+        lastNameText = lastNameRes.getText().toString().trim();
+        dateResText = dateRes.getText().toString().trim();
+        timeResText = timeRes.getText().toString().trim();
     }
 
     private void updateDate() {

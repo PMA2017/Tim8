@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void register() {
         initialize();
         if(!validate()) {
-            Toast.makeText(this,"Sign up faild",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Sign up failed",Toast.LENGTH_SHORT).show();
         } else {
             Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(logIn);

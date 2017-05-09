@@ -14,16 +14,19 @@
     <string name="homePage">Home page</string>
     <string name="detail">Restaurant detail</string>
     <string name="contact">Contact</string>
+    <string name="cancel">Cancel</string>
     <string name="menu">Menu</string>
     <string name="about">About</string>
     <string name="tables">Tables</string>
     <string name="location">Location</string>
     <string name="change">Change profile picture</string>
     <string name="reservation">Reservation</string>
-    <string name="dateTime">Date and time</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="invite">Invite friends</string>
     <string name="reserve">Reserve</string>
-    <string name="date">Date picker</string>
-    <string name="time">Time picker</string>
+    <string name="datePicker">Date picker</string>
+    <string name="timePicker">Time picker</string>
 
     <string name="editProfile">Edit profile details</string>
     <string name="profileDetails">Profile details</string>
