@@ -5,12 +5,8 @@
     tools:context="takeyourseat.fragments.LocationFragment">
 
 
-    <TextView
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/location"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
-
+        android:layout_height="match_parent" />
 </FrameLayout>
