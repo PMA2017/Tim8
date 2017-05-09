@@ -20,8 +20,10 @@
     <string name="location">Location</string>
     <string name="change">Change profile picture</string>
     <string name="reservation">Reservation</string>
-    <string name="date">Date</string>
+    <string name="dateTime">Date and time</string>
     <string name="reserve">Reserve</string>
+    <string name="date">Date picker</string>
+    <string name="time">Time picker</string>
 
     <string name="editProfile">Edit profile details</string>
     <string name="profileDetails">Profile details</string>
