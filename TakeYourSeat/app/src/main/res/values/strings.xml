@@ -40,8 +40,9 @@
     <string name="settings">Settings</string>
     <string-array name="nav_drawer_item_titles">
         <item>Home</item>
-        <item>Restaurants</item>
+        <item>Reservations</item>
         <item>Profile</item>
+        <item>Friends</item>
         <item>Settings</item>
     </string-array>
     <string name="title_activity_nav_drawer">NavDrawerAct</string>

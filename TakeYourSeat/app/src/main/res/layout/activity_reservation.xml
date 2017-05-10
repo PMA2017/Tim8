@@ -101,25 +101,17 @@
         android:layout_below="@+id/dateButton"
         android:text="@string/timePicker" />
 
-    <TextView
-        android:id="@+id/textView2"
+
+
+    <Button
+        android:id="@+id/inviteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/invite"
-        android:textSize="18sp"
-        android:layout_marginTop="22dp"
         android:layout_below="@+id/timeButton"
-        android:layout_toLeftOf="@+id/invite"
-        android:layout_toStartOf="@+id/invite" />
-
-    <CheckBox
-        android:id="@+id/invite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignRight="@+id/timeButton"
-        android:layout_alignEnd="@+id/timeButton" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp" />
 
 
 </RelativeLayout>

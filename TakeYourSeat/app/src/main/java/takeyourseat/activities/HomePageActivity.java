@@ -58,7 +58,7 @@ public class HomePageActivity extends AppCompatActivity {
                     Intent profile = new Intent(HomePageActivity.this, ProfileActivity.class);
                     startActivity(profile);
                 }
-                if (position == 3) {
+                if (position == 4) {
                     Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
                     startActivity(settings);
                 }

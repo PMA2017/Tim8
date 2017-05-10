@@ -3,6 +3,7 @@ package takeyourseat.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
-import java.text.DateFormat;
+
 import java.util.Calendar;
 
-import takeyourseat.activities.MainActivity;
-import takeyourseat.activities.RegisterActivity;
+import takeyourseat.activities.DetailActivity;
+import takeyourseat.activities.FriendsActivity;
+import takeyourseat.activities.HomePageActivity;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,7 @@ public class TableFragment extends Fragment {
     private Button cancel;
     private Button dateButton;
     private Button timeButton;
+    private Button inviteButton;
 
     private String firstNameText,lastNameText,dateResText,timeResText;
     Calendar calendar = Calendar.getInstance();
@@ -64,6 +68,7 @@ public class TableFragment extends Fragment {
                 reserve = (Button) mView.findViewById(R.id.reserve);
                 dateButton = (Button) mView.findViewById(R.id.dateButton);
                 timeButton = (Button) mView.findViewById(R.id.timeButton);
+                inviteButton = (Button) mView.findViewById(R.id.inviteButton);
                 cancel = (Button) mView.findViewById(R.id.cancel);
                 dateRes = (EditText) mView.findViewById(R.id.dateRes);
                 timeRes = (EditText) mView.findViewById(R.id.timeRes);
@@ -102,6 +107,16 @@ public class TableFragment extends Fragment {
                         reserve();
                     }
                 });
+
+                inviteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent friendsView = new Intent(getContext(), FriendsActivity.class);
+                        startActivity(friendsView);
+                    }
+                });
+
+
             }
         });
         // Inflate the layout for this fragment
