@@ -21,9 +21,7 @@ import com.example.anica.takeyourseat.R;
 
 import java.util.Calendar;
 
-import takeyourseat.activities.DetailActivity;
-import takeyourseat.activities.FriendsActivity;
-import takeyourseat.activities.HomePageActivity;
+import takeyourseat.activities.InviteFriendsActivity;
 
 
 /**
@@ -111,7 +109,7 @@ public class TableFragment extends Fragment {
                 inviteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent friendsView = new Intent(getContext(), FriendsActivity.class);
+                        Intent friendsView = new Intent(getContext(), InviteFriendsActivity.class);
                         startActivity(friendsView);
                     }
                 });
