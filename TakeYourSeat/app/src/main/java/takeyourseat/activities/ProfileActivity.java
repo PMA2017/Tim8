@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
 
-import takeyourseat.beans.User;
+import takeyourseat.models.User;
 
 public class ProfileActivity extends AppCompatActivity {
 

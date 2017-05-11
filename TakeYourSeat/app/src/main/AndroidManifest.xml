@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.anica.takeyourseat">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/googleMapsKey" />
+
+        <activity android:name="takeyourseat.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,18 +29,14 @@
         <activity
             android:name="takeyourseat.activities.RegisterActivity"
             android:label="@string/register"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="takeyourseat.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="takeyourseat.activities.MainActivity" />
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
-            android:label="@string/homePage"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:label="@string/homePage">
         </activity>
         <activity
             android:name="takeyourseat.activities.SettingsActivity"
@@ -51,6 +57,30 @@
         <activity
             android:name="takeyourseat.activities.ProfileActivity"
             android:label="@string/nav_profile"
+            android:parentActivityName="takeyourseat.activities.HomePageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.HomePageActivity" />
+        </activity>
+        <activity
+            android:name="takeyourseat.activities.ReservationActivity"
+            android:label="@string/reservation"
+            android:parentActivityName="takeyourseat.activities.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.DetailActivity" />
+        </activity>
+        <activity
+            android:name="takeyourseat.activities.InviteFriendsActivity"
+            android:label="@string/invite"
+            android:parentActivityName="takeyourseat.activities.ReservationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.ReservationActivity" />
+        </activity>
+        <activity
+            android:label="@string/myFriends"
+            android:name="takeyourseat.activities.FriendsListsActivity"
             android:parentActivityName="takeyourseat.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

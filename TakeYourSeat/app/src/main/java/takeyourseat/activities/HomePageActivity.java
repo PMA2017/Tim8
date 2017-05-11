@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,13 +57,19 @@ public class HomePageActivity extends AppCompatActivity {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    Intent home = new Intent(HomePageActivity.this, HomePageActivity.class);
+                    startActivity(home);
+                }
                 if(position == 1) {
+                }
+                if(position == 2) {
                     Intent profile = new Intent(HomePageActivity.this, ProfileActivity.class);
                     startActivity(profile);
                 }
-                if (position == 2) {
-                    Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
-                    startActivity(settings);
+                if(position == 3) {
+                    Intent friends = new Intent(HomePageActivity.this, FriendsListsActivity.class);
+                    startActivity(friends);
                 }
 
             }
@@ -94,4 +103,23 @@ public class HomePageActivity extends AppCompatActivity {
         }
     });
 }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
+                startActivity(settings);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+
+    }
 }
