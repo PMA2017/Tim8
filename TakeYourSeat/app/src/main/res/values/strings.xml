@@ -33,6 +33,7 @@
     <string name="editProfile">Edit profile details</string>
     <string name="profileDetails">Profile details</string>
     <string name="delete">Delete from friends list</string>
+    <string name="addRes">Add restaurant</string>
 
     <string name="errEmail">Invalid email</string>
 

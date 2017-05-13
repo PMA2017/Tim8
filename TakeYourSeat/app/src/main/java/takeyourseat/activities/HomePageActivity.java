@@ -111,6 +111,10 @@ public class HomePageActivity extends AppCompatActivity {
                 Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
                 startActivity(settings);
                 break;
+            case R.id.addRestaurant:
+                Intent addRestaurant = new Intent(HomePageActivity.this, AddRestaurantActivity.class);
+                startActivity(addRestaurant);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
