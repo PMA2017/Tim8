@@ -1,5 +1,7 @@
 package takeyourseat.models;
 
+import takeyourseat.beans.BaseBean;
+
 /**
  * Created by Ivana on 30.4.2017..
  */
