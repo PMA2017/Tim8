@@ -34,6 +34,9 @@
     <string name="profileDetails">Profile details</string>
     <string name="delete">Delete from friends list</string>
     <string name="addRes">Add restaurant</string>
+    <string name="addCom">Add comment</string>
+    <string name="leaveComment">Leave comment here</string>
+    <string name="rate">Rating</string>
 
     <string name="errEmail">Invalid email</string>
 

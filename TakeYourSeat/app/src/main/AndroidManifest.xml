@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
-            android:label="@string/homePage"></activity>
+            android:label="@string/homePage" />
         <activity
             android:name="takeyourseat.activities.SettingsActivity"
             android:label="@string/settings"
@@ -85,12 +85,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
-        <activity android:name="takeyourseat.activities.AddRestaurantActivity"
+        <activity
+            android:name="takeyourseat.activities.AddRestaurantActivity"
             android:parentActivityName="takeyourseat.activities.HomePageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
+        <activity android:name="takeyourseat.activities.AddCommentActivity"></activity>
     </application>
 
 </manifest>
