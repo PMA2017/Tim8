@@ -2,11 +2,17 @@ package takeyourseat.fragments;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +22,25 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import takeyourseat.dialogs.LocationDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocationFragment extends Fragment implements OnMapReadyCallback {
+public class LocationFragment extends Fragment implements OnMapReadyCallback,LocationListener {
 
 
-    GoogleMap map;
-    MapView mapView;
-    View view;
+    private GoogleMap map;
+    private MapView mapView;
+    private View view;
+    private LocationManager locationManager;
+    private AlertDialog dialog;
+    private String provider;
+
 
     public LocationFragment() {
         // Required empty public constructor
@@ -35,8 +48,20 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
     }
 
+    private void showLocatonDialog(){
+        if(dialog == null){
+            dialog = new LocationDialog(getActivity()).prepareDialog();
+        }else{
+            if(dialog.isShowing()){
+                dialog.dismiss();
+            }
+        }
+
+        dialog.show();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +100,26 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         googleMap.setMyLocationEnabled(true);
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 }
