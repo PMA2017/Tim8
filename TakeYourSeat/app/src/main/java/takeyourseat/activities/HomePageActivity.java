@@ -62,6 +62,8 @@ public class HomePageActivity extends AppCompatActivity {
                     startActivity(home);
                 }
                 if(position == 1) {
+                    Intent reservationList = new Intent(HomePageActivity.this, ReservationListActivity.class);
+                    startActivity(reservationList);
                 }
                 if(position == 2) {
                     Intent profile = new Intent(HomePageActivity.this, ProfileActivity.class);

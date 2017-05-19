@@ -104,7 +104,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
-        <activity android:name="takeyourseat.activities.AddCommentActivity"></activity>
+        <activity
+            android:name="takeyourseat.activities.AddCommentActivity"
+            android:label="@string/addCom"></activity>
+        <activity
+            android:name="takeyourseat.activities.ReservationListActivity"
+            android:label="@string/reservation"
+            android:parentActivityName="takeyourseat.activities.HomePageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.HomePageActivity" />
+        </activity>
+        <activity android:name="takeyourseat.activities.ReservationDetailActivity"></activity>
     </application>
 
 </manifest>

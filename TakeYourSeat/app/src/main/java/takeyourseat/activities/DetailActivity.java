@@ -47,9 +47,9 @@ public class DetailActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFrag(new MenuFragment(), "");
         viewPagerAdapter.addFrag(new TableFragment(), "");
-        viewPagerAdapter.addFrag(new LocationFragment(), "");
         viewPagerAdapter.addFrag(new RateCommentsFragment(), "");
         viewPagerAdapter.addFrag(new AboutFragment(), "");
+        viewPagerAdapter.addFrag(new LocationFragment(), "");
         viewPager.setAdapter(viewPagerAdapter);
     }
 
