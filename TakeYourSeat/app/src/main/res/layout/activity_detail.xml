@@ -39,7 +39,9 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabSelectedTextColor="?attr/actionMenuTextColor"
-        app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"></android.support.design.widget.TabLayout>
+        app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle">
+        
+    </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

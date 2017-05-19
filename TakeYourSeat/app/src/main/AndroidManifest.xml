@@ -106,7 +106,8 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.AddCommentActivity"
-            android:label="@string/addCom"></activity>
+            android:label="@string/addCom">
+        </activity>
         <activity
             android:name="takeyourseat.activities.ReservationListActivity"
             android:label="@string/reservation"
@@ -115,7 +116,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.HomePageActivity" />
         </activity>
-        <activity android:name="takeyourseat.activities.ReservationDetailActivity"></activity>
+        <activity android:name="takeyourseat.activities.ReservationDetailActivity"
+            android:label="@string/resDetail"
+            android:parentActivityName="takeyourseat.activities.ReservationListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="takeyourseat.activities.ReservationListActivity" />
+
+        </activity>
     </application>
 
 </manifest>

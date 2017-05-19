@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
@@ -56,11 +58,10 @@ public class DetailActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabs.getTabAt(0).setIcon(R.drawable.restaurant_icon);
         tabs.getTabAt(1).setIcon(R.mipmap.ic_launcher);
-        tabs.getTabAt(2).setIcon(R.drawable.ic_location);
-        tabs.getTabAt(3).setIcon(R.drawable.ic_comment);
-        tabs.getTabAt(4).setIcon(R.drawable.ic_action_about);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_comment);
+        tabs.getTabAt(3).setIcon(R.drawable.ic_action_about);
+        tabs.getTabAt(4).setIcon(R.drawable.ic_location);
     }
-
 
 }
 

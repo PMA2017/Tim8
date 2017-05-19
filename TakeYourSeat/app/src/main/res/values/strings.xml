@@ -45,6 +45,9 @@
     <string name="oops">Ooops</string>
     <string name="sure">Sure</string>
     <string name="no">No</string>
+    <string name="res">Restaurant</string>
+    <string name="resFriends">Invited friends</string>
+    <string name="resDetail">Reservation details</string>
     <string name="viewRes">View detail</string>
     <string name="reservations">My reservations</string>
     <string name="location_disabled_message">Your Locations seems to be disabled, do you want to enable it?</string>

@@ -9,7 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
 
@@ -18,6 +20,10 @@ public class ReservationListActivity extends AppCompatActivity {
 
     ListView resList;
     AlertDialog dialog;
+    TextView resRes;
+    TextView resDate;
+    TextView resTime;
+    EditText invitedFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,18 @@ public class ReservationListActivity extends AppCompatActivity {
                 builder.setView(mView);
                 dialog = builder.create();
                 dialog.show();
+                resRes = (TextView) mView.findViewById(R.id.resNameText);
+                resDate = (TextView) mView.findViewById(R.id.resDateText);
+                resTime = (TextView) mView.findViewById(R.id.resTimeText);
+                invitedFriends = (EditText) mView.findViewById(R.id.resFriendsText);
+                invitedFriends.setEnabled(false);
+                invitedFriends.setFocusable(false);
+                invitedFriends.setClickable(false);
+
+                resRes.setText("Restaurant 1");
+                resDate.setText("12-05-2017");
+                resTime.setText("16:00");
+                invitedFriends.setText("Marko,Janko,Goran");
         }
         return super.onContextItemSelected(item);
     }

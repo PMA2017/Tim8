@@ -4,6 +4,9 @@ package takeyourseat.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +22,7 @@ import com.example.anica.takeyourseat.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RateCommentsFragment extends Fragment {
+public class RateCommentsFragment extends Fragment  {
 
     ListView commentsList;
     RatingBar rate;
@@ -72,6 +75,25 @@ public class RateCommentsFragment extends Fragment {
 
                 );
 
+                commentText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(s.length() >= 50) {
+                            commentText.setError("Comment is too long");
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -88,6 +110,7 @@ public class RateCommentsFragment extends Fragment {
                 builder.setView(mView);
                 dialog = builder.create();
                 dialog.show();
+
 
             }
         });
@@ -110,6 +133,10 @@ public class RateCommentsFragment extends Fragment {
             commentText.setError("Please enter comment");
             valid = false;
         }
+        if(commentTextText.length() >= 10) {
+            commentText.setError("Comment is to long");
+            valid = false;
+        }
         return valid;
 
     }
@@ -120,5 +147,6 @@ public class RateCommentsFragment extends Fragment {
 
 
     }
+
 
 }
