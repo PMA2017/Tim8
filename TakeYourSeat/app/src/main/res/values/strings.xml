@@ -50,7 +50,10 @@
     <string name="resDetail">Reservation details</string>
     <string name="viewRes">View detail</string>
     <string name="reservations">My reservations</string>
+    <string name="delRes">Delete</string>
+    <string name="delOk">Are you sure you want delete this item?</string>
     <string name="location_disabled_message">Your Locations seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
     <string-array name="nav_drawer_item_titles">
         <item>Home</item>
         <item>Reservations</item>

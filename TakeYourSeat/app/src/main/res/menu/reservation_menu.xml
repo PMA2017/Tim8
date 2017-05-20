@@ -4,6 +4,6 @@
         android:title="@string/viewRes"
         />
     <item android:id="@+id/delRes"
-        android:title="@string/delete"
+        android:title="@string/delRes"
         />
 </menu>

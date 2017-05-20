@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
 
+import takeyourseat.dialogs.DeleteDialog;
+
 public class ReservationListActivity extends AppCompatActivity {
 
 
@@ -45,14 +47,11 @@ public class ReservationListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.viewRes:
-
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.viewRes: {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                View mView = LayoutInflater.from(this).inflate(R.layout.activity_reservation_detail,null);
+                View mView = LayoutInflater.from(this).inflate(R.layout.activity_reservation_detail, null);
                 builder.setView(mView);
                 dialog = builder.create();
                 dialog.show();
@@ -68,7 +67,26 @@ public class ReservationListActivity extends AppCompatActivity {
                 resDate.setText("12-05-2017");
                 resTime.setText("16:00");
                 invitedFriends.setText("Marko,Janko,Goran");
+
+            }
+            case R.id.delRes: {
+                showLocatonDialog();
+            }
         }
-        return super.onContextItemSelected(item);
+            return super.onContextItemSelected(item);
+
+    }
+    private void showLocatonDialog(){
+        if(dialog == null){
+            dialog = new DeleteDialog(ReservationListActivity.this).prepareDialog();
+        }else{
+            if(dialog.isShowing()){
+                dialog.dismiss();
+            }
+        }
+
+        dialog.show();
     }
 }
+
+
