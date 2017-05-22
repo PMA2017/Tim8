@@ -2,6 +2,9 @@ package takeyourseat.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView email;
     private TextView password;
     private TextView error;
+    private TextView showPass;
     private Button logIn;
     private TextView registerHere;
 
@@ -37,14 +41,53 @@ public class MainActivity extends AppCompatActivity {
         email = (TextView)findViewById(R.id.email);
         password = (TextView)findViewById(R.id.pass);
         error = (TextView)findViewById(R.id.textViewError);
+        showPass = (TextView) findViewById(R.id.showPass);
         logIn = (Button)findViewById(R.id.signIn);
         registerHere = (TextView)findViewById(R.id.register);
 
+        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        showPass.setVisibility(View.GONE);
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(password.getText().length() > 0) {
+                        showPass.setVisibility(View.VISIBLE);
+                    } else {
+                        showPass.setVisibility(View.GONE);
+                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         registerHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
                 MainActivity.this.startActivity(registerIntent);
+            }
+        });
+
+        showPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(showPass.getText() == "SHOW") {
+                    showPass.setText("HIDE");
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.getSelectionEnd();
+
+                } else {
+                    showPass.setText("SHOW");
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
             }
         });
 
