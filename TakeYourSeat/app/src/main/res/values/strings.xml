@@ -8,6 +8,7 @@
     <string name="name">First name</string>
     <string name="lastName">Last name</string>
     <string name="email">Email</string>
+    <string name="address">Address</string>
     <string name="register">Sign up</string>
     <string name="back">Back</string>
     <string name="title_activity_home_page">HomePageActivity</string>
