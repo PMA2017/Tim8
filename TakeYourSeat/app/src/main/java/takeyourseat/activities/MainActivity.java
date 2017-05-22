@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView username;
     private TextView pass;
+    private TextView error;
     private Button logIn;
     private TextView registerHere;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         username = (TextView)findViewById(R.id.username);
         pass = (TextView)findViewById(R.id.pass);
+        error = (TextView)findViewById(R.id.textViewError);
         logIn = (Button)findViewById(R.id.signIn);
         registerHere = (TextView)findViewById(R.id.register);
 
@@ -38,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                MainActivity.this.startActivity(homePageIntent);
+                if(username.equals("admin") && pass.equals("admin")) {
+                    Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+                    MainActivity.this.startActivity(homePageIntent);
+                    error.setText("");
+                }
+                else {
+                    error.setText("Incorrect username and/or password.");
+                }
             }
         });
-
-
-
     }
 }

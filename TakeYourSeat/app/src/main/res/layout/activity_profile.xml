@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textSize="20sp"
-        android:text="TextView"
+        android:text="Name"
         android:layout_below="@+id/imageView"
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView" />
@@ -51,7 +51,7 @@
         android:layout_below="@+id/textViewName"
         android:layout_marginTop="22dp"
         android:textSize="20sp"
-        android:text="TextView" />
+        android:text="Address" />
 
     <TextView
         android:id="@+id/textViewEmail"
@@ -62,7 +62,7 @@
         android:layout_below="@+id/textViewAddress"
         android:layout_marginTop="22dp"
         android:textSize="20sp"
-        android:text="TextView" />
+        android:text="Email" />
 
     <Button
         android:id="@+id/button2"
@@ -75,7 +75,6 @@
         android:layout_below="@+id/textViewEmail"
         android:layout_alignLeft="@+id/textViewEmail"
         android:layout_alignStart="@+id/textViewEmail" />
-
 
 </RelativeLayout>
 

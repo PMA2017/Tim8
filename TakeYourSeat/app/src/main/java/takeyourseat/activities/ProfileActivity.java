@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
 
-import takeyourseat.models.User;
+import takeyourseat.beans.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -18,7 +18,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         currentUser = new User();
-        currentUser.setName("Marko Markovic");
+        currentUser.setName("Marko");
+        currentUser.setLastName("Markovic");
         currentUser.setAddress("Pastroviceva 8");
         currentUser.setEmail("markomark@gmail.com");
 
@@ -26,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView addressView = (TextView)findViewById(R.id.textViewAddress);
         TextView emailView = (TextView)findViewById(R.id.textViewEmail);
 
-        nameView.setText(currentUser.getName());
+        nameView.setText(currentUser.getName() + " " + currentUser.getLastName());
         addressView.setText(currentUser.getAddress());
         emailView.setText(currentUser.getEmail());
     }
