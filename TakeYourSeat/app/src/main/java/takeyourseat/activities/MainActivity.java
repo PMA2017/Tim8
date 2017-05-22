@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(username.equals("admin") && pass.equals("admin")) {
+                if(isAuthenticated(username.getText().toString(), pass.getText().toString())) {
                     Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
                     MainActivity.this.startActivity(homePageIntent);
                     error.setText("");
@@ -50,5 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean isAuthenticated(String username, String password) {
+        if(username.equals("admin") && pass.equals("admin"))
+            return true;
+        else
+            return  false;
     }
 }
