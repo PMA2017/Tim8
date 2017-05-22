@@ -1,4 +1,4 @@
-package com.example.nenad.retrofittest.data.remote;
+package takeyourseat.data.remote;
 
 /**
  * Created by Nenad on 5/9/2017.

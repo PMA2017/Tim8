@@ -1,39 +1,42 @@
 package takeyourseat.beans;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Created by Ivana on 11.5.2017..
+ * Created by Nenad on 5/9/2017.
  */
 
-public class User extends BaseBean {
+public class User {
 
-    private int id;
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
+    @SerializedName("Name")
+    @Expose
     private String name;
+    @SerializedName("LastName")
+    @Expose
     private String lastName;
+    @SerializedName("Address")
+    @Expose
     private String address;
+    @SerializedName("Email")
+    @Expose
     private String email;
-    private String username;
+    @SerializedName("Password")
+    @Expose
     private String password;
-    private int role;
+    @SerializedName("Role")
+    @Expose
+    private Integer role;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public User withId(int id) {
-        this.id = id;
-        return this;
     }
 
     public String getName() {
@@ -44,22 +47,12 @@ public class User extends BaseBean {
         this.name = name;
     }
 
-    public User withName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public User withLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
     }
 
     public String getAddress() {
@@ -70,22 +63,12 @@ public class User extends BaseBean {
         this.address = address;
     }
 
-    public User withAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public User withEmail(String email) {
-        this.email = email;
-        return this;
     }
 
     public String getPassword() {
@@ -96,21 +79,12 @@ public class User extends BaseBean {
         this.password = password;
     }
 
-    public User withPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public int getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
-    public User withRole(int role) {
-        this.role = role;
-        return this;
-    }
 }

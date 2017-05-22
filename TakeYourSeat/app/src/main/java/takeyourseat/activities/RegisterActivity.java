@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
-        user.setUsername(username);
+        user.setEmail(username);
         //ovde treba da se setuje uloga za obicnog korisnika
         // user.setRole();
         //i korisnik treba da se doda u bazu

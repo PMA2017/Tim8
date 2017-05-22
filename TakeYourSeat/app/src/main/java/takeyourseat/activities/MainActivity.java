@@ -2,12 +2,22 @@ package takeyourseat.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
 import com.example.anica.takeyourseat.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import takeyourseat.beans.User;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView error;
     private Button logIn;
     private TextView registerHere;
+
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +49,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        apiService = ApiUtils.getApiService();
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(username != null && pass != null) {
-                    if (isAuthenticated(username.getText().toString().trim(), pass.getText().toString().trim())) {
-                        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                        MainActivity.this.startActivity(homePageIntent);
-                        error.setText("");
-                    } else {
-                        error.setText("Incorrect username and/or password.");
+                    try {
+                        authenticate(username.getText().toString(), pass.getText().toString());
+                    }
+                    catch(Exception ex) {
+                        Log.e("Error: ", ex.getMessage());
                     }
                 }
             }
         });
     }
 
-    private boolean isAuthenticated(String username, String password) {
-        if(username.equals("admin") && password.equals("admin"))
-            return true;
-        else
-            return  false;
+    private void authenticate(String username, final String password) {
+        apiService.getUserByEmail(username).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if(response.isSuccessful()) {
+                    if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
+                        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+                        MainActivity.this.startActivity(homePageIntent);
+                        error.setText("");
+                    }
+                    else {
+                        error.setText("Incorrect username and/or password.");
+                    }
+                }
+                else {
+                    int statusCode = response.code();
+                    Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.e("MainActivity", "error loading from API");
+            }
+        });
     }
 }
