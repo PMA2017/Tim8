@@ -47,15 +47,13 @@ namespace TakeYourSeatAPI.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Data/Insert")]
-        public IHttpActionResult Insert(JObject jsonData)
+        [HttpPut]
+        [Route("api/Data/Insert/{tableName}")]
+        public IHttpActionResult Insert(string tableName, JObject jsonData)
         {
-            dynamic data = jsonData;
-            var tableName = data.TableName.ToString();
             try
             {
-                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Data.ToString());
+                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData.ToString());
                 var retVal = _dataService.Insert(tableName, columnsValues);
                 return Ok(retVal);
             }
@@ -66,17 +64,16 @@ namespace TakeYourSeatAPI.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Data/Update")]
-        public IHttpActionResult Update(JObject jsonData)
+        [HttpPut]
+        [Route("api/Data/Update/{tableName}/{columnName}/{value}")]
+        public IHttpActionResult Update(string tableName, string columnName, string value, JObject jsonData)
         {
-            dynamic data = jsonData;
-            var tableName = data.TableName.ToString();
-            var columnName = data.ColumnName.ToString();
-            var value = data.Value.ToString();
+            //dynamic data = jsonData;
+            //var columnName = data.ColumnName.ToString();
+            //var value = data.Value.ToString();
             try
             {
-                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Data.ToString());
+                var columnsValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData.ToString());
                 var retVal = _dataService.Update(tableName, columnsValues, columnName, value);
                 return Ok(retVal);
             }
