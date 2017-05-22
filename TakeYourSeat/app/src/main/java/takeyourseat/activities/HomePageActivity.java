@@ -1,9 +1,12 @@
 package takeyourseat.activities;
 
 import android.content.Intent;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,7 @@ public class HomePageActivity extends AppCompatActivity {
     private String[] navDrawerItemTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
 
     private String[] listviewTitle = new String[]{
@@ -54,6 +58,35 @@ public class HomePageActivity extends AppCompatActivity {
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navDrawerItemTitles));
 
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setIcon(R.drawable.restaurant_icon);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setHomeButtonEnabled(true);
+        }
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
+                R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+               //  getActionBar().setTitle(R.string.homePage);
+                getSupportActionBar().setTitle(R.string.homePage);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+             // getActionBar().setTitle(R.string.homePage);
+                getSupportActionBar().setTitle(R.string.homePage);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,6 +95,8 @@ public class HomePageActivity extends AppCompatActivity {
                     startActivity(home);
                 }
                 if(position == 1) {
+                    Intent reservationList = new Intent(HomePageActivity.this, ReservationListActivity.class);
+                    startActivity(reservationList);
                 }
                 if(position == 2) {
                     Intent profile = new Intent(HomePageActivity.this, ProfileActivity.class);
@@ -75,6 +110,9 @@ public class HomePageActivity extends AppCompatActivity {
             }
 
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 
@@ -104,6 +142,8 @@ public class HomePageActivity extends AppCompatActivity {
     });
 }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -111,7 +151,15 @@ public class HomePageActivity extends AppCompatActivity {
                 Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
                 startActivity(settings);
                 break;
+            case R.id.addRestaurant:
+                Intent addRestaurant = new Intent(HomePageActivity.this, AddRestaurantActivity.class);
+                startActivity(addRestaurant);
+                break;
         }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

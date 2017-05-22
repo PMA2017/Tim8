@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="takeyourseat.activities.ReservationDetailActivity"
+    android:weightSum="1">
+
+
+    <TextView
+        android:id="@+id/resName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/resNameText"
+        android:layout_alignBottom="@+id/resNameText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/res"
+        android:textAlignment="textEnd"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/resNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:editable="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp"
+        android:layout_toRightOf="@+id/resName"
+        android:layout_toEndOf="@+id/resName" />
+
+    <TextView
+        android:id="@+id/resDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/resTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/resNameText"
+        android:layout_toStartOf="@+id/resNameText"
+        android:text="@string/date"
+        android:textAlignment="textEnd"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/resDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:editable="false"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/resName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/resDate"
+        android:layout_toEndOf="@+id/resDate" />
+
+    <TextView
+        android:id="@+id/resTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/resDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/resDate"
+        android:layout_below="@+id/resDateText"
+        android:layout_marginTop="24dp"
+        android:text="@string/time"
+        android:textAlignment="textEnd"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/resTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:editable="false"
+        android:layout_alignBaseline="@+id/resTime"
+        android:layout_alignBottom="@+id/resTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/resTime"
+        android:layout_toEndOf="@+id/resTime" />
+
+    <TextView
+        android:id="@+id/resFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/resTime"
+        android:layout_marginTop="24dp"
+        android:text="@string/resFriends"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/resFriendsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/resFriends"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:textSize="25dp" />
+
+</RelativeLayout>
