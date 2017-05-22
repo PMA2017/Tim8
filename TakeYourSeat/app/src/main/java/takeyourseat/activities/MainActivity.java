@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isAuthenticated(String username, String password) {
-        if(username.equals("admin") && pass.equals("admin"))
+        if(username.equals("admin") && password.equals("admin"))
             return true;
         else
             return  false;
