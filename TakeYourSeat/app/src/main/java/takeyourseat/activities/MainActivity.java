@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isAuthenticated(username.getText().toString(), pass.getText().toString())) {
+                if(isAuthenticated(username.getText().toString().trim(), pass.getText().toString().trim())) {
                     Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
                     MainActivity.this.startActivity(homePageIntent);
                     error.setText("");
