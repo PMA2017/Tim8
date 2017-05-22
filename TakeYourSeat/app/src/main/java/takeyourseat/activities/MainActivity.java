@@ -21,9 +21,8 @@ import takeyourseat.data.remote.ApiUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private TextView username;
-    private TextView pass;
+    private TextView email;
+    private TextView password;
     private TextView error;
     private Button logIn;
     private TextView registerHere;
@@ -35,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = (TextView)findViewById(R.id.username);
-        pass = (TextView)findViewById(R.id.pass);
+        email = (TextView)findViewById(R.id.email);
+        password = (TextView)findViewById(R.id.pass);
         error = (TextView)findViewById(R.id.textViewError);
         logIn = (Button)findViewById(R.id.signIn);
         registerHere = (TextView)findViewById(R.id.register);
@@ -54,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(username != null && pass != null) {
+                if(email != null && password != null) {
                     try {
-                        authenticate(username.getText().toString(), pass.getText().toString());
+                        authenticate(email.getText().toString(), password.getText().toString());
                     }
                     catch(Exception ex) {
                         Log.e("Error: ", ex.getMessage());
@@ -66,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void authenticate(String username, final String password) {
-        apiService.getUserByEmail(username).enqueue(new Callback<List<User>>() {
+    private void authenticate(String email, final String password) {
+        apiService.getUserByEmail(email).enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()) {

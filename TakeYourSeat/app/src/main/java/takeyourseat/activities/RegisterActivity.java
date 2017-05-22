@@ -19,13 +19,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText firstName;
     EditText lastName;
-    EditText username;
-    EditText pass;
+    EditText password;
     EditText confirmPass;
     EditText email;
     EditText address;
     Button signUp;
-    private String firstNameText, lastNameText, usernameText, passText, confirmPassText, emailText, addressText;
+    private String firstNameText, lastNameText, usernameText, passwordText, confirmPassText, emailText, addressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         firstName = (EditText) findViewById(R.id.firstNameReg);
         lastName = (EditText) findViewById(R.id.lastNameReg);
-        username = (EditText) findViewById(id.usernameReg);
-        pass = (EditText) findViewById(R.id.passReg);
+        password = (EditText) findViewById(R.id.passReg);
         confirmPass = (EditText) findViewById(R.id.rePassReg);
         address = (EditText) findViewById(id.addressReg);
         email = (EditText) findViewById(R.id.emailReg);
@@ -54,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!validate()) {
             Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
         } else {
-            registerUser(firstNameText, lastNameText, usernameText, passText, emailText, addressText);
+            registerUser(firstNameText, lastNameText, usernameText, passwordText, emailText, addressText);
             Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(logIn);
         }
@@ -73,23 +71,13 @@ public class RegisterActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if(usernameText.isEmpty()) {
-            username.setError("Please enter an username.");
+        if(passwordText.isEmpty()) {
+            password.setError("Please enter a password.");
             isValid = false;
         }
 
-        if(!usernameText.isEmpty() && usernameText.length() <  6 && usernameText.length() > 20) {
-            username.setError("Username must be between 6 and 20 characters long!");
-            isValid = false;
-        }
-
-        if(passText.isEmpty()) {
-            pass.setError("Please enter a password.");
-            isValid = false;
-        }
-
-        if(!passText.isEmpty() && passText.length() < 6) {
-            pass.setError("Password must be at least 6 characters long!");
+        if(!passwordText.isEmpty() && passwordText.length() < 6) {
+            password.setError("Password must be at least 6 characters long!");
             isValid = false;
         }
 
@@ -108,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if(!confirmPassText.isEmpty() && !passText.isEmpty() && !passText.equals(confirmPassText)) {
+        if(!confirmPassText.isEmpty() && !passwordText.isEmpty() && !passwordText.equals(confirmPassText)) {
             confirmPass.setError("Passwords do not match!");
             isValid = false;
         }
@@ -124,8 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void initialize() {
         firstNameText = firstName.getText().toString().trim();
         lastNameText = lastName.getText().toString().trim();
-        usernameText = username.getText().toString().trim();
-        passText = pass.getText().toString().trim();
+        passwordText = password.getText().toString().trim();
         confirmPassText = confirmPass.getText().toString().trim();
         emailText = email.getText().toString().trim();
         addressText = address.getText().toString().trim();
