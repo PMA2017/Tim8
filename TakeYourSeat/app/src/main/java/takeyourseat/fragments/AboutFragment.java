@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.anica.takeyourseat.R;
 
@@ -13,6 +14,8 @@ import com.example.anica.takeyourseat.R;
  * A simple {@link Fragment} subclass.
  */
 public class AboutFragment extends Fragment {
+
+    EditText description;
 
 
     public AboutFragment() {
@@ -24,7 +27,12 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+       View v = inflater.inflate(R.layout.fragment_about, container, false);
+        description = (EditText) v.findViewById(R.id.description);
+        description.setText(R.string.aboutRes);
+        description.setFocusable(false);
+        description.setClickable(false);
+        return v;
     }
 
 }

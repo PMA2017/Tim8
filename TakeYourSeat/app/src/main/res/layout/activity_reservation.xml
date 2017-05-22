@@ -67,12 +67,12 @@
         android:id="@+id/timeRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/dateRes"
         android:ems="10"
         android:hint="@string/time"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_below="@+id/dateRes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/cancel"
@@ -90,7 +90,9 @@
         android:text="@string/datePicker"
         android:layout_above="@+id/timeRes"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/dateRes"
+        android:layout_toEndOf="@+id/dateRes" />
 
     <Button
         android:id="@+id/timeButton"
@@ -99,7 +101,9 @@
         android:layout_alignLeft="@+id/dateButton"
         android:layout_alignStart="@+id/dateButton"
         android:layout_below="@+id/dateButton"
-        android:text="@string/timePicker" />
+        android:text="@string/timePicker"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 
@@ -111,7 +115,9 @@
         android:layout_below="@+id/timeButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:layout_alignLeft="@+id/timeButton"
+        android:layout_alignStart="@+id/timeButton" />
 
 
 </RelativeLayout>
