@@ -11,8 +11,17 @@ public class User extends BaseBean {
     private String lastName;
     private String address;
     private String email;
+    private String username;
     private String password;
     private int role;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getId() {
         return id;

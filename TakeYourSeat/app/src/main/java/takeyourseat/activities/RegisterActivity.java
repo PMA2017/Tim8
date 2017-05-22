@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
+import takeyourseat.beans.User;
+
 import static com.example.anica.takeyourseat.R.*;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -21,8 +23,9 @@ public class RegisterActivity extends AppCompatActivity {
     EditText pass;
     EditText confirmPass;
     EditText email;
+    EditText address;
     Button signUp;
-    private String firstNameText,lastNameText,usernameText,passText,confirmPassText,emailText;
+    private String firstNameText, lastNameText, usernameText, passText, confirmPassText, emailText, addressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         username = (EditText) findViewById(id.usernameReg);
         pass = (EditText) findViewById(R.id.passReg);
         confirmPass = (EditText) findViewById(R.id.rePassReg);
+        address = (EditText) findViewById(id.addressReg);
         email = (EditText) findViewById(R.id.emailReg);
         signUp = (Button) findViewById(R.id.signUp);
 
@@ -48,42 +52,73 @@ public class RegisterActivity extends AppCompatActivity {
     private void register() {
         initialize();
         if(!validate()) {
-            Toast.makeText(this,"Sign up failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
         } else {
+            registerUser(firstNameText, lastNameText, usernameText, passText, emailText, addressText);
             Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(logIn);
         }
     }
 
     private boolean validate() {
-        boolean valid = true;
-        if(firstNameText.isEmpty() || firstNameText.length() > 32) {
-            firstName.setError("Please enter valid name");
-            valid = false;
+        boolean isValid = true;
+
+        if(firstNameText.isEmpty()) {
+            firstName.setError("Please enter a name.");
+            isValid = false;
         }
-        if(lastNameText.isEmpty() || lastNameText.length() > 32) {
-            lastName.setError("Please enter valid last name");
-            valid = false;
+
+        if(lastNameText.isEmpty()) {
+            lastName.setError("Please enter a last name.");
+            isValid = false;
         }
-        if(usernameText.isEmpty() || usernameText.length() > 10) {
-            username.setError("Please enter valid username");
-            valid = false;
+
+        if(usernameText.isEmpty()) {
+            username.setError("Please enter an username.");
+            isValid = false;
         }
+
+        if(!usernameText.isEmpty() && usernameText.length() <  6 && usernameText.length() > 20) {
+            username.setError("Username must be between 6 and 20 characters long!");
+            isValid = false;
+        }
+
         if(passText.isEmpty()) {
-            pass.setError("Please enter valid password");
-            valid = false;
+            pass.setError("Please enter a password.");
+            isValid = false;
         }
+
+        if(!passText.isEmpty() && passText.length() < 6) {
+            pass.setError("Password must be at least 6 characters long!");
+            isValid = false;
+        }
+
         if(confirmPassText.isEmpty()) {
-            confirmPass.setError("Please enter valid password");
-            valid = false;
-        }
-        if(emailText.isEmpty() || !isValidEmail(emailText)) {
-            email.setError("Please enter valid email");
-            valid = false;
+            confirmPass.setError("You must confirm your password!");
+            isValid = false;
         }
 
-        return valid;
+        if(emailText.isEmpty()) {
+            email.setError("Please enter an email.");
+            isValid = false;
+        }
 
+        if(!emailText.isEmpty() && !isValidEmail(emailText)) {
+            email.setError("Please enter a valid email.");
+            isValid = false;
+        }
+
+        if(!confirmPassText.isEmpty() && !passText.isEmpty() && !passText.equals(confirmPassText)) {
+            confirmPass.setError("Passwords do not match!");
+            isValid = false;
+        }
+
+        if(addressText.isEmpty()) {
+            address.setError("Please enter an address.");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void initialize() {
@@ -93,14 +128,26 @@ public class RegisterActivity extends AppCompatActivity {
         passText = pass.getText().toString().trim();
         confirmPassText = confirmPass.getText().toString().trim();
         emailText = email.getText().toString().trim();
+        addressText = address.getText().toString().trim();
     }
 
-
     private static boolean isValidEmail(String email) {
-        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
             return true;
-        } else {
+        else
             return false;
-        }
+    }
+
+    private void registerUser(String firstName, String lastName, String username, String password, String email, String address) {
+        User user = new User();
+        user.setEmail(email);
+        user.setAddress(address);
+        user.setLastName(lastName);
+        user.setName(firstName);
+        user.setPassword(password);
+        user.setUsername(username);
+        //ovde treba da se setuje uloga za obicnog korisnika
+        // user.setRole();
+        //i korisnik treba da se doda u bazu
     }
 }
