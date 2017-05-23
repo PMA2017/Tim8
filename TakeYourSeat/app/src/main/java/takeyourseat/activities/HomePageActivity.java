@@ -24,6 +24,7 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
 
+
     private String[] navDrawerItemTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -151,6 +152,11 @@ public class HomePageActivity extends AppCompatActivity {
                 Intent settings = new Intent(HomePageActivity.this, SettingsActivity.class);
                 startActivity(settings);
                 break;
+            case R.id.logOut:
+                // ovde treba uzlogovati usera
+                Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
+                startActivity(logOut);
+                break;
             case R.id.addRestaurant:
                 Intent addRestaurant = new Intent(HomePageActivity.this, AddRestaurantActivity.class);
                 startActivity(addRestaurant);
@@ -169,5 +175,9 @@ public class HomePageActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu, menu);
         return true;
 
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

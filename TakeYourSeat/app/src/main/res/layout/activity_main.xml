@@ -77,12 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/showPass"
-        android:layout_alignBaseline="@+id/pass"
-        android:layout_alignBottom="@+id/pass"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/register"
-        android:layout_toEndOf="@+id/register" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/pass" />
 
 
 </RelativeLayout>

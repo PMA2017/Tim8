@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
 
@@ -24,8 +25,10 @@ import takeyourseat.data.remote.ApiUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView email;
-    private TextView password;
+
+
+    private EditText email;
+    private EditText password;
     private TextView error;
     private TextView showPass;
     private Button logIn;
@@ -33,13 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ApiService apiService;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email = (TextView)findViewById(R.id.email);
-        password = (TextView)findViewById(R.id.pass);
+        email = (EditText)findViewById(R.id.email);
+        password = (EditText)findViewById(R.id.pass);
         error = (TextView)findViewById(R.id.textViewError);
         showPass = (TextView) findViewById(R.id.showPass);
         logIn = (Button)findViewById(R.id.signIn);
@@ -79,14 +84,15 @@ public class MainActivity extends AppCompatActivity {
         showPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(showPass.getText() == "SHOW") {
-                    showPass.setText("HIDE");
+                if(showPass.getText() == "SHOW PASSWORD") {
+                    showPass.setText("HIDE PASSWORD");
                     password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    password.getSelectionEnd();
+                    password.setSelection(password.length());
 
                 } else {
-                    showPass.setText("SHOW");
+                    showPass.setText("SHOW PASSWORD");
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setSelection(password.length());
                 }
             }
         });
@@ -134,4 +140,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
+
 }

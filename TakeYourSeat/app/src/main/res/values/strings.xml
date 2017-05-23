@@ -55,8 +55,9 @@
     <string name="delOk">Are you sure you want delete this item?</string>
     <string name="location_disabled_message">Your Locations seems to be disabled, do you want to enable it?</string>
     <string name="yes">Yes</string>
-    <string name="showPass">SHOW</string>
-    <string name="hidePass">HIDE</string>
+    <string name="showPass">SHOW PASSWORD</string>
+    <string name="hidePass">HIDE PASSWORD</string>
+    <string name="logOut">Log out</string>
     <string-array name="nav_drawer_item_titles">
         <item>Home</item>
         <item>Reservations</item>
