@@ -17,14 +17,14 @@ import static com.example.anica.takeyourseat.R.*;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText firstName;
-    EditText lastName;
-    EditText password;
-    EditText confirmPass;
-    EditText email;
-    EditText address;
-    Button signUp;
-    private String firstNameText, lastNameText, usernameText, passwordText, confirmPassText, emailText, addressText;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText password;
+    private EditText confirmPass;
+    private EditText email;
+    private EditText address;
+    private Button signUp;
+    private String firstNameText, lastNameText, passwordText, confirmPassText, emailText, addressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!validate()) {
             Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
         } else {
-            registerUser(firstNameText, lastNameText, usernameText, passwordText, emailText, addressText);
+            registerUser(firstNameText, lastNameText,passwordText, emailText, addressText);
             Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(logIn);
         }
@@ -125,14 +125,13 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
     }
 
-    private void registerUser(String firstName, String lastName, String username, String password, String email, String address) {
+    private void registerUser(String firstName, String lastName, String password, String email, String address) {
         User user = new User();
         user.setEmail(email);
         user.setAddress(address);
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
-        user.setEmail(username);
         //ovde treba da se setuje uloga za obicnog korisnika
         // user.setRole();
         //i korisnik treba da se doda u bazu

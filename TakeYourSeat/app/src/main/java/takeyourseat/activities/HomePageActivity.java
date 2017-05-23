@@ -7,14 +7,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
@@ -28,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity {
     private String[] navDrawerItemTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
+    private EditText searchRes;
     private ActionBarDrawerToggle mDrawerToggle;
 
 
@@ -55,6 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
         navDrawerItemTitles = getResources().getStringArray(R.array.nav_drawer_item_titles);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+        searchRes = (EditText) findViewById(R.id.searchRes);
 
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navDrawerItemTitles));
@@ -86,6 +92,23 @@ public class HomePageActivity extends AppCompatActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
+        searchRes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Toast.makeText(HomePageActivity.this,"Searching",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -58,6 +58,8 @@
     <string name="showPass">SHOW PASSWORD</string>
     <string name="hidePass">HIDE PASSWORD</string>
     <string name="logOut">Log out</string>
+    <string name="searchFriends">Search friends</string>
+    <string name="searchRes">Search restaurants</string>
     <string-array name="nav_drawer_item_titles">
         <item>Home</item>
         <item>Reservations</item>
