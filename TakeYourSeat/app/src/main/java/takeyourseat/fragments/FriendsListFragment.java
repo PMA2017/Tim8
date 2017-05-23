@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -16,13 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
 import java.util.List;
 
+import takeyourseat.activities.HomePageActivity;
 import takeyourseat.activities.ReservationListActivity;
 import takeyourseat.dialogs.DeleteDialog;
 import takeyourseat.dialogs.RemoveFriendsDialog;
@@ -33,7 +38,8 @@ import takeyourseat.dialogs.RemoveFriendsDialog;
 public class FriendsListFragment extends Fragment {
 
 
-    ListView listMyFriends;
+    private EditText searchFriends;
+    private ListView listMyFriends;
     private AlertDialog dialog;
 
 
@@ -48,10 +54,28 @@ public class FriendsListFragment extends Fragment {
         // Inflate the layout for this fragment
         View frView = inflater.inflate(R.layout.fragment_friends_list, container, false);
         listMyFriends = (ListView) frView.findViewById(R.id.listMyFriends);
+        searchFriends = (EditText) frView.findViewById(R.id.searchFriends);
         String[] items = {"Friend 1","Friend 2","Friend 3","Friend 4","Friend 5","Friend 6","Friend 7","Friend 8"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_friend_row,R.id.friendsTextView, items);
         listMyFriends.setAdapter(adapter);
         registerForContextMenu(listMyFriends);
+
+        searchFriends.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Toast.makeText(getActivity(),"Searching",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         return frView;
     }
 

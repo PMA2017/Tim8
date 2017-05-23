@@ -7,6 +7,11 @@
         app:showAsAction="never"
         />
     <item
+        android:id="@+id/logOut"
+        android:title="@string/logOut"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/addRestaurant"
         android:icon="@drawable/ic_action_new"
         android:title="@string/addRes"

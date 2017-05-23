@@ -15,7 +15,7 @@ import com.example.anica.takeyourseat.R;
  */
 public class AboutFragment extends Fragment {
 
-    EditText description;
+    private EditText description;
 
 
     public AboutFragment() {

@@ -20,12 +20,12 @@ import takeyourseat.dialogs.DeleteDialog;
 public class ReservationListActivity extends AppCompatActivity {
 
 
-    ListView resList;
-    AlertDialog dialog;
-    TextView resRes;
-    TextView resDate;
-    TextView resTime;
-    EditText invitedFriends;
+    private ListView resList;
+    private AlertDialog dialog;
+    private TextView resRes;
+    private TextView resDate;
+    private TextView resTime;
+    private EditText invitedFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,11 +11,19 @@
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <EditText
+                android:id="@+id/searchRes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_light"
+                android:drawableLeft="@drawable/action_search"
+                android:hint="@string/searchRes"
+                android:textSize="20dp" />
             <ListView
                 android:id="@+id/restaurant_list_view"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/searchRes">
             </ListView>
         </RelativeLayout>
         <!-- The navigation drawer -->

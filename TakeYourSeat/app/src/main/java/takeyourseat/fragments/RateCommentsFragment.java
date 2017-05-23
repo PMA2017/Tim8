@@ -24,15 +24,15 @@ import com.example.anica.takeyourseat.R;
  */
 public class RateCommentsFragment extends Fragment  {
 
-    ListView commentsList;
-    RatingBar rate;
-    Button addComment;
-    AlertDialog dialog;
-    RatingBar rateComments;
-    Button addComDialog;
-    Button cancel;
-    EditText commentText;
-    String commentTextText,rateNum;
+    private ListView commentsList;
+    private RatingBar rate;
+    private Button addComment;
+    private AlertDialog dialog;
+    private RatingBar rateComments;
+    private Button addComDialog;
+    private Button cancel;
+    private EditText commentText;
+    private String commentTextText,rateNum;
 
 
 
