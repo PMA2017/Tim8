@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +27,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import takeyourseat.beans.Restaurant;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
+
 public class HomePageActivity extends AppCompatActivity {
 
 
@@ -34,12 +42,13 @@ public class HomePageActivity extends AppCompatActivity {
     private ListView drawerList;
     private EditText searchRes;
     private ActionBarDrawerToggle mDrawerToggle;
+    private ApiService apiService;
 
 
-    private String[] listviewTitle = new String[]{
+    /*private String[] listviewTitle = new String[]{
             "Restaurant 1", "Restaurant 2", "Restaurant 3", "Restaurant 4",
             "Restaurant 5", "Restaurant 6", "Restaurant 7", "Restaurant 8",
-    };
+    };*/
 
     private int[] listviewImage = new int[]{
             R.drawable.restaurant_icon, R.drawable.restaurant_icon, R.drawable.restaurant_icon, R.drawable.restaurant_icon,
@@ -47,10 +56,14 @@ public class HomePageActivity extends AppCompatActivity {
 
     };
 
-    private String[] listviewShortDescription = new String[]{
+    /*private String[] listviewShortDescription = new String[]{
             "Restaurant 1 Description", "Restaurant 2 Description", "Restaurant 3 Description", "Restaurant 4 Description",
             "Restaurant 5 Description", "Restaurant 6 Description", "Restaurant 7 Description", "Restaurant 8 Description",
-    };
+    };*/
+
+    private List<Restaurant> restaurants;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +74,6 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
         searchRes = (EditText) findViewById(R.id.searchRes);
-
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navDrawerItemTitles));
 
@@ -138,35 +150,62 @@ public class HomePageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 
-        for (int i = 0; i < 8; i++) {
+
+        /*for (int i = 0; i < 8; i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", listviewTitle[i]);
             hm.put("listview_description", listviewShortDescription[i]);
             hm.put("listview_image", Integer.toString(listviewImage[i]));
             aList.add(hm);
-        }
+        }*/
 
-        String[] from = {"listview_image", "listview_title", "listview_description"};
-        int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
-        ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
-        restaurantListView.setAdapter(simpleAdapter);
-
-        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        apiService = ApiUtils.getApiService();
+        apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                {
-                    Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
-                    startActivity(detailView);
+            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                if(response.isSuccessful()) {
+                    List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+                    for(int i=0; i<response.body().size(); i++) {
+                        HashMap<String, String> hm = new HashMap<String, String>();
+                        hm.put("listview_title", response.body().get(i).getName());
+                        hm.put("listview_description", response.body().get(i).getDescription());
+                        hm.put("listview_image", Integer.toString(listviewImage[i]));
+                        aList.add(hm);
+                    }
+
+                    String[] from = {"listview_image", "listview_title", "listview_description"};
+                    int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
+
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
+                    ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
+                    restaurantListView.setAdapter(simpleAdapter);
+
+                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            {
+                                Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
+                                startActivity(detailView);
+                            }
+                        }
+                    });
                 }
-        }
-    });
-}
+                else {
+                    int statusCode = response.code();
+                    Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
+                Log.e("MainActivity", "error loading from API");
+            }
+        });
 
 
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

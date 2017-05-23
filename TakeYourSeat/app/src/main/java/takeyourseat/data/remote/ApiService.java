@@ -5,6 +5,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import takeyourseat.beans.Restaurant;
 import takeyourseat.beans.User;
 
 /**
@@ -18,4 +19,7 @@ public interface ApiService {
 
     @GET("api/data/getby/user/email/{value}")
     Call<List<User>> getUserByEmail(@Path("value") String email);
+
+    @GET("api/data/getall/restaurant")
+    Call<List<Restaurant>> getAllRestaurants();
 }

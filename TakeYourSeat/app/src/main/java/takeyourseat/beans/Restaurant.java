@@ -1,25 +1,52 @@
 package takeyourseat.beans;
 
-/**
- * Created by Ivana on 2.5.2017..
- */
 
-public class Restaurant extends BaseBean {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public int manager;
-    public String name;
-    public String description;
-    public String phone;
-    public String email;
-    public String website;
-    public byte[] image;
-    public int address;
+public class Restaurant {
 
-    public int getManager() {
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
+    @SerializedName("Manager")
+    @Expose
+    private Integer manager;
+    @SerializedName("Name")
+    @Expose
+    private String name;
+    @SerializedName("Description")
+    @Expose
+    private String description;
+    @SerializedName("Image")
+    @Expose
+    private String image;
+    @SerializedName("Phone")
+    @Expose
+    private String phone;
+    @SerializedName("Email")
+    @Expose
+    private String email;
+    @SerializedName("Webste")
+    @Expose
+    private String webste;
+    @SerializedName("Address")
+    @Expose
+    private Integer address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getManager() {
         return manager;
     }
 
-    public void setManager(int manager) {
+    public void setManager(Integer manager) {
         this.manager = manager;
     }
 
@@ -39,6 +66,14 @@ public class Restaurant extends BaseBean {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -55,27 +90,20 @@ public class Restaurant extends BaseBean {
         this.email = email;
     }
 
-    public String getWebsite() {
-        return website;
+    public String getWebste() {
+        return webste;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setWebste(String webste) {
+        this.webste = webste;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public int getAddress() {
+    public Integer getAddress() {
         return address;
     }
 
-    public void setAddress(int address) {
+    public void setAddress(Integer address) {
         this.address = address;
     }
+
 }
