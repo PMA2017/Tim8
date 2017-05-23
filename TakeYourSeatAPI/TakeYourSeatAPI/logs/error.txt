@@ -1,0 +1,18 @@
+ERROR 2017-05-23 14:57:43,087 10193ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 14:57:43,108 10214ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 14:58:33,634 60740ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 14:58:43,481 70587ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 14:59:21,294 108400ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 14:59:21,300 108406ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 15:00:03,978 151084ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 15:00:03,986 151092ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 15:05:18,459 465565ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 15:05:18,466 465572ms APILogger              Insert             - Invalid column name 'Data'.
+ERROR 2017-05-23 15:24:28,305  1776ms APILogger              Delete             - The DELETE statement conflicted with the REFERENCE constraint "Address_Location". The conflict occurred in database "TakeYourSeatDB", table "dbo.Address", column 'Location'.
+The statement has been terminated.
+ERROR 2017-05-23 15:24:28,320  1791ms APILogger              Delete             - The DELETE statement conflicted with the REFERENCE constraint "Address_Location". The conflict occurred in database "TakeYourSeatDB", table "dbo.Address", column 'Location'.
+The statement has been terminated.
+ERROR 2017-05-23 15:28:44,945 258416ms APILogger              Delete             - The DELETE statement conflicted with the REFERENCE constraint "Address_Location". The conflict occurred in database "TakeYourSeatDB", table "dbo.Address", column 'Location'.
+The statement has been terminated.
+ERROR 2017-05-23 15:28:44,952 258423ms APILogger              Delete             - The DELETE statement conflicted with the REFERENCE constraint "Address_Location". The conflict occurred in database "TakeYourSeatDB", table "dbo.Address", column 'Location'.
+The statement has been terminated.
