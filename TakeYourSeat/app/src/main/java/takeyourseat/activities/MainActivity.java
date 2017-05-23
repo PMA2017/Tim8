@@ -6,14 +6,17 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -102,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(email.getText().toString().isEmpty()) {
+                    email.setError("Please enter an email.");
+                }
+                if(!email.getText().toString().isEmpty() && !isValidEmail(email.getText().toString())) {
+                    email.setError("Please enter a valid email.");
+                }
+                if(password.getText().toString().isEmpty()) {
+                    email.setError("Please enter password.");
+                }
+                if(!password.getText().toString().isEmpty() && password.getText().toString().length() < 6) {
+                    password.setError("Password must be at least 6 characters long!");
+                }
                 if(email != null && password != null) {
                     try {
                         authenticate(email.getText().toString(), password.getText().toString());
@@ -112,6 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private static boolean isValidEmail(String email) {
+        if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return true;
+        else
+            return false;
     }
 
     private void authenticate(String email, final String password) {

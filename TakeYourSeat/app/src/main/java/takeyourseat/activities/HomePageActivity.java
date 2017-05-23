@@ -31,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import takeyourseat.beans.Restaurant;
+import takeyourseat.beans.User;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 
