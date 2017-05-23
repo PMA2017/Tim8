@@ -3,7 +3,9 @@ package takeyourseat.data.remote;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import takeyourseat.beans.Restaurant;
 import takeyourseat.beans.User;
@@ -22,4 +24,7 @@ public interface ApiService {
 
     @GET("api/data/getall/restaurant")
     Call<List<Restaurant>> getAllRestaurants();
+
+    @PUT("api/data/insert/user")
+    Call<String> insertUser(@Body User user);
 }

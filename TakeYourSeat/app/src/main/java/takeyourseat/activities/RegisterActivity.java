@@ -3,6 +3,7 @@ package takeyourseat.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,12 @@ import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import takeyourseat.beans.User;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
 
 import static com.example.anica.takeyourseat.R.*;
 
@@ -25,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText address;
     private Button signUp;
     private String firstNameText, lastNameText, passwordText, confirmPassText, emailText, addressText;
+
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
                 register();
             }
         });
+
+        apiService = ApiUtils.getApiService();
     }
 
     private void register() {
@@ -53,8 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
         } else {
             registerUser(firstNameText, lastNameText,passwordText, emailText, addressText);
-            Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(logIn);
+            /*Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(logIn);*/
         }
     }
 
@@ -133,7 +143,32 @@ public class RegisterActivity extends AppCompatActivity {
         user.setName(firstName);
         user.setPassword(password);
         //ovde treba da se setuje uloga za obicnog korisnika
-        // user.setRole();
+        user.setRole(1);
         //i korisnik treba da se doda u bazu
+
+        apiService.insertUser(user).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()) {
+                    if(response.body() != null) {
+                        Toast.makeText(getApplicationContext(), "Created new user with ID: " + response.body(), Toast.LENGTH_LONG);
+                        Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(logIn);
+
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Failed to create new user", Toast.LENGTH_LONG);
+                    }
+                }
+                else {
+                    Log.e("RegisterActivity", "Error in response: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("RegisterActivity", "Error loading from API");
+            }
+        });
     }
 }

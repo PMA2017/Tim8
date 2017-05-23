@@ -67,8 +67,52 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        apiService = ApiUtils.getApiService();
+        apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
+            @Override
+            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                if(response.isSuccessful()) {
+                    List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+                    for(int i=0; i<response.body().size(); i++) {
+                        HashMap<String, String> hm = new HashMap<String, String>();
+                        hm.put("listview_title", response.body().get(i).getName());
+                        hm.put("listview_description", response.body().get(i).getDescription());
+                        hm.put("listview_image", Integer.toString(listviewImage[i]));
+                        aList.add(hm);
+                    }
+
+                    String[] from = {"listview_image", "listview_title", "listview_description"};
+                    int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
+
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
+                    ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
+                    restaurantListView.setAdapter(simpleAdapter);
+
+                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            {
+                                Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
+                                startActivity(detailView);
+                            }
+                        }
+                    });
+                }
+                else {
+                    int statusCode = response.code();
+                    Log.e("HomePageActivity", "Response not successful. Status code: " + statusCode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
+                Log.e("HomePageActivity", "Error loading from API");
+            }
+        });
 
         navDrawerItemTitles = getResources().getStringArray(R.array.nav_drawer_item_titles);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -151,7 +195,6 @@ public class HomePageActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
         /*for (int i = 0; i < 8; i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", listviewTitle[i]);
@@ -159,50 +202,6 @@ public class HomePageActivity extends AppCompatActivity {
             hm.put("listview_image", Integer.toString(listviewImage[i]));
             aList.add(hm);
         }*/
-
-        apiService = ApiUtils.getApiService();
-        apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
-            @Override
-            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                if(response.isSuccessful()) {
-                    List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-                    for(int i=0; i<response.body().size(); i++) {
-                        HashMap<String, String> hm = new HashMap<String, String>();
-                        hm.put("listview_title", response.body().get(i).getName());
-                        hm.put("listview_description", response.body().get(i).getDescription());
-                        hm.put("listview_image", Integer.toString(listviewImage[i]));
-                        aList.add(hm);
-                    }
-
-                    String[] from = {"listview_image", "listview_title", "listview_description"};
-                    int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
-
-                    SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
-                    ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
-                    restaurantListView.setAdapter(simpleAdapter);
-
-                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            {
-                                Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
-                                startActivity(detailView);
-                            }
-                        }
-                    });
-                }
-                else {
-                    int statusCode = response.code();
-                    Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-                Log.e("MainActivity", "error loading from API");
-            }
-        });
-
 
 
     }
