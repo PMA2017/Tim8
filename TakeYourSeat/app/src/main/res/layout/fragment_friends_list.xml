@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary_light"
+        android:textColorHint="@color/icons"
         android:drawableLeft="@drawable/action_search"
         android:hint="@string/searchFriends"
         android:textSize="20dp" />

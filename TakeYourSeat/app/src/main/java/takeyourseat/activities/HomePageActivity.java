@@ -219,10 +219,6 @@ public class HomePageActivity extends AppCompatActivity {
                 Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(logOut);
                 break;
-            case R.id.addRestaurant:
-                Intent addRestaurant = new Intent(HomePageActivity.this, AddRestaurantActivity.class);
-                startActivity(addRestaurant);
-                break;
         }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;

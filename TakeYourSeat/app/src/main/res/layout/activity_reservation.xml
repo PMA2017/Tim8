@@ -46,12 +46,13 @@
         android:id="@+id/dateRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lastNameRes"
         android:ems="10"
         android:hint="@string/date"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_below="@+id/lastNameRes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="23dp" />
 
 
     <Button
@@ -59,6 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reserve"
+        android:background="@color/primary"
+        android:textColor="@color/icons"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -70,7 +73,8 @@
         android:ems="10"
         android:hint="@string/time"
         android:inputType="textPersonName"
-        android:layout_below="@+id/dateRes"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/dateButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -79,6 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -88,7 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/datePicker"
-        android:layout_above="@+id/timeRes"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
+        android:layout_alignBaseline="@+id/dateRes"
+        android:layout_alignBottom="@+id/dateRes"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/dateRes"
@@ -98,12 +107,14 @@
         android:id="@+id/timeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dateButton"
-        android:layout_alignStart="@+id/dateButton"
-        android:layout_below="@+id/dateButton"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
         android:text="@string/timePicker"
+        android:layout_alignBottom="@+id/timeRes"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/timeRes"
+        android:layout_toEndOf="@+id/timeRes" />
 
 
 
@@ -112,12 +123,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/invite"
-        android:layout_below="@+id/timeButton"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/timeRes"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:layout_alignLeft="@+id/timeButton"
-        android:layout_alignStart="@+id/timeButton" />
+        android:layout_toRightOf="@+id/timeRes"
+        android:layout_toEndOf="@+id/timeRes" />
 
 
 </RelativeLayout>

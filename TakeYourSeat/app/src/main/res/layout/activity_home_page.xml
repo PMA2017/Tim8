@@ -16,6 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primary_light"
+                android:textColorHint="@color/icons"
                 android:drawableLeft="@drawable/action_search"
                 android:hint="@string/searchRes"
                 android:textSize="20dp" />
@@ -35,7 +36,7 @@
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
-            android:background="@color/primary_light">
+            android:background="@color/drawer">
         </ListView>
 
 
