@@ -1,5 +1,7 @@
 package takeyourseat.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -27,9 +29,18 @@ public class ProfileActivity extends AppCompatActivity {
         TextView addressView = (TextView)findViewById(R.id.textViewAddress);
         TextView emailView = (TextView)findViewById(R.id.textViewEmail);
 
-        nameView.setText(currentUser.getName() + " " + currentUser.getLastName());
-        addressView.setText(currentUser.getAddress());
-        emailView.setText(currentUser.getEmail());
+        SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","nothing");
+        String lastName = sharedPreferences.getString("lastName","nothing");
+        //upotrebiti pass za promenu passworda
+        String pass = sharedPreferences.getString("pass","nothing");
+        String email = sharedPreferences.getString("email","nothing");
+        String address = sharedPreferences.getString("address","nothing");
+
+
+        nameView.setText(name + " " + lastName);
+        addressView.setText(address);
+        emailView.setText(email);
     }
 
 }
