@@ -141,11 +141,16 @@ public class ReservationActivity extends AppCompatActivity  {
     }
 
     private void updateDate() {
-        new DatePickerDialog(ReservationActivity.this,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog dpd = new DatePickerDialog(ReservationActivity.this,R.style.DialogTheme,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        dpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "CANCEL", dpd);
+        dpd.show();
+
     }
 
     private void updateTime() {
-        new TimePickerDialog(ReservationActivity.this,t,calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),true).show();
+        TimePickerDialog tpd = new TimePickerDialog(ReservationActivity.this,R.style.DialogTheme,t,calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),true);
+        tpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "CANCEL", tpd);
+        tpd.show();
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {

@@ -13,6 +13,7 @@
             android:layout_marginTop="18dp"
             android:ems="10"
             android:hint="@string/name"
+            android:backgroundTint="@color/primary"
             android:inputType="textPersonName"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -24,6 +25,7 @@
             android:layout_marginTop="18dp"
             android:ems="10"
             android:hint="@string/lastName"
+            android:backgroundTint="@color/primary"
             android:inputType="textPersonName"
             android:layout_below="@+id/firstNameReg"
             android:layout_alignLeft="@+id/firstNameReg"
@@ -39,6 +41,7 @@
         android:hint="@string/email"
         android:inputType="textPersonName"
         android:layout_below="@+id/lastNameReg"
+        android:backgroundTint="@color/primary"
         android:layout_alignLeft="@+id/lastNameReg"
         android:layout_alignStart="@+id/lastNameReg" />
 
@@ -51,6 +54,7 @@
             android:layout_marginTop="17dp"
             android:ems="10"
             android:fontFamily="sans-serif"
+            android:backgroundTint="@color/primary"
             android:hint="@string/pass"
             android:inputType="textPassword" />
 
@@ -60,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/passReg"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/primary"
             android:layout_marginTop="17dp"
             android:ems="10"
             android:fontFamily="sans-serif"
@@ -75,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="@string/address"
+        android:backgroundTint="@color/primary"
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_below="@+id/rePassReg"

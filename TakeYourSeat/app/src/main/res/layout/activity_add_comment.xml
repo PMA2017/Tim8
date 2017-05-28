@@ -11,6 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView2"
+        android:progressTint="@color/primary"
+        android:secondaryProgressTint="@color/primary"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -19,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:backgroundTint="@color/primary"
         android:hint="@string/leaveComment"
         android:inputType="textMultiLine"
         android:layout_alignParentTop="true"
