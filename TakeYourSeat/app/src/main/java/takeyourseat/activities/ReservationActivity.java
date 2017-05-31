@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,6 +23,7 @@ import com.example.anica.takeyourseat.R;
 
 import java.util.Calendar;
 
+import takeyourseat.adapters.Communicator;
 import takeyourseat.beans.Reservation;
 
 
@@ -46,7 +48,12 @@ public class ReservationActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
-        firstNameRes = (EditText) findViewById(R.id.nameRes);
+        ViewPager vp = (ViewPager) findViewById(R.id.viewPagerFragment);
+        Communicator com = new Communicator(getSupportFragmentManager());
+        vp.setAdapter(com);
+        vp.setCurrentItem(0);
+
+        /*firstNameRes = (EditText) findViewById(R.id.nameRes);
         lastNameRes = (EditText) findViewById(R.id.lastNameRes);
         reserve = (Button) findViewById(R.id.reserve);
         dateButton = (Button) findViewById(R.id.dateButton);
@@ -95,7 +102,7 @@ public class ReservationActivity extends AppCompatActivity  {
             }
         });
 
-
+*/
 
     }
 

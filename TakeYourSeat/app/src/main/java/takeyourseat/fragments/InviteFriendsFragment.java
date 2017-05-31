@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,13 +18,13 @@ import com.example.anica.takeyourseat.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OtherFriendsFragment extends Fragment {
+public class InviteFriendsFragment extends Fragment {
 
-    private EditText searchOthers;
-    private ListView listOthers;
+    private ListView listFriends;
+    private EditText searchFriendsInvite;
 
 
-    public OtherFriendsFragment() {
+    public InviteFriendsFragment() {
         // Required empty public constructor
     }
 
@@ -34,16 +32,19 @@ public class OtherFriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (container != null) {
+            container.removeAllViews();
+        }
         // Inflate the layout for this fragment
-       View v = inflater.inflate(R.layout.fragment_other_friends, container, false);
-        listOthers = (ListView) v.findViewById(R.id.othersList);
-        searchOthers = (EditText) v.findViewById(R.id.searchFriendsOthers);
+        View v = inflater.inflate(R.layout.fragment_invite_friends, container, false);
+        listFriends = (ListView) v.findViewById(R.id.listFriends);
+        searchFriendsInvite = (EditText) v.findViewById(R.id.searchFriendsInvite);
+        listFriends.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         String[] items = {"Friend 1","Friend 2","Friend 3","Friend 4","Friend 5","Friend 6","Friend 7","Friend 8"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row,R.id.othersTextView,items);
-        listOthers.setAdapter(adapter);
-        registerForContextMenu(listOthers);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.friend_invite_row,R.id.checkedTextView, items);
+        listFriends.setAdapter(adapter);
 
-        searchOthers.addTextChangedListener(new TextWatcher() {
+        searchFriendsInvite.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -59,13 +60,8 @@ public class OtherFriendsFragment extends Fragment {
 
             }
         });
+
         return v;
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.friends_menu_add, menu);
-    }
 }

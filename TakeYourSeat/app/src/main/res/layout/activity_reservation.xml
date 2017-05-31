@@ -2,12 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reservation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="takeyourseat.activities.ReservationActivity">
 
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/content_frame"
+        android:clickable="true">
 
-    <TextView
+
+   <!-- <TextView
         android:id="@+id/reservation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,7 +149,15 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/timeRes"
         android:layout_alignLeft="@+id/timeButton"
-        android:layout_alignStart="@+id/timeButton" />
+        android:layout_alignStart="@+id/timeButton" /> -->
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</FrameLayout>
 
 </RelativeLayout>

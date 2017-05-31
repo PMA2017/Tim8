@@ -83,14 +83,6 @@
                 android:value="takeyourseat.activities.DetailActivity" />
         </activity>
         <activity
-            android:name="takeyourseat.activities.InviteFriendsActivity"
-            android:label="@string/invite"
-            android:parentActivityName="takeyourseat.activities.ReservationActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="takeyourseat.activities.ReservationActivity" />
-        </activity>
-        <activity
             android:name="takeyourseat.activities.FriendsListsActivity"
             android:label="@string/myFriends"
             android:parentActivityName="takeyourseat.activities.HomePageActivity">
