@@ -177,10 +177,5 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setContentView(layout.activity_register);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            setContentView(layout.activity_profile);
-        }
     }
 }
