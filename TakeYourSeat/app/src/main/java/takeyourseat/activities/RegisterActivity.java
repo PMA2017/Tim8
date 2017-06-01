@@ -1,6 +1,7 @@
 package takeyourseat.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -170,5 +171,16 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.e("RegisterActivity", "Error loading from API");
             }
         });
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(layout.activity_register);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(layout.activity_profile);
+        }
     }
 }

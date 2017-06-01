@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="takeyourseat.activities.InviteFriendsActivity"
+    tools:context="takeyourseat.activities.FriendsListsActivity"
     android:weightSum="1">
 
     <EditText
         android:id="@+id/searchFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
         android:drawableLeft="@drawable/action_search"
         android:hint="@string/searchFriends"
         android:textSize="20dp" />

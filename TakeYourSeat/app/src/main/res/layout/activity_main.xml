@@ -13,29 +13,29 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="114dp"
+            android:layout_marginTop="29dp"
             android:ems="10"
             android:backgroundTint="@color/primary"
             android:fontFamily="sans-serif"
             android:hint="@string/email"
             android:inputType="textPersonName"
-            android:selectAllOnFocus="false" />
+            android:selectAllOnFocus="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:id="@+id/pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/email"
-            android:layout_alignStart="@+id/email"
-            android:layout_below="@+id/email"
-            android:layout_marginTop="31dp"
+            android:layout_marginTop="17dp"
             android:backgroundTint="@color/primary"
             android:ems="10"
             android:fontFamily="sans-serif"
             android:hint="@string/pass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_below="@+id/email"
+            android:layout_alignLeft="@+id/email"
+            android:layout_alignStart="@+id/email" />
 
         <TextView
             android:id="@+id/textViewError"
@@ -57,7 +57,7 @@
             android:hint="@string/registerHere"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textSize="18sp"
-            android:layout_marginBottom="78dp"
+            android:layout_marginBottom="35dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 

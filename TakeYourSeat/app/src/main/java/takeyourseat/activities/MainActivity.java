@@ -2,6 +2,7 @@ package takeyourseat.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         showPass = (TextView) findViewById(R.id.showPass);
         logIn = (Button)findViewById(R.id.signIn);
         registerHere = (TextView)findViewById(R.id.register);
-
-
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         showPass.setVisibility(View.GONE);
@@ -135,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     private static boolean isValidEmail(String email) {
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
             return true;
@@ -196,5 +197,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
         System.exit(0);
     }
+
+
 
 }

@@ -10,13 +10,14 @@
             android:id="@+id/firstNameReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="19dp"
             android:ems="10"
             android:hint="@string/name"
             android:backgroundTint="@color/primary"
             android:inputType="textPersonName"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignLeft="@+id/passReg"
+            android:layout_alignStart="@+id/passReg" />
 
         <EditText
             android:id="@+id/lastNameReg"
@@ -95,9 +96,9 @@
         android:background="@color/primary"
         android:textColor="@color/icons"
         android:text="@string/register"
+        android:layout_marginTop="41dp"
         android:layout_below="@+id/addressReg"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
