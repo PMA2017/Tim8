@@ -17,7 +17,6 @@ import com.example.anica.takeyourseat.R;
 public class ReservationTablesFragment extends Fragment {
 
     private Button next;
-    private Button back;
 
 
     public ReservationTablesFragment() {
@@ -34,7 +33,6 @@ public class ReservationTablesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_reservation_tables, container, false);
         next = (Button) v.findViewById(R.id.next2);
-        back = (Button) v.findViewById(R.id.back1);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,16 +44,6 @@ public class ReservationTablesFragment extends Fragment {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new DateAndTimeFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame,fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         return v;
     }
 

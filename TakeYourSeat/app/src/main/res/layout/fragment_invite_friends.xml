@@ -20,30 +20,21 @@
         android:layout_height="386dp"
         android:layout_below="@+id/searchFriendsInvite"
         android:layout_weight="0.17"
-        android:layout_above="@+id/reserve">
+        android:layout_above="@+id/next4">
 
     </ListView>
 
     <Button
-        android:id="@+id/reserve"
+        android:id="@+id/next4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/primary"
-        android:text="@string/reserve"
+        android:text="@string/next"
         android:textColor="@color/icons"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:id="@+id/back3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        android:text="@string/back"
-        android:textColor="@color/icons"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

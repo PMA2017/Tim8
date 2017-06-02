@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import takeyourseat.fragments.AllReservationDetailsFragment;
 import takeyourseat.fragments.DateAndTimeFragment;
 import takeyourseat.fragments.InviteFriendsFragment;
 import takeyourseat.fragments.ReservationOtherDetailsFragment;
@@ -30,6 +31,8 @@ public class Communicator extends FragmentPagerAdapter {
                 return new ReservationOtherDetailsFragment();
             case 3:
                 return new InviteFriendsFragment();
+            case 4:
+                return new AllReservationDetailsFragment();
         }
         return null;
     }

@@ -3,8 +3,11 @@ package takeyourseat.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import android.widget.TimePicker;
 import com.example.anica.takeyourseat.R;
 
 import java.util.Calendar;
+import java.util.Map;
+import java.util.Set;
 
 import takeyourseat.activities.ReservationActivity;
 
@@ -31,6 +36,8 @@ public class DateAndTimeFragment extends Fragment {
     private Button dateButton;
     private Button timeButton;
     private Button next1;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private String dateResText,timeResText;
     Calendar calendar = Calendar.getInstance();
 
@@ -60,12 +67,17 @@ public class DateAndTimeFragment extends Fragment {
         next1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean next = reserve();
+                if(next) {
+                    saveDateAndTime(dateResText,timeResText);
+                    Fragment fragment = new ReservationTablesFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content_frame, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
 
-                Fragment fragment = new ReservationTablesFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame,fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                }
             }
         });
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +94,35 @@ public class DateAndTimeFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private boolean reserve() {
+        initialize();
+        if(!validate()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+        if(dateResText.isEmpty()) {
+            dateRes.setError("Please enter date");
+            valid = false;
+        }
+        if(timeResText.isEmpty()) {
+            timeRes.setError("Please enter time");
+            valid = false;
+        }
+
+        return valid;
+
+    }
+
+    private void initialize() {
+        dateResText = dateRes.getText().toString().trim();
+        timeResText = timeRes.getText().toString().trim();
     }
 
     @Override
@@ -115,5 +156,16 @@ public class DateAndTimeFragment extends Fragment {
             timeRes.setText(hourOfDay + ":" + minute);
         }
     };
+
+    public void saveDateAndTime(String date, String time) {
+        sharedPref = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
+
+        editor = sharedPref.edit();
+        editor.putString("date",date);
+        editor.putString("time",time);
+        editor.commit();
+
+
+    }
 
 }
