@@ -7,23 +7,22 @@
     tools:context="takeyourseat.activities.DetailActivity">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/resNameDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageView3"
-            android:layout_marginTop="33dp"
             android:text="Name"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/imageView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
             app:srcCompat="@drawable/restaurant_icon"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -35,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/resNameDetail"
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabSelectedTextColor="?attr/actionMenuTextColor"

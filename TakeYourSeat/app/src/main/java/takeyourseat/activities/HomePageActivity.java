@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
@@ -43,6 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
     private ListView drawerList;
     private EditText searchRes;
     private ActionBarDrawerToggle mDrawerToggle;
+    private ListView restaurantListView;
     private ApiService apiService;
 
 
@@ -90,15 +92,48 @@ public class HomePageActivity extends AppCompatActivity {
                     int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
 
                     SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
-                    ListView restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
+                    restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
                     restaurantListView.setAdapter(simpleAdapter);
 
                     restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             {
-                                Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
-                                startActivity(detailView);
+
+                                final String name = ((TextView) view.findViewById(R.id.listview_item_title)).getText().toString();
+                                apiService.getRestaurantByName(name).enqueue(new Callback<List<Restaurant>>() {
+                                    @Override
+                                    public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                                        if(response.isSuccessful()) {
+                                            if(response.body().size() == 1 && name.equals(response.body().get(0).getName())) {
+                                                String resName = response.body().get(0).getName();
+                                                String description = response.body().get(0).getDescription();
+                                                String email = response.body().get(0).getEmail();
+                                                String phone = response.body().get(0).getPhone();
+                                                String website = response.body().get(0).getWebste();
+                                                Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
+                                                detailView.putExtra("name",resName);
+                                                detailView.putExtra("description",description);
+                                                detailView.putExtra("email",email);
+                                                detailView.putExtra("phone",phone);
+                                                detailView.putExtra("website",website);
+                                                startActivity(detailView);
+                                            }
+                                        }
+                                        else {
+                                            int statusCode = response.code();
+                                            Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<Restaurant>> call, Throwable t) {
+                                        Log.e("Detail", "error loading from API");
+                                    }
+
+
+                                });
+
                             }
                         }
                     });

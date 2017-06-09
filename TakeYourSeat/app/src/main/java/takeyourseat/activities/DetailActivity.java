@@ -32,6 +32,21 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
 
+        String restaurantName;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                restaurantName= null;
+            } else {
+                restaurantName= extras.getString("name");
+            }
+        } else {
+            restaurantName= (String) savedInstanceState.getSerializable("name");
+        }
+
+
+        resName = (TextView) findViewById(R.id.resNameDetail);
+        resName.setText(restaurantName);
         tabs = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         setupViewPager(viewPager);
