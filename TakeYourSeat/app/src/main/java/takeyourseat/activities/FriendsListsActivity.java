@@ -6,8 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
@@ -16,7 +14,6 @@ import takeyourseat.adapters.ViewPagerAdapter;
 import takeyourseat.dialogs.RemoveFriendsDialog;
 import takeyourseat.fragments.FriendsListFragment;
 import takeyourseat.fragments.OtherFriendsFragment;
-import takeyourseat.fragments.TableFragment;
 
 public class FriendsListsActivity extends AppCompatActivity {
 
@@ -24,9 +21,6 @@ public class FriendsListsActivity extends AppCompatActivity {
     private ViewPager view;
     private ViewPagerAdapter viewPagerAdapter;
     private AlertDialog dialog;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
