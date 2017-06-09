@@ -143,9 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
-        //ovde treba da se setuje uloga za obicnog korisnika
         user.setRole(1);
-        //i korisnik treba da se doda u bazu
 
         apiService.insertUser(user).enqueue(new Callback<String>() {
             @Override
@@ -155,7 +153,6 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Created new user with ID: " + response.body(), Toast.LENGTH_LONG);
                         Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(logIn);
-
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Failed to create new user", Toast.LENGTH_LONG);
