@@ -33,7 +33,9 @@
     <string name="addFriend">Add friend</string>
     <string name="editProfile">Edit profile</string>
     <string name="editPassword">Change password</string>
-    <string name="saveProfile">Save</string>
+    <string name="changeNewPass">New password</string>
+    <string name="repeatNewPass">Repeat new password</string>
+    <string name="save">Save</string>
     <string name="profileDetails">Profile details</string>
     <string name="delete">Delete from friends list</string>
     <string name="addRes">Add restaurant</string>

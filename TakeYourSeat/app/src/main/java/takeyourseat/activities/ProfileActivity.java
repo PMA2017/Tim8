@@ -1,6 +1,7 @@
 package takeyourseat.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,9 +66,21 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        editPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPassword();
+            }
+        });
+
         nameView.setText(name + " " + lastName);
         addressView.setText(address);
         emailView.setText(email);
+    }
+
+    private void editPassword() {
+        Intent editPassword = new Intent(ProfileActivity.this, EditPasswordActivity.class);
+        startActivity(editPassword);
     }
 
     private void editUserDetails() {

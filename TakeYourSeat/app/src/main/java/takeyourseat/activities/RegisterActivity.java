@@ -60,13 +60,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void register() {
         initialize();
-        if(!validate()) {
+        if(!validate())
             Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
-        } else {
+        else
             registerUser(firstNameText, lastNameText,passwordText, emailText, addressText);
-            /*Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(logIn);*/
-        }
     }
 
     private boolean validate() {
@@ -169,7 +166,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

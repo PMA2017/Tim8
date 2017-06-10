@@ -144,7 +144,7 @@
         android:background="@color/primary"
         android:textColor="@color/icons"
         android:elevation="0dp"
-        android:text="@string/saveProfile"
+        android:text="@string/save"
         android:layout_centerVertical="true"
         android:visibility="gone"
         android:layout_marginTop="15dp"
