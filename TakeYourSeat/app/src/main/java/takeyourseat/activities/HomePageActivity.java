@@ -75,7 +75,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        restore(savedInstanceState);
 
         apiService = ApiUtils.getApiService();
         apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
@@ -280,12 +279,15 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("aList", (Serializable) aList);
+        outState.putString("search",searchRes.getText().toString());
     }
 
-    private void restore(Bundle savedInstanceState) {
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
-            aList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("aList");
+            String search = savedInstanceState.getString("search");
+            searchRes.setText(search);
         }
     }
 }

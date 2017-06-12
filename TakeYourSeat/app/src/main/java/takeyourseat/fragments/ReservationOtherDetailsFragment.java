@@ -2,6 +2,7 @@ package takeyourseat.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -86,6 +87,25 @@ public class ReservationOtherDetailsFragment extends Fragment {
     private void initialize() {
         firstNameText = firstNameRes.getText().toString().trim();
         lastNameText = lastNameRes.getText().toString().trim();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("name",firstNameText);
+        outState.putString("lastName",lastNameText);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            String name = savedInstanceState.getString("name");
+            String lastName = savedInstanceState.getString("lastName");
+            firstNameRes.setText(name);
+            lastNameRes.setText(lastName);
+        }
     }
 
 }

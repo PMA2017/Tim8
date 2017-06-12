@@ -91,7 +91,8 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.AddCommentActivity"
-            android:label="@string/addCom"></activity>
+            android:label="@string/addCom">
+        </activity>
         <activity
             android:name="takeyourseat.activities.ReservationListActivity"
             android:label="@string/reservation"
@@ -110,12 +111,11 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.EditPasswordActivity"
-            android:label="@string/resDetail"
+            android:label="@string/changeNewPass"
             android:parentActivityName="takeyourseat.activities.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.ProfileActivity" />
-
         </activity>
     </application>
 

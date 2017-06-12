@@ -1,7 +1,9 @@
 package takeyourseat.fragments;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -33,6 +35,7 @@ public class RateCommentsFragment extends Fragment  {
     private Button cancel;
     private EditText commentText;
     private String commentTextText,rateNum;
+    private String show;
 
 
 
@@ -110,6 +113,7 @@ public class RateCommentsFragment extends Fragment  {
                 builder.setView(mView);
                 dialog = builder.create();
                 dialog.show();
+                show = "show";
 
 
             }
@@ -148,5 +152,32 @@ public class RateCommentsFragment extends Fragment  {
 
     }
 
+   /* @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            if(savedInstanceState.getString("show") == "show") {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View mView = LayoutInflater.from(getActivity()).inflate(R.layout.activity_add_comment,null);
+                builder.setView(mView);
+                String comment = savedInstanceState.getString("comment");
+                commentText.setText(comment);
+                dialog = builder.create();
+                dialog.show();
+                show = "show";
+            } else {
+                dialog.hide();
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("show",show);
+        outState.putString("comment",commentTextText);
+
+    }*/
 
 }

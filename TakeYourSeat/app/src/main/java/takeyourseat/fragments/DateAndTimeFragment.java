@@ -125,11 +125,6 @@ public class DateAndTimeFragment extends Fragment {
         timeResText = timeRes.getText().toString().trim();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     private void updateDate() {
         DatePickerDialog dpd = new DatePickerDialog(getActivity(),R.style.DialogTheme,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         dpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "CANCEL", dpd);
@@ -168,4 +163,22 @@ public class DateAndTimeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("date",dateResText);
+        outState.putString("time",timeResText);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            String date = savedInstanceState.getString("date");
+            String time = savedInstanceState.getString("time");
+            dateRes.setText(date);
+            timeRes.setText(time);
+        }
+    }
 }

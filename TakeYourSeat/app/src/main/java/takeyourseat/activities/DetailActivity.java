@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import takeyourseat.fragments.AboutFragment;
+import takeyourseat.fragments.AllReservationDetailsFragment;
 import takeyourseat.fragments.LocationFragment;
 import takeyourseat.fragments.MenuFragment;
 import takeyourseat.fragments.RateCommentsFragment;
@@ -26,23 +27,37 @@ public class DetailActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
+    private String restaurantName;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
 
-        String restaurantName;
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 restaurantName= null;
             } else {
                 restaurantName= extras.getString("name");
+                Bundle args = new Bundle();
+                args.putString("resName",restaurantName);
+                AllReservationDetailsFragment all = new AllReservationDetailsFragment();
+                all.setArguments(args);
+
             }
         } else {
-            restaurantName= (String) savedInstanceState.getSerializable("name");
+            restaurantName= savedInstanceState.getString("resName");
+            Bundle args = new Bundle();
+            args.putString("resName",restaurantName);
+            AllReservationDetailsFragment all = new AllReservationDetailsFragment();
+            all.setArguments(args);
+
         }
+
 
 
         resName = (TextView) findViewById(R.id.resNameDetail);
@@ -76,7 +91,14 @@ public class DetailActivity extends AppCompatActivity {
         tabs.getTabAt(4).setIcon(R.drawable.ic_location);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("resName",restaurantName);
+    }
+
 }
+
 
 class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -106,3 +128,5 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
     }
 }
+
+
