@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,7 @@ public class HomePageActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView restaurantListView;
     private ApiService apiService;
+    List<HashMap<String, String>> aList;
 
 
     /*private String[] listviewTitle = new String[]{
@@ -73,13 +75,14 @@ public class HomePageActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        restore(savedInstanceState);
 
         apiService = ApiUtils.getApiService();
         apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 if(response.isSuccessful()) {
-                    List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+                    aList = new ArrayList<HashMap<String, String>>();
                     for(int i=0; i<response.body().size(); i++) {
                         HashMap<String, String> hm = new HashMap<String, String>();
                         hm.put("listview_title", response.body().get(i).getName());
@@ -272,5 +275,17 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("aList", (Serializable) aList);
+    }
+
+    private void restore(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            aList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("aList");
+        }
     }
 }
