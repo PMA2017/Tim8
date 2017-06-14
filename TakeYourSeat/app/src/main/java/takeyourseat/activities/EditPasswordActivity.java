@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.anica.takeyourseat.R;
 
-public class AddRestaurantActivity extends AppCompatActivity {
+public class EditPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_restaurant);
+        setContentView(R.layout.activity_edit_password);
     }
 }

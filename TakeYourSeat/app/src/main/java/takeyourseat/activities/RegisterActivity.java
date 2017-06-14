@@ -1,6 +1,7 @@
 package takeyourseat.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,13 +60,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void register() {
         initialize();
-        if(!validate()) {
+        if(!validate())
             Toast.makeText(this,"Sign up failed!",Toast.LENGTH_SHORT).show();
-        } else {
+        else
             registerUser(firstNameText, lastNameText,passwordText, emailText, addressText);
-            /*Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(logIn);*/
-        }
     }
 
     private boolean validate() {
@@ -142,9 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
-        //ovde treba da se setuje uloga za obicnog korisnika
         user.setRole(1);
-        //i korisnik treba da se doda u bazu
 
         apiService.insertUser(user).enqueue(new Callback<String>() {
             @Override
@@ -154,7 +150,6 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Created new user with ID: " + response.body(), Toast.LENGTH_LONG);
                         Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(logIn);
-
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Failed to create new user", Toast.LENGTH_LONG);
@@ -170,5 +165,10 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.e("RegisterActivity", "Error loading from API");
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

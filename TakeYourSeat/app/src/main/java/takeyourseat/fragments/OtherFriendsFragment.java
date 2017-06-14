@@ -2,12 +2,14 @@ package takeyourseat.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,8 +18,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
-
-import takeyourseat.activities.InviteFriendsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +53,6 @@ public class OtherFriendsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(getActivity(),"Searching",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -69,5 +68,30 @@ public class OtherFriendsFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.friends_menu_add, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add: {
+                //add to friends
+            }
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("search",searchOthers.getText().toString());
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            String search = savedInstanceState.getString("search");
+            searchOthers.setText(search);
+        }
     }
 }

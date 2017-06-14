@@ -27,6 +27,7 @@ import com.example.anica.takeyourseat.R;
 
 import java.util.List;
 
+import takeyourseat.activities.FriendsListsActivity;
 import takeyourseat.activities.HomePageActivity;
 import takeyourseat.activities.ReservationListActivity;
 import takeyourseat.dialogs.DeleteDialog;
@@ -41,10 +42,20 @@ public class FriendsListFragment extends Fragment {
     private EditText searchFriends;
     private ListView listMyFriends;
     private AlertDialog dialog;
+    private boolean showRemoveDialog;
 
 
     public FriendsListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            showRemoveDialog = savedInstanceState.getBoolean("showRemoveDialog");
+        }
     }
 
 
@@ -60,7 +71,7 @@ public class FriendsListFragment extends Fragment {
         listMyFriends.setAdapter(adapter);
         registerForContextMenu(listMyFriends);
 
-        searchFriends.addTextChangedListener(new TextWatcher() {
+       searchFriends.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -68,7 +79,7 @@ public class FriendsListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(getActivity(),"Searching",Toast.LENGTH_SHORT).show();
+                //search
             }
 
             @Override
@@ -80,9 +91,55 @@ public class FriendsListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (showRemoveDialog) {
+            showRemoveFriendsDialog();
+        }
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.friends_menu_delete, menu);
     }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete: {
+                showRemoveFriendsDialog();
+                // delete from friends list
+            }
+        }
+        return super.onContextItemSelected(item);
+    }
+
+
+    private void showRemoveFriendsDialog(){
+        dialog = new RemoveFriendsDialog(getActivity()).prepareDialog();
+        showRemoveDialog = true;
+        dialog.show();
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("search",searchFriends.getText().toString());
+        if(dialog != null && dialog.isShowing()) {
+            outState.putBoolean("showRemoveDialog",showRemoveDialog);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            String search = savedInstanceState.getString("search");
+            searchFriends.setText(search);
+        }
+    }
+
 }

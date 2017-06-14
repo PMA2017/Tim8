@@ -1,11 +1,14 @@
 package takeyourseat.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView showPass;
     private Button logIn;
     private TextView registerHere;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+    String name,lastName,email1,address,pass;
 
     private ApiService apiService;
 
@@ -49,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         showPass = (TextView) findViewById(R.id.showPass);
         logIn = (Button)findViewById(R.id.signIn);
         registerHere = (TextView)findViewById(R.id.register);
-
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         showPass.setVisibility(View.GONE);
@@ -102,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(email.getText().toString().isEmpty()) {
+                    email.setError("Please enter an email.");
+                }
+                if(!email.getText().toString().isEmpty() && !isValidEmail(email.getText().toString())) {
+                    email.setError("Please enter a valid email.");
+                }
+                if(password.getText().toString().isEmpty()) {
+                    email.setError("Please enter password.");
+                }
+                if(!password.getText().toString().isEmpty() && password.getText().toString().length() < 6) {
+                    password.setError("Password must be at least 6 characters long!");
+                }
                 if(email != null && password != null) {
                     try {
                         authenticate(email.getText().toString(), password.getText().toString());
@@ -114,31 +131,56 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private static boolean isValidEmail(String email) {
+        if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return true;
+        else
+            return false;
+    }
+
     private void authenticate(String email, final String password) {
         apiService.getUserByEmail(email).enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if(response.isSuccessful()) {
-                    if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
-                        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                        MainActivity.this.startActivity(homePageIntent);
-                        error.setText("");
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    if(response.isSuccessful()) {
+                        if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
+                            name = response.body().get(0).getName();
+                            lastName = response.body().get(0).getLastName();
+                            email1 = response.body().get(0).getEmail();
+                            pass = response.body().get(0).getPassword();
+                            address = response.body().get(0).getAddress();
+                            saveUserDetail(name,lastName,pass,address,email1);
+                            Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+                            MainActivity.this.startActivity(homePageIntent);
+                            error.setText("");
+                        }
+                        else {
+                            error.setText("Incorrect username and/or password.");
+                        }
                     }
                     else {
-                        error.setText("Incorrect username and/or password.");
+                        int statusCode = response.code();
+                        Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
                     }
                 }
-                else {
-                    int statusCode = response.code();
-                    Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
-                }
-            }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.e("MainActivity", "error loading from API");
             }
         });
+    }
+
+    public void saveUserDetail(String name, String lastName, String pass, String address, String email) {
+        sharedPref = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+
+        editor = sharedPref.edit();
+        editor.putString("name",name);
+        editor.putString("lastName",lastName);
+        editor.putString("pass",pass);
+        editor.putString("address",address);
+        editor.putString("email",email);
+        editor.commit();
     }
 
     @Override
@@ -150,5 +192,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
         System.exit(0);
     }
+
+
 
 }

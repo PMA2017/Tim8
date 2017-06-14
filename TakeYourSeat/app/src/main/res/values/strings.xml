@@ -31,7 +31,11 @@
     <string name="myFriends">My friends</string>
     <string name="others">Others</string>
     <string name="addFriend">Add friend</string>
-    <string name="editProfile">Edit profile details</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="editPassword">Change password</string>
+    <string name="changeNewPass">New password</string>
+    <string name="repeatNewPass">Repeat new password</string>
+    <string name="save">Save</string>
     <string name="profileDetails">Profile details</string>
     <string name="delete">Delete from friends list</string>
     <string name="addRes">Add restaurant</string>
@@ -46,6 +50,8 @@
     <string name="oops">Ooops</string>
     <string name="sure">Sure</string>
     <string name="no">No</string>
+    <string name="next">Next</string>
+    <string name="makeRes">Make reservtion</string>
     <string name="res">Restaurant</string>
     <string name="resFriends">Invited friends</string>
     <string name="resDetail">Reservation details</string>

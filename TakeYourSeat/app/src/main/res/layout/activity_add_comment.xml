@@ -10,15 +10,19 @@
         android:id="@+id/ratingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView2"
+        android:progressTint="@color/primary"
+        android:secondaryProgressTint="@color/primary"
+        android:layout_below="@+id/commentText"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp" />
 
     <EditText
         android:id="@+id/commentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:backgroundTint="@color/primary"
         android:hint="@string/leaveComment"
         android:inputType="textMultiLine"
         android:layout_alignParentTop="true"
@@ -30,12 +34,12 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
         android:text="@string/rate"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:layout_below="@+id/commentText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="47dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/addComDialog"
