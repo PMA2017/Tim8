@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -52,7 +53,6 @@ public class OtherFriendsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(getActivity(),"Searching",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -68,6 +68,16 @@ public class OtherFriendsFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.friends_menu_add, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add: {
+                //add to friends
+            }
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override

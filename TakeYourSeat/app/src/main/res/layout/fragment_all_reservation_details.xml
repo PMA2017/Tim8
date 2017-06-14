@@ -1,7 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollViewRes"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,33 +6,39 @@
     tools:context="takeyourseat.fragments.AllReservationDetailsFragment">
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resDetail"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+    <TextView
         android:id="@+id/resName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/res"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:layout_marginTop="130dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/resDateText"
-        android:layout_alignRight="@+id/resDate"
-        android:layout_alignEnd="@+id/resDate" />
+        android:layout_toStartOf="@+id/resDateText" />
 
     <TextView
         android:id="@+id/resNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:editable="false"
         android:layout_alignBaseline="@+id/resName"
         android:layout_alignBottom="@+id/resName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/resFriends"
         android:layout_toEndOf="@+id/resFriends" />
 
     <TextView
@@ -43,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/date"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:layout_below="@+id/resName"
         android:layout_alignParentLeft="true"
@@ -56,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:editable="false"
         android:layout_below="@+id/resNameText"
@@ -70,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:layout_below="@+id/resDate"
         android:layout_alignParentLeft="true"
@@ -82,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:editable="false"
         android:layout_alignBaseline="@+id/resTime"
@@ -97,13 +100,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/resFriends"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="25dp"
         android:layout_below="@+id/resTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp" />
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/resFriendsText"
@@ -114,19 +116,12 @@
         android:inputType="textMultiLine"
         android:textSize="25dp"
         android:layout_below="@+id/resFriends"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="37dp" />
+        android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/resDetail"
-        android:textSize="24sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+
 
     <Button
         android:id="@+id/reserve"
@@ -143,4 +138,4 @@
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
-    </ScrollView>
+

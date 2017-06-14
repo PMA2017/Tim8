@@ -20,7 +20,6 @@ public class FriendsListsActivity extends AppCompatActivity {
     private TabLayout tabFriends;
     private ViewPager view;
     private ViewPagerAdapter viewPagerAdapter;
-    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,35 +36,6 @@ public class FriendsListsActivity extends AppCompatActivity {
         tabFriends.setupWithViewPager(view);
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete: {
-                showRemoveFriendsDialog();
-                // delete from friends list
-            }
-
-            case R.id.add: {
-                Toast.makeText(this,"Add friend",Toast.LENGTH_SHORT).show();
-                // add to friends list
-            }
-
-        }
-        return super.onContextItemSelected(item);
-    }
-
-
-    private void showRemoveFriendsDialog(){
-        if(dialog == null){
-            dialog = new RemoveFriendsDialog(FriendsListsActivity.this).prepareDialog();
-        }else{
-            if(dialog.isShowing()){
-                dialog.dismiss();
-            }
-        }
-
-        dialog.show();
-    }
 
     @Override
     protected void onStart() {

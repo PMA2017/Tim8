@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     private static boolean isValidEmail(String email) {
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
             return true;
