@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.anica.takeyourseat.R;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import takeyourseat.activities.ReservationActivity;
@@ -25,10 +26,11 @@ import takeyourseat.activities.ReservationActivity;
  */
 public class TableFragment extends Fragment {
 
-    private Button next;
+    private Button next, btn;
     private RelativeLayout relativeLayout;
     private GridLayout gridLayout;
-    private List<Button> tableButtons;
+    private ArrayList<Button> tableButtons = new ArrayList<Button>();
+    private ArrayList<Button> chosenTables = new ArrayList<Button>();
 
     public TableFragment() {
         // Required empty public constructor
@@ -51,28 +53,53 @@ public class TableFragment extends Fragment {
         for (int j = 0; j < gridLayout.getChildCount(); j++) {
             View view = gridLayout.getChildAt(j);
             if (view instanceof Button) {
-                Button btn = (Button) view;
+                btn = (Button) view;
                 if (btn.getText().toString().toLowerCase().contains("table")) {
-                    btn.setBackgroundColor(Color.parseColor("#6D4C41"));
                     tableButtons.add(btn);
+                    btn.setBackgroundColor(Color.parseColor("#8D6E63"));
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Button clickedBtn = (Button)v;
+                            if(!ifExists(clickedBtn)) {
+                                clickedBtn.setBackgroundColor(Color.parseColor("#58D68D"));
+                                chosenTables.add(clickedBtn);
+                            }
+                            else {
+                                clickedBtn.setBackgroundColor(Color.parseColor("#8D6E63"));
+                                chosenTables.remove(clickedBtn);
+                            }
+                        }
+                    });
                 }
             }
         }
-
-        //na klik na dugme promeni mu se boja
-        //taj sto ili stolovi na koje je kliknuto se salju sledecem delu
 
         next = (Button) v.findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ovde sasd treba preneti stolove koji su odabrani dalje u rezervaciju
                 Intent reservation = new Intent(getActivity(), ReservationActivity.class);
                 startActivity(reservation);
             }
         });
 
         return v;
+    }
+
+    private boolean ifExists(Button btn) {
+        boolean ifExists = false;
+
+        for (int i = 0; i < chosenTables.size(); i++) {
+            if (btn.getId() == chosenTables.get(i).getId()) {
+                ifExists = true;
+                break;
+            }
+        }
+
+        return ifExists;
     }
 }
 
