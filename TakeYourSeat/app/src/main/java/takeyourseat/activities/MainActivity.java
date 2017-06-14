@@ -107,19 +107,7 @@ public class MainActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().isEmpty()) {
-                    email.setError("Please enter an email.");
-                }
-                if(!email.getText().toString().isEmpty() && !isValidEmail(email.getText().toString())) {
-                    email.setError("Please enter a valid email.");
-                }
-                if(password.getText().toString().isEmpty()) {
-                    email.setError("Please enter password.");
-                }
-                if(!password.getText().toString().isEmpty() && password.getText().toString().length() < 6) {
-                    password.setError("Password must be at least 6 characters long!");
-                }
-                if(email != null && password != null) {
+                if(validate()) {
                     try {
                         authenticate(email.getText().toString(), password.getText().toString());
                     }
@@ -131,7 +119,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean validate() {
+        boolean isValid = true;
 
+        if(email.getText().toString().isEmpty()) {
+            email.setError("Please enter an email.");
+            isValid = false;
+        }
+        if(!email.getText().toString().isEmpty() && !isValidEmail(email.getText().toString())) {
+            email.setError("Please enter a valid email.");
+            isValid = false;
+        }
+        if(password.getText().toString().isEmpty()) {
+            email.setError("Please enter password.");
+            isValid = false;
+        }
+        if(!password.getText().toString().isEmpty() && password.getText().toString().length() < 6) {
+            password.setError("Password must be at least 6 characters long!");
+            isValid = false;
+        }
+
+        return isValid;
+    }
 
     private static boolean isValidEmail(String email) {
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches())
