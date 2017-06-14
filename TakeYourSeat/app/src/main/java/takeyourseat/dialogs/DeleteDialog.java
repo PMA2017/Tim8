@@ -33,7 +33,7 @@ public class DeleteDialog extends AlertDialog.Builder{
 
         setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
+                dialog.dismiss();
             }
         });
 

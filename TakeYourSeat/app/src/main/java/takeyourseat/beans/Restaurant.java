@@ -20,7 +20,7 @@ public class Restaurant {
     private String description;
     @SerializedName("Image")
     @Expose
-    private String image;
+    private Object image;
     @SerializedName("Phone")
     @Expose
     private String phone;
@@ -32,7 +32,10 @@ public class Restaurant {
     private String webste;
     @SerializedName("Address")
     @Expose
-    private Integer address;
+    private String address;
+    @SerializedName("Location")
+    @Expose
+    private Integer location;
 
     public Integer getId() {
         return id;
@@ -66,11 +69,11 @@ public class Restaurant {
         this.description = description;
     }
 
-    public String getImage() {
+    public Object getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Object image) {
         this.image = image;
     }
 
@@ -98,12 +101,20 @@ public class Restaurant {
         this.webste = webste;
     }
 
-    public Integer getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Integer address) {
+    public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getLocation() {
+        return location;
+    }
+
+    public void setLocation(Integer location) {
+        this.location = location;
     }
 
 }

@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:configChanges="orientation|keyboardHidden"
+    android:windowSoftInputMode="stateUnchanged|adjustResize"
     android:padding="10dp"
-    tools:context="takeyourseat.activities.FriendsListsActivity"
+    tools:context="takeyourseat.fragments.FriendsListFragment"
     android:weightSum="1">
 
     <EditText
