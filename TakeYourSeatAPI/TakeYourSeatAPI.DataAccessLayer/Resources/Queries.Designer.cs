@@ -108,6 +108,15 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE [{2}] IN ({3}).
+        /// </summary>
+        internal static string SelectWhereIn {
+            get {
+                return ResourceManager.GetString("SelectWhereIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UPDATE [{0}] SET {1} WHERE [{2}] = &apos;{3}&apos;.
         /// </summary>
         internal static string Update {

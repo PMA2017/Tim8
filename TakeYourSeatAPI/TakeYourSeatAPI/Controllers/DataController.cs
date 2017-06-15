@@ -48,6 +48,25 @@ namespace TakeYourSeatAPI.Controllers
         }
 
         [HttpPut]
+        [Route("api/Data/GetByMany/{tableName}/{columnName}")]
+        public IHttpActionResult GetByMany(string tableName, string columnName, JObject values)
+        {
+            var jsonArray = values.First.First.ToString();
+            var valuesList = JsonConvert.DeserializeObject<List<string>>(jsonArray);
+
+            try
+            {
+                var retVal = _dataService.GetByMany(tableName, columnName, valuesList);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpPut]
         [Route("api/Data/Insert/{tableName}")]
         public IHttpActionResult Insert(string tableName, JObject jsonData)
         {

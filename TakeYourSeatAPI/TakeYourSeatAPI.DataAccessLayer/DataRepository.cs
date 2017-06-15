@@ -153,5 +153,30 @@ namespace TakeYourSeatAPI.DataAccessLayer
         {
             _connection.Dispose();
         }
+
+        public object GetByMany(string tableName, string columnName, List<string> valuesList)
+        {
+            var columnNames = GetColumnNames(tableName);
+            var query = _queryProvider.GetSelectWhereInQuery(tableName, columnNames, columnName, valuesList);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = new List<Dictionary<string, object>>();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = columnNames.ToDictionary(column => column, column => reader[column]);
+                    retVal.Add(row);
+                }
+                reader.Close();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
     }
 }

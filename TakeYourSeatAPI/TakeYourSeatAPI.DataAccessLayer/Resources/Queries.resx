@@ -134,6 +134,9 @@ WHERE TABLE_NAME = '{0}'</value>
   <data name="SelectWhere" xml:space="preserve">
     <value>SELECT {0} FROM [{1}] WHERE [{2}] = '{3}'</value>
   </data>
+  <data name="SelectWhereIn" xml:space="preserve">
+    <value>SELECT {0} FROM [{1}] WHERE [{2}] IN ({3})</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE [{0}] SET {1} WHERE [{2}] = '{3}'</value>
   </data>

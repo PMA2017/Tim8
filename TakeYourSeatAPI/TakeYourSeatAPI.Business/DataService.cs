@@ -33,6 +33,11 @@ namespace TakeYourSeatAPI.Business
         public bool Delete(string tableName, string columnName, string value)
         {
             return _dataRepository.Delete(tableName, columnName, value);
-        } 
+        }
+
+        public object GetByMany(string tableName, string columnName, List<string> valuesList)
+        {
+            return _dataRepository.GetByMany(tableName, columnName, valuesList);
+        }
     }
 }

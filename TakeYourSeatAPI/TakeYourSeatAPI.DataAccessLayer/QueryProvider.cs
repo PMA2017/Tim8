@@ -39,5 +39,12 @@ namespace TakeYourSeatAPI.DataAccessLayer
         {
             return string.Format(Resources.Queries.Delete, tableName, columnName, value);
         }
+
+        public string GetSelectWhereInQuery(string tableName, List<string> columnNames, string columnName, List<string> valuesList)
+        {
+            var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
+            var valuesPart = string.Join(", ", valuesList.Select(v => $"'{v}'"));
+            return string.Format(Resources.Queries.SelectWhereIn, columnsPart, tableName, columnName, valuesPart);
+        }
     }
 }
