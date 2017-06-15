@@ -39,5 +39,10 @@ namespace TakeYourSeatAPI.Business
         {
             return _dataRepository.GetByMany(tableName, columnName, valuesList);
         }
+
+        public object GetReservations(int restaurantId)
+        {
+            return _dataRepository.GetReservations(restaurantId);
+        }
     }
 }

@@ -46,5 +46,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             var valuesPart = string.Join(", ", valuesList.Select(v => $"'{v}'"));
             return string.Format(Resources.Queries.SelectWhereIn, columnsPart, tableName, columnName, valuesPart);
         }
+
+        public string GetSelectReservationsQuery(int restaurantId)
+        {
+            return string.Format(Resources.Queries.SelectReservationByRestaurant, restaurantId);
+        }
     }
 }

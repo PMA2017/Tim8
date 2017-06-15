@@ -115,5 +115,21 @@ namespace TakeYourSeatAPI.Controllers
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
             }
         }
+
+        [HttpGet]
+        [Route("api/Data/GetReservations/{restaurantId}")]
+        public IHttpActionResult GetReservations(int restaurantId)
+        {
+            try
+            {
+                var retVal = _dataService.GetReservations(restaurantId);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
     }
 }

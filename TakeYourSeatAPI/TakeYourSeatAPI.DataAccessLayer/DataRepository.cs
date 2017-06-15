@@ -178,5 +178,33 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 throw;
             }
         }
+
+        public object GetReservations(int restaurantId)
+        {
+            var columnNames = new List<string>
+            {
+                "Id", "Number", "StartDate"
+            };
+            var query = _queryProvider.GetSelectReservationsQuery(restaurantId);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = new List<Dictionary<string, object>>();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = columnNames.ToDictionary(column => column, column => reader[column]);
+                    retVal.Add(row);
+                }
+                reader.Close();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
     }
 }
