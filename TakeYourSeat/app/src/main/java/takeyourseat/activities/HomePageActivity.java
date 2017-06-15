@@ -1,12 +1,10 @@
 package takeyourseat.activities;
 
 import android.content.Intent;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +29,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import takeyourseat.beans.Restaurant;
-import takeyourseat.beans.User;
+import takeyourseat.model.Restaurant;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 

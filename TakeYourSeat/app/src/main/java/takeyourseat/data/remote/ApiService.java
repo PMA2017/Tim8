@@ -7,8 +7,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import takeyourseat.beans.Restaurant;
-import takeyourseat.beans.User;
+import takeyourseat.model.ReservationTable;
+import takeyourseat.model.Restaurant;
+import takeyourseat.model.User;
 
 /**
  * Created by Nenad on 5/9/2017.
@@ -30,4 +31,12 @@ public interface ApiService {
 
     @PUT("api/data/insert/user")
     Call<String> insertUser(@Body User user);
+
+    @PUT("api/data/insert/user/[columnName]/[value]")
+    Call<Boolean> updateUser(@Path("columnName") String columnName, @Path("value") String value, @Body User user);
+
+    @GET("api/data/getreservations/[id]")
+    Call<List<ReservationTable>> getReservationTables(@Path("id") int restaurantId);
+
+
 }

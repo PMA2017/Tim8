@@ -1,4 +1,4 @@
-package takeyourseat.beans;
+package takeyourseat.model;
 
 /**
  * Created by Ivana on 2.5.2017..

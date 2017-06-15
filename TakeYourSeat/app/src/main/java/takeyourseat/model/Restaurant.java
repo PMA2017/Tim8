@@ -1,4 +1,4 @@
-package takeyourseat.beans;
+package takeyourseat.model;
 
 
 import com.google.gson.annotations.Expose;
