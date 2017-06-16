@@ -39,8 +39,8 @@ public interface ApiService {
     @GET("api/data/getreservations/[id]")
     Call<List<ReservationTable>> getReservationTables(@Path("id") int restaurantId);
 
-    @GET("api/data/getby/menuitem/restaurant/[restaurantId]")
-    Call<List<MenuItem>> getMenuItemsForRestaurant(@Path("restaurantId") String restaurantId);
+    @GET("api/data/getby/menuitem/restaurant/{value}")
+    Call<List<MenuItem>> getMenuItemsForRestaurant(@Path("value") String restaurantId);
 
 
 }

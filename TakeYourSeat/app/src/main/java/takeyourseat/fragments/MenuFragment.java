@@ -51,22 +51,32 @@ public class MenuFragment extends Fragment {
         int restaurantId = resPrefs.getInt("resId", 0);
 
         apiService = ApiUtils.getApiService();
-        apiService.getMenuItemsForRestaurant(String.valueOf(restaurantId)).enqueue(new Callback<List<MenuItem>>() {
-            @Override
-            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
-                if (response.isSuccessful()) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        menuItems.add(response.body().get(i));
+        try {
+            apiService.getMenuItemsForRestaurant(String.valueOf(restaurantId)).enqueue(new Callback<List<MenuItem>>() {
+                @Override
+                public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            menuItems.add(response.body().get(i));
+                            setAdapter(menuItems);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-                Log.e("Detail", "error loading from API");
-            }
-        });
+                @Override
+                public void onFailure(Call<List<MenuItem>> call, Throwable t) {
+                    Log.e("Detail", "error loading from API");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("MenuFragment", ex.getMessage());
+        }
 
+        return v;
+    }
+
+    private void setAdapter(List<MenuItem> menuItems) {
         List<String> headings = new ArrayList<String>();
 
         List<String> appetizerList = new ArrayList<String>();
@@ -97,7 +107,6 @@ public class MenuFragment extends Fragment {
 
         ExpandableAdapter adapter = new ExpandableAdapter(getActivity(),headings,childList);
         expandableListView.setAdapter(adapter);
-        return v;
     }
 
 }
