@@ -182,8 +182,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "error loading from API");
             }
         });
-        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-        MainActivity.this.startActivity(homePageIntent);
     }
 
     public void saveUserDetail(String name, String lastName, String pass, String address, String email) {
