@@ -1,6 +1,8 @@
 package takeyourseat.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +46,8 @@ public class HomePageActivity extends AppCompatActivity {
     private ListView restaurantListView;
     private ApiService apiService;
     List<HashMap<String, String>> aList;
+    private SharedPreferences sharedPrefs;
+    private SharedPreferences.Editor editor;
 
 
     /*private String[] listviewTitle = new String[]{
@@ -104,6 +108,11 @@ public class HomePageActivity extends AppCompatActivity {
                                     public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                                         if(response.isSuccessful()) {
                                             if(response.body().size() == 1 && name.equals(response.body().get(0).getName())) {
+                                                int resId = response.body().get(0).getId();
+                                                sharedPrefs = getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
+                                                editor = sharedPrefs.edit();
+                                                editor.putInt("resId", resId);
+                                                editor.commit();
                                                 String resName = response.body().get(0).getName();
                                                 String description = response.body().get(0).getDescription();
                                                 String email = response.body().get(0).getEmail();
