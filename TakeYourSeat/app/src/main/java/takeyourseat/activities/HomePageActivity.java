@@ -111,12 +111,14 @@ public class HomePageActivity extends AppCompatActivity {
                                                 String email = response.body().get(0).getEmail();
                                                 String phone = response.body().get(0).getPhone();
                                                 String website = response.body().get(0).getWebste();
+                                                String image = response.body().get(0).getImage();
                                                 Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
                                                 detailView.putExtra("name",resName);
                                                 detailView.putExtra("description",description);
                                                 detailView.putExtra("email",email);
                                                 detailView.putExtra("phone",phone);
                                                 detailView.putExtra("website",website);
+                                                detailView.putExtra("image", image);
                                                 startActivity(detailView);
                                             }
                                         }

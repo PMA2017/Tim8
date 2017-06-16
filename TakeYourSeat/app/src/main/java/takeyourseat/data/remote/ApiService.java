@@ -33,11 +33,11 @@ public interface ApiService {
     @PUT("api/data/insert/user")
     Call<String> insertUser(@Body User user);
 
-    @PUT("api/data/insert/user/[columnName]/[value]")
+    @PUT("api/data/update/user/{columnName}/{value}")
     Call<Boolean> updateUser(@Path("columnName") String columnName, @Path("value") String value, @Body User user);
 
-    @GET("api/data/getreservations/[id]")
-    Call<List<ReservationTable>> getReservationTables(@Path("id") int restaurantId);
+    @GET("api/data/getreservations/{restaurantId}")
+    Call<List<ReservationTable>> getReservationTables(@Path("restaurantId") int restaurantId);
 
     @GET("api/data/getby/menuitem/restaurant/{value}")
     Call<List<MenuItem>> getMenuItemsForRestaurant(@Path("value") String restaurantId);
