@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
 
+import takeyourseat.data.remote.ApiService;
+
 public class ProfileActivity extends AppCompatActivity {
 
 
@@ -20,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText nameEdit, addressEdit, emailEdit;
     private Button saveBtn, cancelBtn, editProfileBtn, editPasswordBtn;
     private ImageView profilePicture;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,10 @@ public class ProfileActivity extends AppCompatActivity {
         //update-ovati user-a koriscenjem api-ja
         toggleButtonAndTextVisibility(View.VISIBLE, View.GONE);
         //proveriti da li treba setovati vrednost view polja na ove promenjene
+        //ove vrednosti trebaju biti setovane ako je response uspesan sa api-ja
+        nameView.setText(name);
+        addressView.setText(address);
+        emailView.setText(email);
     }
 
     private void cancel() {

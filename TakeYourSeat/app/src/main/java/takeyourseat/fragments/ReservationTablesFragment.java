@@ -105,6 +105,37 @@ public class ReservationTablesFragment extends Fragment {
             }
         }
 
+        String apiYear = apiDate.split("-")[2];
+        String apiMonth = apiDate.split("-")[1];
+        String apiDay = apiDate.split("-")[0];
+
+        String apiHour = apiTime.substring(0, 1);
+        String apiMinute = apiTime.substring(3, 4);
+
+        int apiHourInt = Integer.parseInt(apiHour);
+
+        for(int i = 0; i < allTables.size(); i++) {
+            //iz baze: yyyy-mm-ddThh:mm:ss
+            //sa api-ja: dd-mm-yyyy i hh:mm
+            String dbDate = allTables.get(i).getStartDate().split("T")[0];
+            String dbTime = allTables.get(i).getStartDate().split("T")[1];
+
+            String dbYear = dbDate.split("-")[0];
+            String dbMonth = dbDate.split("-")[1];
+            String dbDay = dbDate.split("-")[2];
+
+            String dbHour = dbTime.substring(0, 1);
+            String dbMinute = dbTime.substring(3, 4);
+            int dbHourInt = Integer.parseInt(dbHour);
+            int dbHourLastInt = Integer.parseInt(dbHour) + 3;
+
+            if(dbYear.equals(apiYear) && dbMonth.equals(apiMonth) && dbDay.equals(apiDay)) {
+                if(apiHourInt < dbHourLastInt && apiHourInt > dbHourInt)
+                    unavailableTables.add(allTables.get(i));
+            }
+        }
+
+
         for (int j = 0; j < gridLayout.getChildCount(); j++) {
             View view = gridLayout.getChildAt(j);
             if (view instanceof Button) {
@@ -133,36 +164,6 @@ public class ReservationTablesFragment extends Fragment {
                         });
                     }
                 }
-            }
-        }
-
-        String apiYear = apiDate.split("-")[2];
-        String apiMonth = apiDate.split("-")[1];
-        String apiDay = apiDate.split("-")[0];
-
-        String apiHour = apiTime.substring(0, 1);
-        String apiMinute = apiTime.substring(3, 4);
-
-        int apiHourInt = Integer.parseInt(apiHour);
-
-        for(int i = 0; i < allTables.size(); i++) {
-            //iz baze: yyyy-mm-ddThh:mm:ss
-            //sa api-ja: dd-mm-yyyy i hh:mm
-            String dbDate = allTables.get(i).getStartDate().split("T")[0];
-            String dbTime = allTables.get(i).getStartDate().split("T")[1];
-
-            String dbYear = dbDate.split("-")[0];
-            String dbMonth = dbDate.split("-")[1];
-            String dbDay = dbDate.split("-")[2];
-
-            String dbHour = dbTime.substring(0, 1);
-            String dbMinute = dbTime.substring(3, 4);
-            int dbHourInt = Integer.parseInt(dbHour);
-            int dbHourLastInt = Integer.parseInt(dbHour) + 3;
-
-            if(dbYear.equals(apiYear) && dbMonth.equals(apiMonth) && dbDay.equals(apiDay)) {
-                if(apiHourInt < dbHourLastInt && apiHourInt > dbHourInt)
-                    unavailableTables.add(allTables.get(i));
             }
         }
 
