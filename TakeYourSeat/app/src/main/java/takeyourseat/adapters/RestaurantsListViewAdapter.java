@@ -44,7 +44,7 @@ public class RestaurantsListViewAdapter extends SimpleAdapter {
 
         ImageView img = (ImageView)v.findViewById(R.id.listview_image);
         String url = (String) ((Map)getItem(position)).get("listview_image");
-        Picasso.with(v.getContext()).load(url).into(img);
+        Picasso.with(v.getContext()).load(url).resize(150,150).onlyScaleDown().centerInside().into(img);
         v.setTag(img);
 
         TextView nameTextView = (TextView)v.findViewById(R.id.listview_item_title);

@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +25,13 @@ import takeyourseat.fragments.TableFragment;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private TextView resName;
+    private TextView resNameTextView;
+    private ImageView image;
     private TabLayout tabs;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private String restaurantName;
+    private String imageUrl;
 
 
 
@@ -43,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
                 restaurantName= null;
             } else {
                 restaurantName= extras.getString("name");
+                imageUrl = extras.getString("image");
                 Bundle args = new Bundle();
                 args.putString("resName",restaurantName);
                 AllReservationDetailsFragment all = new AllReservationDetailsFragment();
@@ -50,7 +55,8 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         } else {
-            restaurantName= savedInstanceState.getString("resName");
+            restaurantName = savedInstanceState.getString("resName");
+            imageUrl = savedInstanceState.getString("imageUrl");
             Bundle args = new Bundle();
             args.putString("resName",restaurantName);
             AllReservationDetailsFragment all = new AllReservationDetailsFragment();
@@ -58,10 +64,10 @@ public class DetailActivity extends AppCompatActivity {
 
         }
 
-
-
-        resName = (TextView) findViewById(R.id.resNameDetail);
-        resName.setText(restaurantName);
+        resNameTextView = (TextView) findViewById(R.id.resNameDetail);
+        resNameTextView.setText(restaurantName);
+        image = (ImageView)findViewById(R.id.restaurantImage);
+        Picasso.with(getBaseContext()).load(imageUrl).resize(300, 200).centerInside().onlyScaleDown().into(image);
         tabs = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         setupViewPager(viewPager);
@@ -91,7 +97,8 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("resName",restaurantName);
+        outState.putString("resName", restaurantName);
+        outState.putString("imageUrl", imageUrl);
     }
 
 }
