@@ -1,7 +1,6 @@
 package takeyourseat.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -10,8 +9,6 @@ import com.j256.ormlite.table.TableUtils;
 
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import takeyourseat.model.User;
 
@@ -23,55 +20,55 @@ import takeyourseat.model.User;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "restaurant.sqlite";
+    //Dajemo ime bazi
+    private static final String DATABASE_NAME    = "ormlite.db";
 
-    // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 1;
+    //i pocetnu verziju baze. Obicno krece od 1
+    private static final int    DATABASE_VERSION = 1;
+
     private Dao<User, Integer> userDao = null;
 
+    //Potrebno je dodati konstruktor zbog pravilne inicijalizacije biblioteke
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //Prilikom kreiranja baze potrebno je da pozovemo odgovarajuce metode biblioteke
+    //prilikom kreiranja moramo pozvati TableUtils.createTable za svaku tabelu koju imamo
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
-       /* try {
+        try {
             TableUtils.createTable(connectionSource, User.class);
         } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
-        }*/
-
-
+        }
     }
 
+    //kada zelimo da izmenomo tabele, moramo pozvati TableUtils.dropTable za sve tabele koje imamo
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-       /* try {
-            List<String> allSql = new ArrayList<String>();
-            switch(oldVersion)
-            {
-                case 1:
-                    //allSql.add("altere AdData add column `new_col` VARCHAR");
-                    //allSql.add("altere AdData add column `new_col2` VARCHAR");
-            }
-            for (String sql : allSql) {
-                db.execSQL(sql);
-            }
+        try {
+            TableUtils.dropTable(connectionSource, User.class, true);
+            onCreate(db, connectionSource);
         } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "exception during onUpgrade", e);
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
-    public Dao<User, Integer> getUserDao() {
-        if (null == userDao) {
-            try {
-                userDao = getDao(User.class);
-            }catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
+    //jedan Dao objekat sa kojim komuniciramo. Ukoliko imamo vise tabela
+    //potrebno je napraviti Dao objekat za svaku tabelu
+    public Dao<User, Integer> getUserDao() throws SQLException {
+        if (userDao == null) {
+            userDao = getDao(User.class);
         }
+
         return userDao;
+    }
+
+    //obavezno prilikom zatvarnaj rada sa bazom osloboditi resurse
+    @Override
+    public void close() {
+        userDao = null;
+        super.close();
     }
 }
