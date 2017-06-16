@@ -1,7 +1,9 @@
 package takeyourseat.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,11 +28,7 @@ import takeyourseat.activities.ReservationActivity;
  */
 public class TableFragment extends Fragment {
 
-    private Button next, btn;
-    private RelativeLayout relativeLayout;
-    private GridLayout gridLayout;
-    private ArrayList<Button> tableButtons = new ArrayList<Button>();
-    private ArrayList<Button> chosenTables = new ArrayList<Button>();
+    private Button next;
 
     public TableFragment() {
         // Required empty public constructor
@@ -40,47 +38,23 @@ public class TableFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_table, container, false);
-        relativeLayout = (RelativeLayout) v.findViewById(R.id.tableRelative);
 
-        for (int i = 0; i < relativeLayout.getChildCount(); i++) {
-            View view = relativeLayout.getChildAt(i);
-            if (view instanceof GridLayout) {
-                gridLayout = (GridLayout) view;
-                break;
-            }
-        }
 
-        for (int j = 0; j < gridLayout.getChildCount(); j++) {
-            View view = gridLayout.getChildAt(j);
-            if (view instanceof Button) {
-                btn = (Button) view;
-                if (btn.getText().toString().toLowerCase().contains("table")) {
-                    tableButtons.add(btn);
-                    btn.setBackgroundColor(Color.parseColor("#8D6E63"));
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Button clickedBtn = (Button)v;
-                            if(!ifExists(clickedBtn)) {
-                                clickedBtn.setBackgroundColor(Color.parseColor("#58D68D"));
-                                chosenTables.add(clickedBtn);
-                            }
-                            else {
-                                clickedBtn.setBackgroundColor(Color.parseColor("#8D6E63"));
-                                chosenTables.remove(clickedBtn);
-                            }
-                        }
-                    });
-                }
-            }
-        }
+        //treba disableovati stolove koji su zauzeti u to vreme i koji ne postoje
+        //imam listu svih stolova
+        //prolazim kroz tu listu na view-u i prolazim kroz listu svih stolova iz baze
+        //menjam te stolove odn buttone na view-u
+        //napravim listu takenTables i njih disable-ujem
+        //gledam broj stola i gledam da li naziv sadrzi taj broj
+        //ako naziv sadrzi, a sto je zauzet, disableujem ga i obojim u crveno
+        //ako ne, onda ga enablujem i obojim u braon
+        //ako uopste ne postoji u listi, obojim ga u sivo
 
         next = (Button) v.findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ovde sasd treba preneti stolove koji su odabrani dalje u rezervaciju
                 Intent reservation = new Intent(getActivity(), ReservationActivity.class);
                 startActivity(reservation);
             }
@@ -89,17 +63,6 @@ public class TableFragment extends Fragment {
         return v;
     }
 
-    private boolean ifExists(Button btn) {
-        boolean ifExists = false;
 
-        for (int i = 0; i < chosenTables.size(); i++) {
-            if (btn.getId() == chosenTables.get(i).getId()) {
-                ifExists = true;
-                break;
-            }
-        }
-
-        return ifExists;
-    }
 }
 

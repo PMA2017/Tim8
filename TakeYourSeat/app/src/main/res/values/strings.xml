@@ -53,6 +53,7 @@
     <string name="no">No</string>
     <string name="next">Next</string>
     <string name="makeRes">Make reservation</string>
+    <string name="startRes">Start reservation</string>
     <string name="res">Restaurant</string>
     <string name="resFriends">Invited friends</string>
     <string name="resDetail">Reservation details</string>

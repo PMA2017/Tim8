@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     String name,lastName,email1,address,pass;
+    private int id;
 
     private ApiService apiService;
 
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                     if(response.isSuccessful()) {
                         if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
+                            id = response.body().get(0).getId();
                             name = response.body().get(0).getName();
                             lastName = response.body().get(0).getLastName();
                             email1 = response.body().get(0).getEmail();
@@ -191,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("pass",pass);
         editor.putString("address",address);
         editor.putString("email",email);
+        editor.putInt("id", id);
         editor.commit();
     }
 

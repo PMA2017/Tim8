@@ -66,11 +66,8 @@ public class DetailActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         setupViewPager(viewPager);
 
-
         tabs.setupWithViewPager(viewPager);
         setupTabIcons();
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

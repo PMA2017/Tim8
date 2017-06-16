@@ -1,57 +1,195 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tableRelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="takeyourseat.fragments.ReservationTablesFragment">
+    android:layout_gravity="center"
+    tools:context="takeyourseat.fragments.TableFragment">
 
-
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
-        android:text="1"
-        android:layout_marginRight="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginTop="29dp"
+        android:text="@string/chooseTable"
+        android:textSize="35dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button2"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/button2"
+    <GridLayout
+        android:id="@+id/tableGridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/round_button"
-        android:text="2" />
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textView3"
+        android:columnCount="4"
+        android:rowCount="5">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp"
-        android:layout_toEndOf="@+id/button2"
-        android:layout_toRightOf="@+id/button2"
-        android:background="@drawable/round_button"
-        android:text="3" />
+        <!--first row-->
+        <Button
+            android:id="@+id/btnTable1"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="Table 1"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable2"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:text="Table 2"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable3"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:text="Table 3"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable4"
+            android:layout_column="3"
+            android:layout_row="0"
+            android:text="Table 4"
+            android:textSize="14dip" />
+
+        <!--second row-->
+        <Button
+            android:id="@+id/btnTable5"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="Table 5"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable6"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:text="Table 6"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable7"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:text="Table 7"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable8"
+            android:layout_column="3"
+            android:layout_row="1"
+            android:text="Table 8"
+            android:textSize="14dip" />
+
+        <!--third row-->
+        <Button
+            android:id="@+id/btnTable9"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:text="Table 9"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable10"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:text="Table 10"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable11"
+            android:layout_column="2"
+            android:layout_row="2"
+            android:text="Table 11"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable12"
+            android:layout_column="3"
+            android:layout_row="2"
+            android:text="Table 12"
+            android:textSize="14dip" />
+
+        <!--fourth row-->
+        <Button
+            android:id="@+id/btnTable13"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:text="Table 13"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable14"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:text="Table 14"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable15"
+            android:layout_column="2"
+            android:layout_row="3"
+            android:text="Table 15"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable16"
+            android:layout_column="3"
+            android:layout_row="3"
+            android:text="Table 16"
+            android:textSize="14dip" />
+
+        <!--fifth row-->
+        <Button
+            android:id="@+id/btnTable17"
+            android:layout_column="0"
+            android:layout_row="4"
+            android:text="Table 17"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable18"
+            android:layout_column="1"
+            android:layout_row="4"
+            android:text="Table 18"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable19"
+            android:layout_column="2"
+            android:layout_row="4"
+            android:text="Table 19"
+            android:textSize="14dip" />
+
+        <Button
+            android:id="@+id/btnTable20"
+            android:layout_column="3"
+            android:layout_row="4"
+            android:text="Table 20"
+            android:textSize="14dip" />
+
+
+    </GridLayout>
 
     <Button
         android:id="@+id/next2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/icons"
-        android:background="@color/primary"
-        android:text="@string/next"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/primary"
+        android:text="@string/makeRes"
+        android:textColor="@color/icons" />
+
 
 </RelativeLayout>
