@@ -12,6 +12,9 @@ public class User {
     @SerializedName("Id")
     @Expose
     private Integer id;
+    @SerializedName("Token")
+    @Expose
+    private Object token;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -27,9 +30,9 @@ public class User {
     @SerializedName("Password")
     @Expose
     private String password;
-    @SerializedName("Role")
+    @SerializedName("Image")
     @Expose
-    private Integer role;
+    private String image;
 
     public Integer getId() {
         return id;
@@ -37,6 +40,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Object getToken() {
+        return token;
+    }
+
+    public void setToken(Object token) {
+        this.token = token;
     }
 
     public String getName() {
@@ -79,12 +90,12 @@ public class User {
         this.password = password;
     }
 
-    public Integer getRole() {
-        return role;
+    public String getImage() {
+        return image;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setImage(String image) {
+        this.image = image;
     }
 
 }

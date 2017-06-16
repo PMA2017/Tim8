@@ -140,7 +140,6 @@ public class RegisterActivity extends AppCompatActivity {
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
-        user.setRole(1);
 
         apiService.insertUser(user).enqueue(new Callback<String>() {
             @Override

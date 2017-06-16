@@ -9,9 +9,6 @@ public class Restaurant {
     @SerializedName("Id")
     @Expose
     private Integer id;
-    @SerializedName("Manager")
-    @Expose
-    private Integer manager;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -20,7 +17,7 @@ public class Restaurant {
     private String description;
     @SerializedName("Image")
     @Expose
-    private Object image;
+    private String image;
     @SerializedName("Phone")
     @Expose
     private String phone;
@@ -45,14 +42,6 @@ public class Restaurant {
         this.id = id;
     }
 
-    public Integer getManager() {
-        return manager;
-    }
-
-    public void setManager(Integer manager) {
-        this.manager = manager;
-    }
-
     public String getName() {
         return name;
     }
@@ -69,11 +58,11 @@ public class Restaurant {
         this.description = description;
     }
 
-    public Object getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Object image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
