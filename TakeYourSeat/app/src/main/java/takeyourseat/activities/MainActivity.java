@@ -151,37 +151,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void authenticate(String email, final String password) {
-        apiService.getUserByEmail(email).enqueue(new Callback<List<User>>() {
-                @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    if(response.isSuccessful()) {
-                        if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
-                            id = response.body().get(0).getId();
-                            name = response.body().get(0).getName();
-                            lastName = response.body().get(0).getLastName();
-                            email1 = response.body().get(0).getEmail();
-                            pass = response.body().get(0).getPassword();
-                            address = response.body().get(0).getAddress();
-                            saveUserDetail(name,lastName,pass,address,email1);
-                            Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                            MainActivity.this.startActivity(homePageIntent);
-                            error.setText("");
-                        }
-                        else {
-                            error.setText("Incorrect username and/or password.");
-                        }
-                    }
-                    else {
-                        int statusCode = response.code();
-                        Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
-                    }
-                }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.e("MainActivity", "error loading from API");
-            }
-        });
+//        apiService.getUserByEmail(email).enqueue(new Callback<List<User>>() {
+//                @Override
+//                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//                    if(response.isSuccessful()) {
+//                        if(response.body().size() == 1 && password.equals(response.body().get(0).getPassword())) {
+//                            id = response.body().get(0).getId();
+//                            name = response.body().get(0).getName();
+//                            lastName = response.body().get(0).getLastName();
+//                            email1 = response.body().get(0).getEmail();
+//                            pass = response.body().get(0).getPassword();
+//                            address = response.body().get(0).getAddress();
+//                            saveUserDetail(name,lastName,pass,address,email1);
+//                            Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+//                            MainActivity.this.startActivity(homePageIntent);
+//                            error.setText("");
+//                        }
+//                        else {
+//                            error.setText("Incorrect username and/or password.");
+//                        }
+//                    }
+//                    else {
+//                        int statusCode = response.code();
+//                        Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
+//                    }
+//                }
+//
+//            @Override
+//            public void onFailure(Call<List<User>> call, Throwable t) {
+//                Log.e("MainActivity", "error loading from API");
+//            }
+//        });
+        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+        MainActivity.this.startActivity(homePageIntent);
     }
 
     public void saveUserDetail(String name, String lastName, String pass, String address, String email) {
@@ -193,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("pass",pass);
         editor.putString("address",address);
         editor.putString("email",email);
-        editor.putInt("id", id);
         editor.commit();
     }
 
