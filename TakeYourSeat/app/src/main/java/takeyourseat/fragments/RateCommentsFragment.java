@@ -3,6 +3,7 @@ package takeyourseat.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,13 +27,17 @@ import com.example.anica.takeyourseat.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import takeyourseat.activities.MainActivity;
+import takeyourseat.activities.RegisterActivity;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.model.Comment;
+import takeyourseat.model.Rating;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +57,10 @@ public class RateCommentsFragment extends Fragment  {
     private String comment,rateCom;
     private ApiService apiService;
     private ArrayList<String> comments;
+    private ArrayList<Integer> ratings;
     private ArrayAdapter<String> adapter;
+    private Integer sum;
+    int restaurantId;
 
 
 
@@ -70,16 +78,7 @@ public class RateCommentsFragment extends Fragment  {
             rateCom = savedInstanceState.getString("rateNum");
         } else {
             comment = "";
-            rateNum = "";
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (showAddComment) {
-            showAddCommentDialog();
-            commentText.setText(comment);
+            rateCom = "";
         }
     }
 
@@ -93,7 +92,7 @@ public class RateCommentsFragment extends Fragment  {
         commentsList = (ListView) v.findViewById(R.id.commentsList);
         addComment = (Button) v.findViewById(R.id.addComment);
         SharedPreferences resPrefs = this.getActivity().getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
-        int restaurantId = resPrefs.getInt("resId", 0);
+        restaurantId = resPrefs.getInt("resId", 0);
 
         comments = new ArrayList<>();
         apiService = ApiUtils.getApiService();
@@ -121,8 +120,34 @@ public class RateCommentsFragment extends Fragment  {
             Log.e("CommentFragment", ex.getMessage());
         }
 
-
-        rate.setRating(4);
+        ratings = new ArrayList<>();
+        sum = 0;
+        try {
+            apiService.getRatingForRestaurant(String.valueOf(restaurantId)).enqueue(new Callback<List<Rating>>() {
+                @Override
+                public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            ratings.add(response.body().get(i).getRank());
+                            sum += ratings.get(i);
+                        }
+                        int size = ratings.size();
+                        double rank = sum.doubleValue() / size;
+                        rate.setStepSize(0.01f);
+                        String a = String.valueOf(rank);
+                        rate.setRating(Float.parseFloat(a));
+                        rate.invalidate();
+                    }
+                }
+                @Override
+                public void onFailure(Call<List<Rating>> call, Throwable t) {
+                    Log.e("Rating", "error loading from API");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("CommentFragment", ex.getMessage());
+        }
 
         addComment.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -133,13 +158,74 @@ public class RateCommentsFragment extends Fragment  {
         return v;
     }
 
-    private void addComment() {
+    private void addComment(String commentTextText, String rateNum) {
         initialize();
         if(!validate()) {
             Toast.makeText(getActivity(),"Failed leaving comment",Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity(),"Successful leaving comment",Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
+            final Comment comment = new Comment();
+            comment.setDescription(commentTextText);
+            comment.setRestaurant(restaurantId);
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+            int id = sharedPreferences.getInt("id",0);
+            comment.setUser(id);
+
+            Rating rate = new Rating();
+            StringTokenizer tokens = new StringTokenizer(rateNum, ".");
+            String rankString = tokens.nextToken();
+            int rank = Integer.parseInt(rankString);
+            rate.setRestaurant(restaurantId);
+            rate.setUser(id);
+            rate.setRank(rank);
+
+        apiService.insertComment(comment).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()) {
+                        if(response.body() != null) {
+                            Toast.makeText(getActivity(), "Created new comment with ID: " + response.body(), Toast.LENGTH_LONG);
+                            comments.add(comment.getDescription());
+                            adapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Failed to create new comment", Toast.LENGTH_LONG);
+                        }
+                    }
+                    else {
+                        Log.e("Comment", "Error in response: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("Comment", "Error loading from API");
+                }
+            });
+
+            apiService.insertRating(rate).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()) {
+                        if(response.body() != null) {
+                            Toast.makeText(getActivity(), "Created new rate with ID: " + response.body(), Toast.LENGTH_LONG);
+                            dialog.dismiss();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Failed to create new rate", Toast.LENGTH_LONG);
+                        }
+                    }
+                    else {
+                        Log.e("Rate", "Error in response: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("Rate", "Error loading from API");
+                }
+            });
+
         }
     }
 
@@ -149,16 +235,17 @@ public class RateCommentsFragment extends Fragment  {
             commentText.setError("Please enter comment");
             valid = false;
         }
-        if(commentTextText.length() >= 10) {
+        if(commentTextText.length() >= 50) {
             commentText.setError("Comment is to long");
             valid = false;
         }
+
         return valid;
 
     }
 
     private void initialize() {
-        commentTextText = commentText.getText().toString().trim();
+        commentTextText = commentText.getText().toString();
         rateNum = String.valueOf(rateComments.getRating());
     }
 
@@ -171,12 +258,14 @@ public class RateCommentsFragment extends Fragment  {
         commentText.setText(comment);
         addComDialog = (Button) mView.findViewById(R.id.addComDialog);
         cancel = (Button) mView.findViewById(R.id.cancelCom);
+        // ne sacuva rate kada se okrene ekran
+        // rateComments.setRating(Float.parseFloat(rateCom));
         rateComments.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(getActivity(),String.valueOf(rating),Toast.LENGTH_SHORT).show();
+                rateNum = String.valueOf(rateComments.getRating());
+                Toast.makeText(getActivity(),rateNum,Toast.LENGTH_SHORT).show();
             }}
-
         );
 
         commentText.addTextChangedListener(new TextWatcher() {
@@ -187,7 +276,7 @@ public class RateCommentsFragment extends Fragment  {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() >= 50) {
+                if(s.length() >= 100) {
                     commentText.setError("Comment is too long");
                 }
             }
@@ -208,7 +297,7 @@ public class RateCommentsFragment extends Fragment  {
         addComDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addComment();
+                addComment(commentText.getText().toString(),rateNum);
             }
         });
 
@@ -217,12 +306,22 @@ public class RateCommentsFragment extends Fragment  {
         dialog.show();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (showAddComment) {
+            showAddCommentDialog();
+        }
+    }
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if(dialog != null && dialog.isShowing()) {
-            outState.putString("rateNum",rateNum);
-            outState.putString("comment",commentTextText);
+            outState.putString("rateNum",String.valueOf(rateComments.getRating()));
+            outState.putString("comment",commentText.getText().toString());
             outState.putBoolean("showAddComment",showAddComment);
 
         }
