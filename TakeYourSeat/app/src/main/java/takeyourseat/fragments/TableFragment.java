@@ -39,17 +39,6 @@ public class TableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_table, container, false);
 
-
-        //treba disableovati stolove koji su zauzeti u to vreme i koji ne postoje
-        //imam listu svih stolova
-        //prolazim kroz tu listu na view-u i prolazim kroz listu svih stolova iz baze
-        //menjam te stolove odn buttone na view-u
-        //napravim listu takenTables i njih disable-ujem
-        //gledam broj stola i gledam da li naziv sadrzi taj broj
-        //ako naziv sadrzi, a sto je zauzet, disableujem ga i obojim u crveno
-        //ako ne, onda ga enablujem i obojim u braon
-        //ako uopste ne postoji u listi, obojim ga u sivo
-
         next = (Button) v.findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
