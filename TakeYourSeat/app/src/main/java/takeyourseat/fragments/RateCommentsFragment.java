@@ -56,8 +56,6 @@ public class RateCommentsFragment extends Fragment  {
             comment = "";
             rateNum = "";
         }
-
-        getActivity().setTitle(R.string.addCom);
     }
 
     @Override

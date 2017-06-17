@@ -1,5 +1,6 @@
 package takeyourseat.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,6 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPagerAdapter viewPagerAdapter;
     private String restaurantName;
     private String imageUrl;
-
 
 
     @Override
@@ -100,6 +100,7 @@ public class DetailActivity extends AppCompatActivity {
         outState.putString("resName", restaurantName);
         outState.putString("imageUrl", imageUrl);
     }
+
 
 }
 

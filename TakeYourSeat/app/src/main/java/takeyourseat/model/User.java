@@ -54,6 +54,9 @@ public class User {
     @DatabaseField(columnName = FIELD_NAME_IMAGE)
     private String image;
 
+    public User() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -62,7 +65,7 @@ public class User {
         this.id = id;
     }
 
-    public Object getToken() {
+    public String getToken() {
         return token;
     }
 
