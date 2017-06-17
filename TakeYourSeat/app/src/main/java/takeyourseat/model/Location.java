@@ -1,27 +1,45 @@
 package takeyourseat.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Ivana on 2.5.2017..
  */
 
-public class Location extends BaseBean {
+public class Location  {
 
-    public double latitude;
-    public double longitude;
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
+    @SerializedName("Latitude")
+    @Expose
+    private Double latitude;
+    @SerializedName("Longitude")
+    @Expose
+    private Double longitude;
 
-    public double getLatitude() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }

@@ -120,6 +120,7 @@ public class HomePageActivity extends AppCompatActivity {
                                                 String phone = response.body().get(0).getPhone();
                                                 String website = response.body().get(0).getWebste();
                                                 String image = response.body().get(0).getImage();
+                                                int location = response.body().get(0).getLocation();
                                                 Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
                                                 detailView.putExtra("name",resName);
                                                 detailView.putExtra("description",description);
@@ -127,6 +128,7 @@ public class HomePageActivity extends AppCompatActivity {
                                                 detailView.putExtra("phone",phone);
                                                 detailView.putExtra("website",website);
                                                 detailView.putExtra("image", image);
+                                                detailView.putExtra("location", location);
                                                 startActivity(detailView);
                                             }
                                         }

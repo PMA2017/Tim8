@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private String restaurantName;
+    private int locationId;
     private String imageUrl;
 
 
@@ -47,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
                 restaurantName= null;
             } else {
                 restaurantName= extras.getString("name");
+                locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
                 Bundle args = new Bundle();
                 args.putString("resName",restaurantName);
@@ -82,7 +84,16 @@ public class DetailActivity extends AppCompatActivity {
         viewPagerAdapter.addFrag(new TableFragment(), "");
         viewPagerAdapter.addFrag(new RateCommentsFragment(), "");
         viewPagerAdapter.addFrag(new AboutFragment(), "");
-        viewPagerAdapter.addFrag(new LocationFragment(), "");
+        //viewPagerAdapter.addFrag(new LocationFragment(), "");
+
+        LocationFragment locationFragmet = new LocationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("location", locationId);
+        bundle.putString("name", restaurantName);
+        locationFragmet.setArguments(bundle);
+
+        viewPagerAdapter.addFrag(locationFragmet, "");
+
         viewPager.setAdapter(viewPagerAdapter);
     }
 
