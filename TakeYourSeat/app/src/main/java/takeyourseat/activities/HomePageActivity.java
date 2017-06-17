@@ -59,6 +59,7 @@ public class HomePageActivity extends AppCompatActivity {
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
     private DatabaseHelper databaseHelper;
+    private RestaurantsListViewAdapter adapter;
 
 
     private int[] listviewImage = new int[]{

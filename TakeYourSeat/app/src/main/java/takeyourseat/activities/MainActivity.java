@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             getDatabaseHelper().getUserDao().create(user);
             Toast.makeText(this, "User inserted", Toast.LENGTH_SHORT).show();
         } catch (SQLException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
     }
 
@@ -226,13 +226,13 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putInt("id",id);
-        editor.putString("token",token);
+        /*editor.putString("token",token);
         editor.putString("name",name);
         editor.putString("lastName",lastName);
         editor.putString("pass",pass);
         editor.putString("address",address);
         editor.putString("email",email);
-        editor.putString("image",image);
+        editor.putString("image",image);*/
         editor.commit();
     }
 
