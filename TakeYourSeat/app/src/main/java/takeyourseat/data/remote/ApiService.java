@@ -9,6 +9,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import takeyourseat.model.Comment;
 import takeyourseat.model.MenuItem;
+import takeyourseat.model.Rating;
 import takeyourseat.model.ReservationTable;
 import takeyourseat.model.Restaurant;
 import takeyourseat.model.User;
@@ -34,6 +35,12 @@ public interface ApiService {
     @PUT("api/data/insert/user")
     Call<String> insertUser(@Body User user);
 
+    @PUT("api/data/insert/comment")
+    Call<String> insertComment(@Body Comment comment);
+
+    @PUT("api/data/insert/rating")
+    Call<String> insertRating(@Body Rating rating);
+
     @PUT("api/data/update/user/{columnName}/{value}")
     Call<Boolean> updateUser(@Path("columnName") String columnName, @Path("value") String value, @Body User user);
 
@@ -45,6 +52,9 @@ public interface ApiService {
 
     @GET("api/data/getby/comment/restaurant/{value}")
     Call<List<Comment>> getCommentsForRestaurant(@Path("value") String restaurantId);
+
+    @GET("api/data/getby/rating/restaurant/{value}")
+    Call<List<Rating>> getRatingForRestaurant(@Path("value") String restaurantId);
 
 
 }

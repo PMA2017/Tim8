@@ -46,6 +46,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addCom"
+        android:background="@color/primary"
+        android:textColor="@color/icons"
         android:layout_below="@+id/ratingBar2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -57,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:background="@color/primary"
+        android:textColor="@color/icons"
         android:layout_alignTop="@+id/addComDialog"
         android:text="@string/cancel" />
 </RelativeLayout>
