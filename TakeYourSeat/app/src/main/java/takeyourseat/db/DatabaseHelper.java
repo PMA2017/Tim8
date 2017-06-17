@@ -1,7 +1,9 @@
 package takeyourseat.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -30,7 +32,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     //Potrebno je dodati konstruktor zbog pravilne inicijalizacije biblioteke
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
     }
 
     //Prilikom kreiranja baze potrebno je da pozovemo odgovarajuce metode biblioteke
@@ -40,9 +42,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, User.class);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Log.e(DatabaseHelper.class.getName(), "Unable to create database", e);
         }
     }
+
 
     //kada zelimo da izmenomo tabele, moramo pozvati TableUtils.dropTable za sve tabele koje imamo
     @Override
@@ -51,7 +54,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, User.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database from version " + oldVersion + " to new "
+                    + newVersion, e);
         }
     }
 

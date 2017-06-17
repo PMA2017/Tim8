@@ -3,6 +3,7 @@ package takeyourseat.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.PreparedDelete;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +39,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import takeyourseat.adapters.RestaurantsListViewAdapter;
+import takeyourseat.db.DatabaseHelper;
 import takeyourseat.model.Restaurant;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.model.User;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -49,6 +58,7 @@ public class HomePageActivity extends AppCompatActivity {
     List<HashMap<String, String>> aList;
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
+    private DatabaseHelper databaseHelper;
 
 
     private int[] listviewImage = new int[]{
@@ -59,11 +69,8 @@ public class HomePageActivity extends AppCompatActivity {
 
     private List<Restaurant> restaurants;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
@@ -253,8 +260,24 @@ public class HomePageActivity extends AppCompatActivity {
                 break;
             case R.id.logOut:
                 // ovde treba uzlogovati usera
+                /*SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+                int id = sharedPreferences.getInt("id",0);
+                String id1 = String.valueOf(id);
+                Toast.makeText(this, id1, Toast.LENGTH_SHORT).show();
+                //User user = getDatabaseHelper().getUserDao().queryForId(id);
+                try {
+                    getDatabaseHelper().getUserDao().deleteById(id);
+                    Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
+                    Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
+                    startActivity(logOut);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }*/
+                 deleteAll();
+                Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
                 Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(logOut);
+
                 break;
         }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -271,11 +294,6 @@ public class HomePageActivity extends AppCompatActivity {
         return true;
 
     }
-
-    @Override
-    public void onBackPressed() {
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -288,6 +306,68 @@ public class HomePageActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             String search = savedInstanceState.getString("search");
             searchRes.setText(search);
+        }
+    }
+
+    public DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
+        return databaseHelper;
+    }
+
+    public void deleteAll()
+    {
+        try
+        {
+            for(User user : getDatabaseHelper().getUserDao().queryForAll())
+            {
+                Dao<User, Integer> dao = getDatabaseHelper().getUserDao();
+                dao.delete(user);
+            }
+        }
+        catch(Exception e)
+        {
+            Log.e(HomePageActivity.class.getName(), "error on delete");
+        }
+        finally
+        {
+            getDatabaseHelper().close();
+        }
+    }
+
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+            databaseHelper = null;
         }
     }
 }

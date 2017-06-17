@@ -13,6 +13,7 @@
     <string name="back">Back</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="homePage">Home page</string>
+    <string name="welcome">Welcome</string>
     <string name="detail">Restaurant details</string>
     <string name="contact">Contact</string>
     <string name="cancel">Cancel</string>

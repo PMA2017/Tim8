@@ -32,7 +32,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/googleMapsKey" />
 
-        <activity android:name="takeyourseat.activities.MainActivity">
+        <activity android:name="takeyourseat.activities.MainActivity"
+            android:noHistory="true">
+        </activity>
+        <activity android:name="takeyourseat.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,7 +52,8 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
-            android:label="@string/homePage" />
+            android:label="@string/homePage">
+        </activity>
         <activity
             android:name="takeyourseat.activities.SettingsActivity"
             android:label="@string/settings"
@@ -92,7 +96,7 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.AddCommentActivity"
-            android:label="@string/addCom"></activity>
+            android:label="@string/addCom" />
         <activity
             android:name="takeyourseat.activities.ReservationListActivity"
             android:label="@string/reservation"
@@ -117,26 +121,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.ProfileActivity" />
         </activity>
-        <activity android:name="takeyourseat.activities.ProfilePictureActivity"
+        <activity
+            android:name="takeyourseat.activities.ProfilePictureActivity"
             android:label="@string/change"
             android:parentActivityName="takeyourseat.activities.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.ProfileActivity" />
-
         </activity>
 
         <service android:name="takeyourseat.services.CustomFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="takeyourseat.services.FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="takeyourseat.services.FirebaseIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
 
     </application>
 
