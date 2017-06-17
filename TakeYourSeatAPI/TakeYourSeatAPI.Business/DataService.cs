@@ -45,5 +45,18 @@ namespace TakeYourSeatAPI.Business
         {
             return _dataRepository.GetReservations(restaurantId);
         }
+
+        public object GetFriends(string userId)
+        {
+            var connections = _dataRepository.GetBy("Friends", "User", userId);
+            var values = new List<string>();
+            foreach(var c in connections)
+            {
+                object value;
+                c.TryGetValue("Friend", out value);
+                if (value != null) values.Add(value.ToString());
+            }
+            return GetByMany("User", "Id", values);
+        }
     }
 }

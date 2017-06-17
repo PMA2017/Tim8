@@ -17,6 +17,7 @@ import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,8 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
         int id = sharedPreferences.getInt("id", -1);
         currentUser = new User();
         try {
-            currentUser = getDatabaseHelper().getUserDao().queryForEq("Id", id).get(0);
-        } catch (SQLException e) {
+            currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
+            //currentUser = getDatabaseHelper().getUserDao().queryForEq("id", id).get(0);
+        } catch (Exception e) {
             Log.e("ProfileActivity", e.getMessage());
         }
 

@@ -67,4 +67,7 @@ public interface ApiService {
 
     @PUT("api/data/insert/reservation")
     Call<String> insertReservation(@Body Reservation reservation);
+
+    @GET("api/data/getfriends/{value}")
+    Call<List<User>> getFriends(@Path("value") String userId);
 }

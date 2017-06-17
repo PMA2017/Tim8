@@ -131,5 +131,21 @@ namespace TakeYourSeatAPI.Controllers
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
             }
         }
+
+        [HttpGet]
+        [Route("api/Data/GetFriends/{value}")]
+        public IHttpActionResult GetFrinds(string value)
+        {
+            try
+            {
+                var retVal = _dataService.GetFriends(value);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
     }
 }
