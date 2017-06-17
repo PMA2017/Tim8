@@ -49,6 +49,7 @@ public class HomePageActivity extends AppCompatActivity {
     List<HashMap<String, String>> aList;
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
+    RestaurantsListViewAdapter adapter;
 
 
     private int[] listviewImage = new int[]{
@@ -74,10 +75,10 @@ public class HomePageActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     aList = new ArrayList<HashMap<String, String>>();
                     for(int i=0; i<response.body().size(); i++) {
-                        HashMap<String, String> hm = new HashMap<String, String>();
+                        HashMap<String, String> hm = new HashMap<>();
+                        hm.put("listview_id", response.body().get(i).getId().toString());
                         hm.put("listview_title", response.body().get(i).getName());
                         hm.put("listview_description", response.body().get(i).getDescription());
-                        //hm.put("listview_image", Integer.toString(listviewImage[i]));
                         hm.put("listview_image", response.body().get(i).getImage());
                         aList.add(hm);
                     }
@@ -86,7 +87,7 @@ public class HomePageActivity extends AppCompatActivity {
                     int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
 
                     //SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
-                    RestaurantsListViewAdapter adapter = new RestaurantsListViewAdapter(getBaseContext(), aList, R.layout.restaurant_list_item, from, to);
+                    adapter = new RestaurantsListViewAdapter(HomePageActivity.this,aList, R.layout.restaurant_list_item, from, to);
                     restaurantListView = (ListView)findViewById(R.id.restaurant_list_view);
                     //restaurantListView.setAdapter(simpleAdapter);
                     restaurantListView.setAdapter(adapter);
@@ -195,7 +196,7 @@ public class HomePageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(HomePageActivity.this,"Searching",Toast.LENGTH_SHORT).show();
+                HomePageActivity.this.adapter.getFilter().filter(s);
             }
 
             @Override
