@@ -27,9 +27,10 @@ namespace TakeYourSeatAPI.Business
 
         public bool Update(string tableName, Dictionary<string, string> columnsValues, string columnName, string value)
         {
-            return _dataRepository.Update(tableName, columnsValues, columnName, value);
+            var properColumnValues = columnsValues.Where(c => c.Key != "Id").ToDictionary(t => t.Key, t => t.Value);
+            return _dataRepository.Update(tableName, properColumnValues, columnName, value);
         }
-
+    
         public bool Delete(string tableName, string columnName, string value)
         {
             return _dataRepository.Delete(tableName, columnName, value);
