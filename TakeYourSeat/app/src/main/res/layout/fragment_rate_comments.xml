@@ -12,6 +12,7 @@
         android:progressTint="@color/primary"
         android:secondaryProgressTint="@color/primary"
         android:layout_alignParentTop="true"
+        android:isIndicator="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

@@ -2,12 +2,15 @@ package takeyourseat.fragments;
 
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,16 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.model.Comment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +50,9 @@ public class RateCommentsFragment extends Fragment  {
     private String commentTextText,rateNum;
     private boolean showAddComment;
     private String comment,rateCom;
+    private ApiService apiService;
+    private ArrayList<String> comments;
+    private ArrayAdapter<String> adapter;
 
 
 
@@ -76,10 +92,36 @@ public class RateCommentsFragment extends Fragment  {
 
         commentsList = (ListView) v.findViewById(R.id.commentsList);
         addComment = (Button) v.findViewById(R.id.addComment);
-        String[] items = {"Comment 1","Comment 2","Comment 3","Comment 4","Comment 5","Comment 6","Comment 7","Comment 8"};
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_comments_row,R.id.commentsTextView, items);
-        commentsList.setAdapter(adapter);
-        registerForContextMenu(commentsList);
+        SharedPreferences resPrefs = this.getActivity().getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
+        int restaurantId = resPrefs.getInt("resId", 0);
+
+        comments = new ArrayList<>();
+        apiService = ApiUtils.getApiService();
+        try {
+            apiService.getCommentsForRestaurant(String.valueOf(restaurantId)).enqueue(new Callback<List<Comment>>() {
+                @Override
+                public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            comments.add(response.body().get(i).getDescription());
+                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_comments_row,R.id.commentsTextView, comments);
+                            commentsList.setAdapter(adapter);
+                            registerForContextMenu(commentsList);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Comment>> call, Throwable t) {
+                    Log.e("Comments", "error loading from API");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("CommentFragment", ex.getMessage());
+        }
+
+
         rate.setRating(4);
 
         addComment.setOnClickListener(new View.OnClickListener(){

@@ -1,14 +1,34 @@
 package takeyourseat.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Ivana on 2.5.2017..
  */
 
-public class Comment extends BaseBean {
+public class Comment {
 
-    public String description;
-    public int user;
-    public int restaurant;
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
+    @SerializedName("Description")
+    @Expose
+    private String description;
+    @SerializedName("User")
+    @Expose
+    private Integer user;
+    @SerializedName("Restaurant")
+    @Expose
+    private Integer restaurant;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -18,19 +38,19 @@ public class Comment extends BaseBean {
         this.description = description;
     }
 
-    public int getUser() {
+    public Integer getUser() {
         return user;
     }
 
-    public void setUser(int user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 
-    public int getRestaurant() {
+    public Integer getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(int restaurant) {
+    public void setRestaurant(Integer restaurant) {
         this.restaurant = restaurant;
     }
 }

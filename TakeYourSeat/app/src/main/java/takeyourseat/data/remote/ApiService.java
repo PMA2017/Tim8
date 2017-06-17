@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import takeyourseat.model.Comment;
 import takeyourseat.model.MenuItem;
 import takeyourseat.model.ReservationTable;
 import takeyourseat.model.Restaurant;
@@ -41,6 +42,9 @@ public interface ApiService {
 
     @GET("api/data/getby/menuitem/restaurant/{value}")
     Call<List<MenuItem>> getMenuItemsForRestaurant(@Path("value") String restaurantId);
+
+    @GET("api/data/getby/comment/restaurant/{value}")
+    Call<List<Comment>> getCommentsForRestaurant(@Path("value") String restaurantId);
 
 
 }
