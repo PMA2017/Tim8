@@ -13,6 +13,7 @@ import takeyourseat.model.MenuItem;
 import takeyourseat.model.Rating;
 import takeyourseat.model.ReservationTable;
 import takeyourseat.model.Restaurant;
+import takeyourseat.model.RestaurantTable;
 import takeyourseat.model.User;
 
 /**
@@ -60,4 +61,6 @@ public interface ApiService {
     @GET("api/data/getby/location/id/{value}")
     Call<List<Location>> getLocationById(@Path("value") String id);
 
+    @GET("/api/data/getby/restauranttable/restaurant/{value}")
+    Call<List<RestaurantTable>> getRestaurantTables(@Path("value") String restaurantId);
 }

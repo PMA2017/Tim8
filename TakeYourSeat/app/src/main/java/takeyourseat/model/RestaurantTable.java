@@ -1,27 +1,45 @@
 package takeyourseat.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Ivana on 2.5.2017..
  */
 
-public class RestaurantTable extends BaseBean {
+public class RestaurantTable {
 
-    public int number;
-    public int restaurant;
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
+    @SerializedName("Number")
+    @Expose
+    private Integer number;
+    @SerializedName("Restaurant")
+    @Expose
+    private Integer restaurant;
 
-    public int getNumber() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public int getRestaurant() {
+    public Integer getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(int restaurant) {
+    public void setRestaurant(Integer restaurant) {
         this.restaurant = restaurant;
     }
 }
