@@ -110,7 +110,7 @@ public class OtherFriendsFragment extends Fragment {
                 alert = new AlertDialog.Builder(
                         getActivity());
                 alert.setTitle("Send friend request");
-                alert.setMessage("Are you sure to delete this friend?");
+                alert.setMessage("Are you sure to send friend request to " + clickedUser.getName() + " " + clickedUser.getLastName() + "?");
                 alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                     @Override
