@@ -62,6 +62,10 @@ namespace TakeYourSeatAPI.Business
         public object GetNonFriends(string userId)
         {
             var connections = _dataRepository.GetBy("Friends", "User", userId);
+            if (connections.Count == 0)
+            {
+                return _dataRepository.GetAll("User");
+            }
             var values = new List<string>();
             foreach (var c in connections)
             {

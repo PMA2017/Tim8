@@ -35,7 +35,7 @@ import takeyourseat.model.User;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InviteFriendsFragment extends Fragment {
+public class  InviteFriendsFragment extends Fragment {
 
     private ListView listFriends;
     private EditText searchFriendsInvite;

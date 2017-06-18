@@ -2,10 +2,12 @@ package takeyourseat.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,8 +48,10 @@ public class OtherFriendsFragment extends Fragment {
     private ApiService apiService;
     ArrayAdapter<String> adapter;
     private User currentUser;
+    private User clickedUser;
+    private List<User> userList;
+    private AlertDialog.Builder alert;
     private DatabaseHelper databaseHelper;
-
 
     public OtherFriendsFragment() {
         // Required empty public constructor
@@ -57,7 +62,7 @@ public class OtherFriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v = inflater.inflate(R.layout.fragment_other_friends, container, false);
+        View v = inflater.inflate(R.layout.fragment_other_friends, container, false);
         listOthers = (ListView) v.findViewById(R.id.othersList);
         searchOthers = (EditText) v.findViewById(R.id.searchFriendsOthers);
 
@@ -82,8 +87,8 @@ public class OtherFriendsFragment extends Fragment {
                             users.add(response.body().get(i).getName() + " " + response.body().get(i).getLastName());
                             adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row,R.id.othersTextView,users);
                             listOthers.setAdapter(adapter);
-                            registerForContextMenu(listOthers);
                         }
+                        userList = response.body();
                     }
                 }
 
@@ -96,6 +101,41 @@ public class OtherFriendsFragment extends Fragment {
         catch (Exception ex) {
             Log.e("ListFriends", ex.getMessage());
         }
+
+        listOthers.setLongClickable(true);
+        listOthers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, final int position,  long id) {
+                //Do your tasks here
+                clickedUser = userList.get(position);
+                alert = new AlertDialog.Builder(
+                        getActivity());
+                alert.setTitle("Send friend request");
+                alert.setMessage("Are you sure to delete this friend?");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        int test = currentUser.getId();
+                        try {
+                            sendFriendRequest(clickedUser.getId());
+                        }
+                        catch (Exception ex) {
+                            Log.e("OtherFriendsFragment", ex.getMessage());
+                        }
+
+                    }
+                });
+                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+                return true;
+            }
+        });
 
         searchOthers.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,22 +156,7 @@ public class OtherFriendsFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.friends_menu_add, menu);
-    }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add: {
-                //add to friends
-            }
-        }
-        return super.onContextItemSelected(item);
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -153,5 +178,27 @@ public class OtherFriendsFragment extends Fragment {
             databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
         }
         return databaseHelper;
+    }
+
+    private void sendFriendRequest(int friendId) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("id", -1);
+        apiService.sendFriendRequest(Integer.toString(userId), Integer.toString(friendId)).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(!response.isSuccessful()) {
+                    int statusCode = response.code();
+                    Log.e("OtherFriendsActivity", "Response not successful. Status code: " + statusCode);
+                    Toast.makeText(getContext(), "Error in sending friend request.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(getContext(), "Friend request sent.", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.e("FriendRequestFragment", "error loading from API");
+            }
+        });
     }
 }
