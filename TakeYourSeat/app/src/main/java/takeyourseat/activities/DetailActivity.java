@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
     private String imageUrl;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
+    private int resId;
 
 
     @Override
@@ -54,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
                 restaurantName= extras.getString("name");
                 locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
+                resId = extras.getInt("id");
             }
         } else {
             restaurantName = savedInstanceState.getString("resName");
@@ -63,6 +65,7 @@ public class DetailActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putString("resName",restaurantName);
+        editor.putInt("resId", resId);
         editor.commit();
 
         resNameTextView = (TextView) findViewById(R.id.resNameDetail);

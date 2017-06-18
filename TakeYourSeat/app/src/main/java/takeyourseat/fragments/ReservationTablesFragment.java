@@ -48,6 +48,7 @@ public class ReservationTablesFragment extends Fragment {
     private ArrayList<RestaurantTable> allRestaurantTables = new ArrayList<RestaurantTable>();
     private ApiService apiService;
     private String apiDate, apiTime;
+    private int restaurantId;
 
     public ReservationTablesFragment() {
         // Required empty public constructor
@@ -80,42 +81,7 @@ public class ReservationTablesFragment extends Fragment {
         SharedPreferences prefs = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
         apiDate = prefs.getString("date", null); //dd-mm-yyy
         apiTime = prefs.getString("time", null); //hh:mm
-        SharedPreferences resPrefs = this.getActivity().getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
-        int restaurantId = resPrefs.getInt("resId", 0);
-
-        apiService = ApiUtils.getApiService();
-
-        apiService.getReservationTables(restaurantId).enqueue(new Callback<List<ReservationTable>>() {
-            @Override
-            public void onResponse(Call<List<ReservationTable>> call, Response<List<ReservationTable>> response) {
-                if (response.isSuccessful()) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        allReservationTables.add(response.body().get(i));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ReservationTable>> call, Throwable t) {
-                Log.e("Detail", "error loading from API");
-            }
-        });
-
-        apiService.getRestaurantTables(String.valueOf(restaurantId)).enqueue(new Callback<List<RestaurantTable>>() {
-            @Override
-            public void onResponse(Call<List<RestaurantTable>> call, Response<List<RestaurantTable>> response) {
-                if (response.isSuccessful()) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        allRestaurantTables.add(response.body().get(i));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<RestaurantTable>> call, Throwable t) {
-                Log.e("Detail", "error loading from API");
-            }
-        });
+        restaurantId = prefs.getInt("resId", 0);
 
         for (int i = 0; i < relativeLayout.getChildCount(); i++) {
             View view = relativeLayout.getChildAt(i);
@@ -124,6 +90,55 @@ public class ReservationTablesFragment extends Fragment {
                 break;
             }
         }
+
+
+
+        apiService = ApiUtils.getApiService();
+
+        try {
+            apiService.getReservationTables(restaurantId).enqueue(new Callback<List<ReservationTable>>() {
+                @Override
+                public void onResponse(Call<List<ReservationTable>> call, Response<List<ReservationTable>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            allReservationTables.add(response.body().get(i));
+                        }
+
+                        apiService.getRestaurantTables(String.valueOf(restaurantId)).enqueue(new Callback<List<RestaurantTable>>() {
+                            @Override
+                            public void onResponse(Call<List<RestaurantTable>> call, Response<List<RestaurantTable>> response) {
+                                if (response.isSuccessful()) {
+                                    for (int i = 0; i < response.body().size(); i++) {
+                                        allRestaurantTables.add(response.body().get(i));
+                                    }
+
+                                    handleTableView(apiDate, apiTime);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<RestaurantTable>> call, Throwable t) {
+                                Log.e("Detail", "error loading from API");
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ReservationTable>> call, Throwable t) {
+                    Log.e("Detail", "error loading from API");
+                }
+            });
+        } catch (Exception e) {
+
+        }
+
+
+
+        return v;
+    }
+
+    private void handleTableView(String apiDate, String apiTime) {
 
         String apiYear = apiDate.split("-")[2];
         String apiMonth = apiDate.split("-")[1];
@@ -210,7 +225,7 @@ public class ReservationTablesFragment extends Fragment {
 
         //ako nije odabran nijedan sto, ne moze dalje
         //if(chosenTables.size() == 0)
-            //next.setEnabled(false);
+        //next.setEnabled(false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("id", -1);
@@ -226,8 +241,6 @@ public class ReservationTablesFragment extends Fragment {
             res.setEndDate(generateEndDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute));
             apiService.insertReservation(res);
         }
-
-        return v;
     }
 
     private String generateStartDateString(String year, String month, String day, String hour, String minute) {
