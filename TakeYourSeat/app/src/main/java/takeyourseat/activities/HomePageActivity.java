@@ -110,10 +110,6 @@ public class HomePageActivity extends AppCompatActivity {
                                         if(response.isSuccessful()) {
                                             if(response.body().size() == 1 && name.equals(response.body().get(0).getName())) {
                                                 int resId = response.body().get(0).getId();
-                                                sharedPrefs = getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
-                                                editor = sharedPrefs.edit();
-                                                editor.putInt("resId", resId);
-                                                editor.commit();
                                                 String resName = response.body().get(0).getName();
                                                 String description = response.body().get(0).getDescription();
                                                 String email = response.body().get(0).getEmail();
@@ -122,6 +118,7 @@ public class HomePageActivity extends AppCompatActivity {
                                                 String image = response.body().get(0).getImage();
                                                 int location = response.body().get(0).getLocation();
                                                 Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
+                                                detailView.putExtra("id", resId);
                                                 detailView.putExtra("name",resName);
                                                 detailView.putExtra("description",description);
                                                 detailView.putExtra("email",email);
