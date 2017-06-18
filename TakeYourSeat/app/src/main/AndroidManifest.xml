@@ -32,9 +32,9 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/googleMapsKey" />
 
-        <activity android:name="takeyourseat.activities.MainActivity"
-            android:noHistory="true">
-        </activity>
+        <activity
+            android:name="takeyourseat.activities.MainActivity"
+            android:noHistory="true"></activity>
         <activity android:name="takeyourseat.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,8 +52,7 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
-            android:label="@string/homePage">
-        </activity>
+            android:label="@string/homePage"></activity>
         <activity
             android:name="takeyourseat.activities.SettingsActivity"
             android:label="@string/settings"
@@ -140,6 +139,13 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name="takeyourseat.activities.DialogActivity">
+            <intent-filter>
+                <action android:name="takeyourseat.activities.DialogActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
 
     </application>

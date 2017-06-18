@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using log4net;
+using log4net.Layout;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TakeYourSeatAPI.Business;
+using TakeYourSeatAPI.Business.Model;
 
 namespace TakeYourSeatAPI.Controllers
 {
@@ -14,6 +19,7 @@ namespace TakeYourSeatAPI.Controllers
     {
         private readonly DataService _dataService = new DataService();
         private readonly ILog _logger = LogManager.GetLogger("APILogger");
+        private readonly FCMService _fcmService = new FCMService();
 
         [HttpGet]
         [Route("api/Data/GetAll/{tableName}")]
@@ -178,6 +184,108 @@ namespace TakeYourSeatAPI.Controllers
                 _logger.Error(ex.Message);
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
             }
+        }
+
+        [HttpPut]
+        [Route("api/Data/AddFriendship/{userId}/{friendId}")]
+        public IHttpActionResult AddFriendship(string userId, string friendId)
+        {
+            try
+            {
+                var retVal = _dataService.AddFriendship(userId, friendId);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Data/SendFriendRequest/{userId}/{friendId}")]
+        public bool SendFriendRequest(string userId, string friendId)
+        {
+
+            var userResults = _dataService.GetBy("User", "Id", userId) as List<Dictionary<string, object>>;
+            var friendResult = _dataService.GetBy("User", "Id", friendId) as List<Dictionary<string, object>>;
+
+            object userName;
+            object userLastName;
+            object friendToken;
+            userResults.First().TryGetValue("Name", out userName);
+            userResults.First().TryGetValue("LastName", out userLastName);
+            friendResult.First().TryGetValue("Token", out friendToken);
+
+
+            var objNotification = new
+            {
+                to = friendToken,
+                notification = new
+                {
+                    title = "New Friend Request",
+                    //body = "Accept as a friend?",
+                    click_action = "takeyourseat.activities.DialogActivity",
+                    sound = "default",
+                },
+                data = new
+                {
+                    userId = userId,
+                    friendId = friendId,
+                    userName = userName.ToString(),
+                    userLastName = userName.ToString()
+                }
+            };
+            return SendNotification(objNotification);
+        }
+
+        public bool SendNotification(object objNotification)
+        {
+            bool retVal = false;
+
+            WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+            string serverKey = "AAAAIv__qpQ:APA91bHxAi6lP6K6sQwzXJQAm8E-VG5XTiLQIGLVYioxoYQuW-KAkEAqBytOybbDuF2lhSwv1CnAMZTHfSE92zD7IdHoz3zuhXUaS9QGmQSFsATVq62rpNX5CCnQsrD3vbu-uostQnkc";
+            var senderId = "150323833492";
+            tRequest.Method = "post";
+            tRequest.ContentType = "application/json";
+
+            string jsonNotificationFormat = Newtonsoft.Json.JsonConvert.SerializeObject(objNotification);
+
+            Byte[] byteArray = Encoding.UTF8.GetBytes(jsonNotificationFormat);
+            tRequest.Headers.Add(string.Format("Authorization: key={0}", serverKey));
+            tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+            tRequest.ContentLength = byteArray.Length;
+            tRequest.ContentType = "application/json";
+            using (Stream dataStream = tRequest.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+
+                using (WebResponse tResponse = tRequest.GetResponse())
+                {
+                    using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                    {
+                        using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                        {
+                            String responseFromFirebaseServer = tReader.ReadToEnd();
+
+                            FCMResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<FCMResponse>(responseFromFirebaseServer);
+                            if (response.success == 1)
+                            {
+                                _logger.Info("Notification sent successfully");
+                                retVal = true;
+                            }
+                            else if (response.failure == 1)
+                            {
+                                _logger.Error(string.Format("Error sent from FCM server, after sending request : {0} , for following device info: {1}", responseFromFirebaseServer, jsonNotificationFormat));
+                                retVal = false;
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            return retVal;
         }
 
     }

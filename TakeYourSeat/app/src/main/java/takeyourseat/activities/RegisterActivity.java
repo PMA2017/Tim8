@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +21,7 @@ import retrofit2.Response;
 import takeyourseat.model.User;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.services.FirebaseIDService;
 
 import static com.example.anica.takeyourseat.R.*;
 
@@ -140,6 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setLastName(lastName);
         user.setName(firstName);
         user.setPassword(password);
+        user.setToken(FirebaseInstanceId.getInstance().getToken());
 
         apiService.insertUser(user).enqueue(new Callback<String>() {
             @Override

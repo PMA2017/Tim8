@@ -76,4 +76,10 @@ public interface ApiService {
 
     @PUT("api/data/deletefriendship/{userId}/{friendId}")
     Call<Boolean> deleteFriendship(@Path("userId") String userId, @Path("friendId") String friendId);
+
+    @PUT("api/data/addfriendship/{userId}/{friendId}")
+    Call<Boolean> addFriendship(@Path("userId") String userId, @Path("friendId") String friendId);
+
+    @GET("api/data/sendFriendRequest/{userId}/{friendId}")
+    Call<Boolean> sendFriendRequest(@Path("userId") String userId, @Path("friendId") String friendId);
 }

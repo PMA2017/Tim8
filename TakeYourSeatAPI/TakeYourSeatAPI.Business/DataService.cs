@@ -76,5 +76,24 @@ namespace TakeYourSeatAPI.Business
         {
             return _dataRepository.DeleteFriendship(userId, friendId);
         }
+
+        public bool AddFriendship(string userId, string friendId)
+        {
+            var firstPair = new Dictionary<string, string>
+            {
+                {"User", userId},
+                {"Friend", friendId }
+            };
+            var secondPair = new Dictionary<string, string>
+            {
+                {"User", friendId},
+                {"Friend", userId }
+            };
+
+            var firstResult = _dataRepository.Insert("Friends", firstPair.Keys.ToList(), firstPair.Values.ToList());
+            var secondResult = _dataRepository.Insert("Friends", secondPair.Keys.ToList(), secondPair.Values.ToList());
+
+            return firstResult.ToString() != "-1" && secondResult.ToString() != "-1";
+        }
     }
 }

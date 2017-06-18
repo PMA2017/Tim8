@@ -19,3 +19,38 @@ The statement has been terminated.
 ERROR 2017-06-18 01:29:07,347 28298ms APILogger              .ctor              - A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
 ERROR 2017-06-18 01:29:09,832 30783ms APILogger              GetColumnNames     - ExecuteReader requires an open and available Connection. The connection's current state is closed.
 ERROR 2017-06-18 01:29:09,851 30802ms APILogger              GetFrinds          - ExecuteReader requires an open and available Connection. The connection's current state is closed.
+INFO  2017-06-18 05:28:45,125  2663ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:30:44,854 122391ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:30:58,201 135739ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:31:52,820 190358ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:33:09,786 267324ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:34:28,110 345647ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:35:32,495 410033ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:37:59,534 557072ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:38:17,285 574822ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:38:28,289 585826ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:38:39,688 597225ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:39:13,632 631170ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:39:24,094 641632ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 05:43:17,665  2254ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:03:08,102  2217ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:11:28,456  2341ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:11:41,536 15420ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:12:05,467 39352ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:12:23,616 57500ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:14:38,186 192071ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:20:50,156 564041ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 06:42:51,310 20841ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:00:02,408 1051939ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:03:51,999 15642ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:04:12,973 36616ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:26:26,528  5051ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:27:23,115 61638ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:27:56,852 95375ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:28:26,687 125210ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:28:58,885 157408ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:31:34,038 312561ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:32:52,487 391010ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:34:17,453 475976ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-06-18 07:35:37,574 556097ms APILogger              SendNotification   - Notification sent successfully
+ERROR 2017-06-18 07:52:02,708 23031ms APILogger              AddFriendship      - Specified cast is not valid.
