@@ -3,6 +3,7 @@ package takeyourseat.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,10 +34,11 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView nameView, addressView, emailView;
     private EditText nameEdit, addressEdit, emailEdit;
     private Button saveBtn, cancelBtn, editProfileBtn, editPasswordBtn;
-    private ImageView profilePicture;
     private ApiService apiService;
     private DatabaseHelper databaseHelper;
     private User currentUser;
+    private ImageView profilePicture;
+    private int userId;
 
 
     @Override
@@ -47,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         nameView = (TextView)findViewById(R.id.textViewName);
         addressView = (TextView)findViewById(R.id.textViewAddress);
         emailView = (TextView)findViewById(R.id.textViewEmail);
+        profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
         nameEdit = (EditText)findViewById(R.id.editTextName);
         addressEdit = (EditText)findViewById(R.id.editTextAddress);
@@ -59,11 +62,13 @@ public class ProfileActivity extends AppCompatActivity {
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
         SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt("id", -1);
+        userId = sharedPreferences.getInt("id", -1);
+        String token = sharedPreferences.getString("token","");
         currentUser = new User();
         try {
-            currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
-            //currentUser = getDatabaseHelper().getUserDao().queryForEq("id", id).get(0);
+            //currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
+            List<User> userr = getDatabaseHelper().getUserDao().queryBuilder().where().eq("token",token).query();
+            currentUser = userr.get(0);
         } catch (Exception e) {
             Log.e("ProfileActivity", e.getMessage());
         }
@@ -73,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         String pass = currentUser.getPassword();
         String email = currentUser.getEmail();
         String address = currentUser.getAddress();
+        String image = currentUser.getImage();
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity {
         currentUser.setEmail(email);
 
         try {
-            apiService.updateUser("Id", currentUser.getId().toString(), currentUser).enqueue(new Callback<Boolean>() {
+            apiService.updateUser("Id", Integer.toString(userId), currentUser).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if(!response.isSuccessful()) {

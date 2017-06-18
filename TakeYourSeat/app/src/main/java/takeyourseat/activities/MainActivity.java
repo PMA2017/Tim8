@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putInt("id",id);
-        /*editor.putString("token",token);
-        editor.putString("name",name);
+        editor.putString("token",token);
+        /*editor.putString("name",name);
         editor.putString("lastName",lastName);
         editor.putString("pass",pass);
         editor.putString("address",address);

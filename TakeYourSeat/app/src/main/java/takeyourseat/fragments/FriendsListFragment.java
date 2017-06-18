@@ -60,7 +60,6 @@ public class FriendsListFragment extends Fragment {
     private ListView listMyFriends;
     private AlertDialog dialog;
     private boolean showRemoveDialog;
-    private DatabaseHelper databaseHelper;
     private ArrayList<String> users;
     private ApiService apiService;
     ArrayAdapter<String> adapter;
