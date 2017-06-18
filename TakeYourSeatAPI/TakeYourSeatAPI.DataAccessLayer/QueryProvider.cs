@@ -47,9 +47,21 @@ namespace TakeYourSeatAPI.DataAccessLayer
             return string.Format(Resources.Queries.SelectWhereIn, columnsPart, tableName, columnName, valuesPart);
         }
 
+        public string GetSelectWhereNotInQuery(string tableName, List<string> columnNames, string columnName, List<string> valuesList)
+        {
+            var columnsPart = string.Join(", ", columnNames.Select(c => $"[{c}]"));
+            var valuesPart = string.Join(", ", valuesList.Select(v => $"'{v}'"));
+            return string.Format(Resources.Queries.SelectWhereNotIn, columnsPart, tableName, columnName, valuesPart);
+        }
+
         public string GetSelectReservationsQuery(int restaurantId)
         {
             return string.Format(Resources.Queries.SelectReservationByRestaurant, restaurantId);
+        }
+
+        public string GetDeleteFriendsQuery(int userId, int friendId)
+        {
+            return string.Format(Resources.Queries.DeleteFriends, userId, friendId);
         }
     }
 }

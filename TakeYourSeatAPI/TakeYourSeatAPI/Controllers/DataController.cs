@@ -147,5 +147,38 @@ namespace TakeYourSeatAPI.Controllers
                 return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
             }
         }
+
+        [HttpGet]
+        [Route("api/Data/GetNonFriends/{value}")]
+        public IHttpActionResult GetNonFrinds(string value)
+        {
+            try
+            {
+                var retVal = _dataService.GetNonFriends(value);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Data/DeleteFriendship/{userId}/{friendId}")]
+        public IHttpActionResult DeleteFriendship(int userId, int friendId)
+        {
+            try
+            {
+                var retVal = _dataService.DeleteFriendship(userId, friendId);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
     }
 }

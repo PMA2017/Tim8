@@ -206,5 +206,47 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 throw;
             }
         }
+
+        public object GetByNotMany(string tableName, string columnName, List<string> valuesList)
+        {
+            var columnNames = GetColumnNames(tableName);
+            var query = _queryProvider.GetSelectWhereNotInQuery(tableName, columnNames, columnName, valuesList);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = new List<Dictionary<string, object>>();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = columnNames.ToDictionary(column => column, column => reader[column]);
+                    retVal.Add(row);
+                }
+                reader.Close();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
+
+        public bool DeleteFriendship(int userId, int friendId)
+        {
+            var query = _queryProvider.GetDeleteFriendsQuery(userId, friendId);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                var retVal = sqlCommand.ExecuteNonQuery();
+                return retVal != 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+        }
     }
 }

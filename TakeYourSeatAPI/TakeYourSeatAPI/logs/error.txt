@@ -16,3 +16,6 @@ ERROR 2017-05-23 15:28:44,945 258416ms APILogger              Delete            
 The statement has been terminated.
 ERROR 2017-05-23 15:28:44,952 258423ms APILogger              Delete             - The DELETE statement conflicted with the REFERENCE constraint "Address_Location". The conflict occurred in database "TakeYourSeatDB", table "dbo.Address", column 'Location'.
 The statement has been terminated.
+ERROR 2017-06-18 01:29:07,347 28298ms APILogger              .ctor              - A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+ERROR 2017-06-18 01:29:09,832 30783ms APILogger              GetColumnNames     - ExecuteReader requires an open and available Connection. The connection's current state is closed.
+ERROR 2017-06-18 01:29:09,851 30802ms APILogger              GetFrinds          - ExecuteReader requires an open and available Connection. The connection's current state is closed.

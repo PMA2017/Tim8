@@ -120,6 +120,9 @@
   <data name="Delete" xml:space="preserve">
     <value>DELETE FROM [{0}] WHERE [{1}] = '{2}'</value>
   </data>
+  <data name="DeleteFriends" xml:space="preserve">
+    <value>DELETE FROM [TakeYourSeatDB].[dbo].[Friends] WHERE ([User] = {0} AND [Friend] = {1}) OR ([User] = {1} AND [Friend] = {0})</value>
+  </data>
   <data name="Insert" xml:space="preserve">
     <value>INSERT INTO [{0}] ({1}) VALUES ({2}); SELECT SCOPE_IDENTITY();</value>
   </data>
@@ -142,6 +145,9 @@ res.RestaurantTable = rt.Id INNER JOIN
   </data>
   <data name="SelectWhereIn" xml:space="preserve">
     <value>SELECT {0} FROM [{1}] WHERE [{2}] IN ({3})</value>
+  </data>
+  <data name="SelectWhereNotIn" xml:space="preserve">
+    <value>SELECT {0} FROM [{1}] WHERE [{2}] NOT IN ({3})</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE [{0}] SET {1} WHERE [{2}] = '{3}'</value>

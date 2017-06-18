@@ -58,5 +58,23 @@ namespace TakeYourSeatAPI.Business
             }
             return GetByMany("User", "Id", values);
         }
+
+        public object GetNonFriends(string userId)
+        {
+            var connections = _dataRepository.GetBy("Friends", "User", userId);
+            var values = new List<string>();
+            foreach (var c in connections)
+            {
+                object value;
+                c.TryGetValue("Friend", out value);
+                if (value != null) values.Add(value.ToString());
+            }
+            return _dataRepository.GetByNotMany("User", "Id", values);
+        }
+
+        public bool DeleteFriendship(int userId, int friendId)
+        {
+            return _dataRepository.DeleteFriendship(userId, friendId);
+        }
     }
 }

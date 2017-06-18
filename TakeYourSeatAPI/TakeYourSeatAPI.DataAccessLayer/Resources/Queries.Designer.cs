@@ -70,6 +70,15 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [TakeYourSeatDB].[dbo].[Friends] WHERE ([User] = {0} AND [Friend] = {1}) OR ([User] = {1} AND [Friend] = {0}).
+        /// </summary>
+        internal static string DeleteFriends {
+            get {
+                return ResourceManager.GetString("DeleteFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO [{0}] ({1}) VALUES ({2}); SELECT SCOPE_IDENTITY();.
         /// </summary>
         internal static string Insert {
@@ -125,6 +134,15 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         internal static string SelectWhereIn {
             get {
                 return ResourceManager.GetString("SelectWhereIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE [{2}] NOT IN ({3}).
+        /// </summary>
+        internal static string SelectWhereNotIn {
+            get {
+                return ResourceManager.GetString("SelectWhereNotIn", resourceCulture);
             }
         }
         

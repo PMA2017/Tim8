@@ -70,4 +70,10 @@ public interface ApiService {
 
     @GET("api/data/getfriends/{value}")
     Call<List<User>> getFriends(@Path("value") String userId);
+
+    @GET("api/data/getnonfriends/{value}")
+    Call<List<User>> getNonFriends(@Path("value") String userId);
+
+    @PUT("api/data/deletefriendship/{userId}/{friendId}")
+    Call<Boolean> deleteFriendship(@Path("userId") String userId, @Path("friendId") String friendId);
 }
