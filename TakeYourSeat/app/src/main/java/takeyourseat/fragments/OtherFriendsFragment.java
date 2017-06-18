@@ -1,11 +1,14 @@
 package takeyourseat.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -18,6 +21,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.db.DatabaseHelper;
+import takeyourseat.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +41,11 @@ public class OtherFriendsFragment extends Fragment {
 
     private EditText searchOthers;
     private ListView listOthers;
+    private ArrayList<String> users;
+    private ApiService apiService;
+    ArrayAdapter<String> adapter;
+    private User currentUser;
+    private DatabaseHelper databaseHelper;
 
 
     public OtherFriendsFragment() {
@@ -40,10 +60,42 @@ public class OtherFriendsFragment extends Fragment {
        View v = inflater.inflate(R.layout.fragment_other_friends, container, false);
         listOthers = (ListView) v.findViewById(R.id.othersList);
         searchOthers = (EditText) v.findViewById(R.id.searchFriendsOthers);
-        String[] items = {"Friend 1","Friend 2","Friend 3","Friend 4","Friend 5","Friend 6","Friend 7","Friend 8"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row,R.id.othersTextView,items);
-        listOthers.setAdapter(adapter);
-        registerForContextMenu(listOthers);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id", -1);
+        currentUser = new User();
+        try {
+            currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
+            //currentUser = getDatabaseHelper().getUserDao().queryForEq("id", id).get(0);
+        } catch (Exception e) {
+            Log.e("ProfileActivity", e.getMessage());
+        }
+
+        users = new ArrayList<>();
+        apiService = ApiUtils.getApiService();
+        try {
+            apiService.getNonFriends(String.valueOf(id)).enqueue(new Callback<List<User>>() {
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            users.add(response.body().get(i).getName() + " " + response.body().get(i).getLastName());
+                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row,R.id.othersTextView,users);
+                            listOthers.setAdapter(adapter);
+                            registerForContextMenu(listOthers);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable t) {
+                    Log.e("ListFriends", "error loading from API");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("ListFriends", ex.getMessage());
+        }
 
         searchOthers.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,6 +105,7 @@ public class OtherFriendsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                OtherFriendsFragment.this.adapter.getFilter().filter(s);
             }
 
             @Override
@@ -93,5 +146,12 @@ public class OtherFriendsFragment extends Fragment {
             String search = savedInstanceState.getString("search");
             searchOthers.setText(search);
         }
+    }
+
+    public DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 }

@@ -1,6 +1,8 @@
 package takeyourseat.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -34,6 +36,8 @@ public class DetailActivity extends AppCompatActivity {
     private String restaurantName;
     private int locationId;
     private String imageUrl;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -45,26 +49,21 @@ public class DetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                restaurantName= null;
+                restaurantName = null;
             } else {
                 restaurantName= extras.getString("name");
                 locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
-                Bundle args = new Bundle();
-                args.putString("resName",restaurantName);
-                AllReservationDetailsFragment all = new AllReservationDetailsFragment();
-                all.setArguments(args);
-
             }
         } else {
             restaurantName = savedInstanceState.getString("resName");
             imageUrl = savedInstanceState.getString("imageUrl");
-            Bundle args = new Bundle();
-            args.putString("resName",restaurantName);
-            AllReservationDetailsFragment all = new AllReservationDetailsFragment();
-            all.setArguments(args);
-
         }
+
+        sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("resName",restaurantName);
+        editor.commit();
 
         resNameTextView = (TextView) findViewById(R.id.resNameDetail);
         resNameTextView.setText(restaurantName);

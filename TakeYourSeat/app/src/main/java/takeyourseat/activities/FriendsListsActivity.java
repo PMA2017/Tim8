@@ -9,8 +9,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import takeyourseat.adapters.ViewPagerAdapter;
+import takeyourseat.db.DatabaseHelper;
 import takeyourseat.dialogs.RemoveFriendsDialog;
 import takeyourseat.fragments.FriendsListFragment;
 import takeyourseat.fragments.OtherFriendsFragment;
@@ -20,6 +22,7 @@ public class FriendsListsActivity extends AppCompatActivity {
     private TabLayout tabFriends;
     private ViewPager view;
     private ViewPagerAdapter viewPagerAdapter;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

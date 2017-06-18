@@ -39,11 +39,6 @@ public class AllReservationDetailsFragment extends Fragment {
             container.removeAllViews();
         }
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            resNameText = bundle.getString("resName");
-        }
-
 
         View v = inflater.inflate(R.layout.fragment_all_reservation_details, container, false);
         date = (TextView) v.findViewById(R.id.resDateText);
@@ -51,8 +46,9 @@ public class AllReservationDetailsFragment extends Fragment {
         resName = (TextView) v.findViewById(R.id.resNameText);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
-        String dateRes = sharedPreferences.getString("date","nothing");
-        String timeRes = sharedPreferences.getString("time","nothing");
+        String dateRes = sharedPreferences.getString("date","null");
+        String timeRes = sharedPreferences.getString("time","null");
+        resNameText = sharedPreferences.getString("resName","null");
         date.setText(dateRes);
         time.setText(timeRes);
         resName.setText(resNameText);

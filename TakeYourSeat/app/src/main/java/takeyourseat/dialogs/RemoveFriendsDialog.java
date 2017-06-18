@@ -12,6 +12,8 @@ import com.example.anica.takeyourseat.R;
  */
 
 public class RemoveFriendsDialog extends AlertDialog.Builder{
+
+    private boolean a = false;
     public RemoveFriendsDialog(Context context) {
 
         super(context);
@@ -19,24 +21,27 @@ public class RemoveFriendsDialog extends AlertDialog.Builder{
         setUpDialog();
     }
 
-    private void setUpDialog(){
+    private boolean setUpDialog(){
         setTitle(R.string.delete);
         setMessage(R.string.delOk);
         setCancelable(false);
+
 
         setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                // delete from friends list
                 dialog.dismiss();
+                a = true;
             }
         });
 
         setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
+                a = false;
             }
         });
-
+        return a;
     }
 
     public AlertDialog prepareDialog(){

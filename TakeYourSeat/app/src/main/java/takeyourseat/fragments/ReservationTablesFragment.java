@@ -209,8 +209,8 @@ public class ReservationTablesFragment extends Fragment {
         }
 
         //ako nije odabran nijedan sto, ne moze dalje
-        if(chosenTables.size() == 0)
-            next.setEnabled(false);
+        //if(chosenTables.size() == 0)
+            //next.setEnabled(false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("id", -1);
