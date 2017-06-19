@@ -48,12 +48,11 @@ public class ReservationTablesFragment extends Fragment {
     private ArrayList<RestaurantTable> allRestaurantTables = new ArrayList<RestaurantTable>();
     private ApiService apiService;
     private String apiDate, apiTime;
-    private int restaurantId;
+    private int restaurantId, userId;
 
     public ReservationTablesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,10 +63,31 @@ public class ReservationTablesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_reservation_tables, container, false);
 
         next = (Button) v.findViewById(R.id.next2);
+        apiService = ApiUtils.getApiService();
+
+        SharedPreferences prefs = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
+        apiDate = prefs.getString("date", null); //dd-mm-yyy
+        apiTime = prefs.getString("time", null); //hh:mm
+        restaurantId = prefs.getInt("resId", 0);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String apiYear = apiDate.split("-")[2];
+                String apiMonth = apiDate.split("-")[1];
+                String apiDay = apiDate.split("-")[0];
+
+                String apiHour = apiTime.substring(0, 1);
+                String apiMinute = apiTime.substring(3, 4);
+
+                for(int i = 0; i < chosenTables.size(); i++) {
+                    Reservation res = new Reservation();
+                    res.setUser(userId);
+                    res.setRestaurantTable(chosenTables.get(i).getId());
+                    res.setStartDate(generateStartDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute)); //yyyy-mm-ddThh:mm:ss
+                    res.setEndDate(generateEndDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute));
+                    apiService.insertReservation(res);
+                }
                 Fragment fragment = new ReservationOtherDetailsFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.content_frame,fragment);
@@ -78,10 +98,8 @@ public class ReservationTablesFragment extends Fragment {
 
         relativeLayout = (RelativeLayout) v.findViewById(R.id.tableRelative);
 
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
-        apiDate = prefs.getString("date", null); //dd-mm-yyy
-        apiTime = prefs.getString("time", null); //hh:mm
-        restaurantId = prefs.getInt("resId", 0);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        userId = sharedPreferences.getInt("id", -1);
 
         for (int i = 0; i < relativeLayout.getChildCount(); i++) {
             View view = relativeLayout.getChildAt(i);
@@ -90,10 +108,6 @@ public class ReservationTablesFragment extends Fragment {
                 break;
             }
         }
-
-
-
-        apiService = ApiUtils.getApiService();
 
         try {
             apiService.getReservationTables(restaurantId).enqueue(new Callback<List<ReservationTable>>() {
@@ -133,8 +147,6 @@ public class ReservationTablesFragment extends Fragment {
 
         }
 
-
-
         return v;
     }
 
@@ -171,10 +183,6 @@ public class ReservationTablesFragment extends Fragment {
             }
         }
 
-        //imam sve stolove za restoran
-        //prolazim kroz listu onih koji su unavailable
-        //i one koji tu ne pripadaju dodajem u listu available
-
         for(int i = 0; i < allRestaurantTables.size(); i++) {
             if(!ifTableIsUnavailable(allRestaurantTables.get(i).getNumber())) {
                 ReservationTable table = new ReservationTable();
@@ -183,10 +191,6 @@ public class ReservationTablesFragment extends Fragment {
                 availableTables.add(table);
             }
         }
-
-        //imam 3 vrste stolova
-        //slobodni, zauzeti i nepostojeci
-        //braon, crveni i sivi
 
         for (int j = 0; j < gridLayout.getChildCount(); j++) {
             View view = gridLayout.getChildAt(j);
@@ -214,6 +218,7 @@ public class ReservationTablesFragment extends Fragment {
                                 }
                             }
                         });
+
                     }
                     else { //ako uopste ne postoji za dati restoran
                         btn.setEnabled(false);
@@ -222,26 +227,8 @@ public class ReservationTablesFragment extends Fragment {
                 }
             }
         }
-
-        //ako nije odabran nijedan sto, ne moze dalje
-        //if(chosenTables.size() == 0)
-        //next.setEnabled(false);
-
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("id", -1);
-
-        //sacuvati rezervaciju
-        //pri cuvanju datuma, proveriti da li start + 3 prevalizali 24
-        //ako da, onda se povecava dan i vreme se menja
-        for(int i = 0; i < chosenTables.size(); i++) {
-            Reservation res = new Reservation();
-            res.setUser(userId);
-            res.setRestaurantTable(chosenTables.get(i).getId());
-            res.setStartDate(generateStartDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute)); //yyyy-mm-ddThh:mm:ss
-            res.setEndDate(generateEndDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute));
-            apiService.insertReservation(res);
-        }
     }
+
 
     private String generateStartDateString(String year, String month, String day, String hour, String minute) {
         return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":00";
@@ -275,8 +262,10 @@ public class ReservationTablesFragment extends Fragment {
         boolean ifExists = false;
 
         for(int i = 0; i < unavailableTables.size(); i++) {
-            if(tableName.equals("Table " + unavailableTables.get(i).getNumber()))
+            if(tableName.equals("Table " + unavailableTables.get(i).getNumber())) {
                 ifExists = true;
+                break;
+            }
         }
 
         return ifExists;
@@ -286,8 +275,10 @@ public class ReservationTablesFragment extends Fragment {
         boolean ifExists = false;
 
         for(int i = 0; i < availableTables.size(); i++) {
-            if(tableName.equals("Table " + availableTables.get(i).getNumber()))
+            if(tableName.equals("Table " + availableTables.get(i).getNumber())) {
                 ifExists = true;
+                break;
+            }
         }
 
         return ifExists;
@@ -297,8 +288,10 @@ public class ReservationTablesFragment extends Fragment {
         boolean ifExists = false;
 
         for(int i = 0; i < unavailableTables.size(); i++) {
-            if(number == unavailableTables.get(i).getNumber())
+            if(number == unavailableTables.get(i).getNumber()) {
                 ifExists = true;
+                break;
+            }
         }
         return ifExists;
     }
