@@ -7,7 +7,7 @@ using log4net;
 
 namespace TakeYourSeatAPI.DataAccessLayer
 {
-    public class DataRepository : IDisposable
+    public class DataRepository
     {
         private readonly SqlConnection _connection;
         private readonly QueryProvider _queryProvider = new QueryProvider();
@@ -18,7 +18,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
             try
             {
                 _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                _connection.Open();
+                //_connection.Open();
             }
             catch (Exception ex)
             {
@@ -32,6 +32,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
             var sqlCommand = new SqlCommand(query, _connection);
             try
             {
+                _connection.Open();
                 var columnNames = new List<string>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -46,6 +47,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 _logger.Error(ex.Message);
                 throw;
             }
+            finally
+            {
+                _connection.Close();
+            }
         }
 
         public List<Dictionary<string, object>> GetAll(string tableName)
@@ -56,6 +61,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -70,6 +76,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -81,6 +91,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -95,6 +106,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -105,6 +120,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = sqlCommand.ExecuteScalar();
                 return retVal;
             }
@@ -112,6 +128,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -122,6 +142,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = sqlCommand.ExecuteNonQuery();
                 return retVal != 0;
             }
@@ -129,6 +150,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -139,6 +164,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = sqlCommand.ExecuteNonQuery();
                 return retVal != 0;
             }
@@ -147,11 +173,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 _logger.Error(ex.Message);
                 throw;
             }
-        }
-
-        public void Dispose()
-        {
-            _connection.Dispose();
+            finally
+            {
+                _connection.Close();
+            }
         }
 
         public object GetByMany(string tableName, string columnName, List<string> valuesList)
@@ -162,6 +187,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -176,6 +202,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -190,6 +220,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -204,6 +235,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
 
@@ -215,6 +250,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = new List<Dictionary<string, object>>();
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -230,6 +266,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 _logger.Error(ex.Message);
                 throw;
             }
+            finally
+            {
+                _connection.Close();
+            }
         }
 
         public bool DeleteFriendship(int userId, int friendId)
@@ -239,6 +279,7 @@ namespace TakeYourSeatAPI.DataAccessLayer
 
             try
             {
+                _connection.Open();
                 var retVal = sqlCommand.ExecuteNonQuery();
                 return retVal != 0;
             }
@@ -246,6 +287,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
             {
                 _logger.Error(ex.Message);
                 throw;
+            }
+            finally
+            {
+                _connection.Close();
             }
         }
     }
