@@ -75,4 +75,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         userDao = null;
         super.close();
     }
+
+    public User getCurrentUser() {
+        try {
+            return getUserDao().queryForAll().get(0);
+        }
+        catch (Exception ex) {
+            Log.e("ProfilePicture", ex.getMessage());
+            return null;
+        }
+    }
 }

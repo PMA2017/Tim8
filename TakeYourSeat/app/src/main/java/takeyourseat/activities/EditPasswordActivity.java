@@ -142,23 +142,10 @@ public class EditPasswordActivity extends AppCompatActivity {
 
         apiService = ApiUtils.getApiService();
 
-
-        SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("token","");
-        currentUser = getCurrentUser(token);
+        currentUser = getDatabaseHelper().getCurrentUser();
+        userId = currentUser.getId();
     }
 
-    private User getCurrentUser(String token) {
-        userId = getIntent().getExtras().getInt("userId");
-        try {
-            List<User> userr = getDatabaseHelper().getUserDao().queryBuilder().where().eq("token",token).query();
-            currentUser = userr.get(0);
-            return currentUser;
-        } catch (SQLException e) {
-            Log.e("EditPasswordActivity", e.getMessage());
-            return null;
-        }
-    }
 
     private void editPassword() {
         if(validate()) {

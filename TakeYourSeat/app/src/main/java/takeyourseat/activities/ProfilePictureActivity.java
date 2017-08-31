@@ -121,4 +121,5 @@ public class ProfilePictureActivity extends AppCompatActivity {
         }
         return databaseHelper;
     }
+
 }

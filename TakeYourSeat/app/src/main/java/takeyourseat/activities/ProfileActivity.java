@@ -61,17 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
         cancelBtn = (Button)findViewById(R.id.cancelProfile);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        userId = sharedPreferences.getInt("id", -1);
-        String token = sharedPreferences.getString("token","");
-        currentUser = new User();
-        try {
-            //currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
-            List<User> userr = getDatabaseHelper().getUserDao().queryBuilder().where().eq("token",token).query();
-            currentUser = userr.get(0);
-        } catch (Exception e) {
-            Log.e("ProfileActivity", e.getMessage());
-        }
+        currentUser = getDatabaseHelper().getCurrentUser();
+        userId = currentUser.getId();
 
         String name = currentUser.getName();
         String lastName = currentUser.getLastName();
@@ -79,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         String email = currentUser.getEmail();
         String address = currentUser.getAddress();
         String image = currentUser.getImage();
+
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override

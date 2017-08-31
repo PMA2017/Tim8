@@ -273,7 +273,7 @@ public class HomePageActivity extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }*/
-                 deleteAll();
+                deleteAll();
                 Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
                 Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(logOut);

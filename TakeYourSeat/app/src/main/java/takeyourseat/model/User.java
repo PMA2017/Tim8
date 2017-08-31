@@ -23,7 +23,7 @@ public class User {
 
     @SerializedName("Id")
     @Expose
-    @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
+    @DatabaseField(columnName = FIELD_NAME_ID)
     private Integer id;
     @SerializedName("Token")
     @Expose
