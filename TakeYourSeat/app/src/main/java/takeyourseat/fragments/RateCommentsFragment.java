@@ -91,8 +91,7 @@ public class RateCommentsFragment extends Fragment  {
 
         commentsList = (ListView) v.findViewById(R.id.commentsList);
         addComment = (Button) v.findViewById(R.id.addComment);
-        SharedPreferences resPrefs = this.getActivity().getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
-        restaurantId = resPrefs.getInt("resId", 0);
+        restaurantId = getArguments().getInt("id");
 
         comments = new ArrayList<>();
         apiService = ApiUtils.getApiService();

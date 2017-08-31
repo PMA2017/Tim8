@@ -47,8 +47,7 @@ public class MenuFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
         expandableListView = (ExpandableListView) v.findViewById(R.id.expListView);
 
-        SharedPreferences resPrefs = this.getActivity().getSharedPreferences("restaurantId", Context.MODE_PRIVATE);
-        int restaurantId = resPrefs.getInt("resId", 0);
+        int restaurantId = getArguments().getInt("id");
 
         apiService = ApiUtils.getApiService();
         try {

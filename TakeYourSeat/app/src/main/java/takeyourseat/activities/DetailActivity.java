@@ -82,19 +82,32 @@ public class DetailActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFrag(new MenuFragment(), "");
-        viewPagerAdapter.addFrag(new TableFragment(), "");
-        viewPagerAdapter.addFrag(new RateCommentsFragment(), "");
-        viewPagerAdapter.addFrag(new AboutFragment(), "");
-        //viewPagerAdapter.addFrag(new LocationFragment(), "");
 
-        LocationFragment locationFragmet = new LocationFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("location", locationId);
         bundle.putString("name", restaurantName);
-        locationFragmet.setArguments(bundle);
+        bundle.putInt("id", resId);
 
-        viewPagerAdapter.addFrag(locationFragmet, "");
+        MenuFragment menuFragment = new MenuFragment();
+        menuFragment.setArguments(bundle);
+
+        TableFragment tableFragment = new TableFragment();
+        tableFragment.setArguments(bundle);
+
+        RateCommentsFragment rateCommentsFragment = new RateCommentsFragment();
+        rateCommentsFragment.setArguments(bundle);
+
+        AboutFragment aboutFragment = new AboutFragment();
+        aboutFragment.setArguments(bundle);
+
+        LocationFragment locationFragment = new LocationFragment();
+        locationFragment.setArguments(bundle);
+
+        viewPagerAdapter.addFrag(menuFragment, "");
+        viewPagerAdapter.addFrag(tableFragment, "");
+        viewPagerAdapter.addFrag(rateCommentsFragment, "");
+        viewPagerAdapter.addFrag(aboutFragment, "");
+        viewPagerAdapter.addFrag(locationFragment, "");
 
         viewPager.setAdapter(viewPagerAdapter);
     }
