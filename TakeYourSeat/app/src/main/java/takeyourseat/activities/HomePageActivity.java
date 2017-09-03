@@ -259,25 +259,9 @@ public class HomePageActivity extends AppCompatActivity {
                 startActivity(settings);
                 break;
             case R.id.logOut:
-                // ovde treba uzlogovati usera
-                /*SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-                int id = sharedPreferences.getInt("id",0);
-                String id1 = String.valueOf(id);
-                Toast.makeText(this, id1, Toast.LENGTH_SHORT).show();
-                //User user = getDatabaseHelper().getUserDao().queryForId(id);
-                try {
-                    getDatabaseHelper().getUserDao().deleteById(id);
-                    Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
-                    Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
-                    startActivity(logOut);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }*/
                 deleteAll();
-                Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
                 Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(logOut);
-
                 break;
         }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -320,11 +304,9 @@ public class HomePageActivity extends AppCompatActivity {
     {
         try
         {
-            for(User user : getDatabaseHelper().getUserDao().queryForAll())
-            {
-                Dao<User, Integer> dao = getDatabaseHelper().getUserDao();
-                dao.delete(user);
-            }
+            User currentUser = getDatabaseHelper().getCurrentUser();
+            getDatabaseHelper().getUserDao().deleteById(currentUser.getId());
+
         }
         catch(Exception e)
         {
@@ -332,7 +314,7 @@ public class HomePageActivity extends AppCompatActivity {
         }
         finally
         {
-            getDatabaseHelper().close();
+            //getDatabaseHelper().close();
         }
     }
 

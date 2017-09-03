@@ -1,5 +1,6 @@
 package takeyourseat.activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ public class DialogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dialog);
 
         Bundle args = new Bundle();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 
         String userId = getIntent().getExtras().getString("userId");
         String friendId = getIntent().getExtras().getString("friendId");
