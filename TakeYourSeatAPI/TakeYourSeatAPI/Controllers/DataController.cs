@@ -233,7 +233,7 @@ namespace TakeYourSeatAPI.Controllers
                     userId = userId,
                     friendId = friendId,
                     userName = userName.ToString(),
-                    userLastName = userName.ToString()
+                    userLastName = userLastName.ToString()
                 }
             };
             return SendNotification(objNotification);
