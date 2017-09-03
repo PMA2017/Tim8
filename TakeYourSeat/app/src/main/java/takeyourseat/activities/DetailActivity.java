@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private String name, imageUrl, description, email, phone, website;
-    private int resId, locationId;
+    private int id, locationId;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
                 name = extras.getString("name");
                 locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
-                resId = extras.getInt("id");
+                id = extras.getInt("id");
                 description = extras.getString("description");
                 email = extras.getString("email");
                 phone = extras.getString("phone");
@@ -66,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putString("resName",name);
-        editor.putInt("resId", resId);
+        editor.putInt("resId", id);
         editor.commit();
 
         resNameTextView = (TextView) findViewById(R.id.resNameDetail);
@@ -91,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
         bundle.putString("email", email);
         bundle.putString("phone", phone);
         bundle.putString("description", description);
-        bundle.putInt("id", resId);
+        bundle.putInt("id", id);
 
         MenuFragment menuFragment = new MenuFragment();
         menuFragment.setArguments(bundle);

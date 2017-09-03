@@ -1,15 +1,16 @@
 package takeyourseat.activities;
 
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
+
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.anica.takeyourseat.R;
 
-import takeyourseat.adapters.Communicator;
-
+import takeyourseat.fragments.DateAndTimeFragment;
+import takeyourseat.fragments.ReservationTablesFragment;
 
 
 public class ReservationActivity extends AppCompatActivity  {
@@ -19,11 +20,22 @@ public class ReservationActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
-        ViewPager vp = (ViewPager) findViewById(R.id.viewPagerFragment);
-        Communicator com = new Communicator(getSupportFragmentManager());
-        vp.setAdapter(com);
-        vp.setCurrentItem(0);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_frame, new DateAndTimeFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 }
 
