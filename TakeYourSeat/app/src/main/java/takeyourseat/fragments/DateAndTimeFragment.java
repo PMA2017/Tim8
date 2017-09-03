@@ -130,14 +130,23 @@ public class DateAndTimeFragment extends Fragment {
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            dateRes.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            dateRes.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
         }
     };
 
     TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            timeRes.setText(hourOfDay + ":" + minute);
+            String hour = String.valueOf(hourOfDay);
+            String minutes = String.valueOf(minute);
+
+            if(hour.length() == 1)
+                hour = "0" + hour;
+
+            if(minutes.length() == 1)
+                minutes = "0" + minutes;
+
+            timeRes.setText(hour + ":" + minutes);
         }
     };
 
@@ -149,8 +158,8 @@ public class DateAndTimeFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("date",dateResText);
-        outState.putString("time",timeResText);
+        outState.putString("date", dateResText);
+        outState.putString("time", timeResText);
     }
 
     @Override

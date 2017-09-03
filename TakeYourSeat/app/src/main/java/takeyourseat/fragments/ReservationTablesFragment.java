@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,10 @@ import android.widget.RelativeLayout;
 import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,19 +41,23 @@ public class ReservationTablesFragment extends Fragment {
     private RelativeLayout relativeLayout;
     private GridLayout gridLayout;
     private ArrayList<Button> tableButtons = new ArrayList<Button>();
-    private ArrayList<Button> chosenTables = new ArrayList<Button>();
+    private ArrayList<Button> chosenTableButtons = new ArrayList<Button>();
+
     private ArrayList<ReservationTable> allReservationTables = new ArrayList<ReservationTable>();
     private ArrayList<ReservationTable> unavailableTables = new ArrayList<ReservationTable>();
     private ArrayList<ReservationTable> availableTables = new ArrayList<ReservationTable>();
     private ArrayList<RestaurantTable> allRestaurantTables = new ArrayList<RestaurantTable>();
+    private ArrayList<RestaurantTable> chosenTables = new ArrayList<RestaurantTable>();
+
     private ApiService apiService;
     private String apiDate, apiTime;
     private int restaurantId, userId, counter;
     private DatabaseHelper databaseHelper;
+    private Date date;
 
-    public ReservationTablesFragment() {
-        // Required empty public constructor
-    }
+    public static final long HOUR = 3600*1000;
+
+    public ReservationTablesFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,31 +69,34 @@ public class ReservationTablesFragment extends Fragment {
 
         next = (Button) v.findViewById(R.id.next2);
         apiService = ApiUtils.getApiService();
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-        apiDate = getActivity().getIntent().getExtras().getString("date", null); //dd-mm-yyy
+        apiDate = getActivity().getIntent().getExtras().getString("date", null); //yyyy-mm-dd
         apiTime = getActivity().getIntent().getExtras().getString("time", null); //hh:mm
         restaurantId = getActivity().getIntent().getExtras().getInt("id", 0);
+
+        try {
+            date = formatter.parse(apiDate + "T" + apiTime + ":00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         userId = getDatabaseHelper().getCurrentUser().getId();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String apiYear = apiDate.split("-")[2];
-                String apiMonth = apiDate.split("-")[1];
-                String apiDay = apiDate.split("-")[0];
-
-                String apiHour = apiTime.substring(0, 1);
-                String apiMinute = apiTime.substring(3, 4);
 
                 counter = 0;
+
+                getChosenTablesFromButtons();
 
                 for(int i = 0; i < chosenTables.size(); i++) {
                     Reservation res = new Reservation();
                     res.setUser(userId);
                     res.setRestaurantTable(chosenTables.get(i).getId());
-                    res.setStartDate(generateStartDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute)); //yyyy-mm-ddThh:mm:ss
-                    res.setEndDate(generateEndDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute));
+                    res.setStartDate(formatter.format(date));
+                    res.setEndDate(formatter.format(new Date(date.getTime() + 3 * HOUR)));
                     apiService.insertReservation(res).enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
@@ -100,6 +111,7 @@ public class ReservationTablesFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
+                            Log.e("Detail", "error loading from API");
                         }
                     });
                 }
@@ -216,11 +228,11 @@ public class ReservationTablesFragment extends Fragment {
                                 Button clickedBtn = (Button)v;
                                 if(!ifExists(clickedBtn)) { //ako ne postoji u listi dodati ga
                                     clickedBtn.setBackgroundColor(Color.parseColor("#58D68D")); //zelena boja
-                                    chosenTables.add(clickedBtn);
+                                    chosenTableButtons.add(clickedBtn);
                                 }
                                 else { //ako postoji, obrisati ga
                                     clickedBtn.setBackgroundColor(Color.parseColor("#8D6E63"));
-                                    chosenTables.remove(clickedBtn);
+                                    chosenTableButtons.remove(clickedBtn);
                                 }
                             }
                         });
@@ -254,8 +266,8 @@ public class ReservationTablesFragment extends Fragment {
     private boolean ifExists(Button btn) {
         boolean ifExists = false;
 
-        for (int i = 0; i < chosenTables.size(); i++) {
-            if (btn.getId() == chosenTables.get(i).getId()) {
+        for (int i = 0; i < chosenTableButtons.size(); i++) {
+            if (btn.getId() == chosenTableButtons.get(i).getId()) {
                 ifExists = true;
                 break;
             }
@@ -301,6 +313,26 @@ public class ReservationTablesFragment extends Fragment {
         }
         return ifExists;
     }
+
+    private void getChosenTablesFromButtons() {
+        for(int i = 0; i < allRestaurantTables.size(); i++) {
+            if(ifExistsInChosenTables(allRestaurantTables.get(i).getNumber()))
+                chosenTables.add(allRestaurantTables.get(i));
+        }
+    }
+
+    private boolean ifExistsInChosenTables(int number) {
+        boolean ifExists = false;
+
+        for(int i = 0; i < chosenTableButtons.size(); i++) {
+            if(("Table " + number).equals(chosenTableButtons.get(i).getText())) {
+                ifExists = true;
+                break;
+            }
+        }
+        return ifExists;
+    }
+
     public DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
