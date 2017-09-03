@@ -107,9 +107,7 @@ public class DateAndTimeFragment extends Fragment {
             timeRes.setError("Please enter time");
             valid = false;
         }
-
         return valid;
-
     }
 
     private void initialize() {
@@ -121,7 +119,6 @@ public class DateAndTimeFragment extends Fragment {
         DatePickerDialog dpd = new DatePickerDialog(getActivity(),R.style.DialogTheme,d,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         dpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "CANCEL", dpd);
         dpd.show();
-
     }
 
     private void updateTime() {
@@ -145,16 +142,8 @@ public class DateAndTimeFragment extends Fragment {
     };
 
     public void saveDateAndTime(String date, String time) {
-        sharedPref = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
-
-        editor = sharedPref.edit();
-        editor.putString("date",date);
-        editor.putString("time",time);
-        editor.commit();
-
         this.getActivity().getIntent().putExtra("date", date);
         this.getActivity().getIntent().putExtra("time", time);
-
     }
 
     @Override
