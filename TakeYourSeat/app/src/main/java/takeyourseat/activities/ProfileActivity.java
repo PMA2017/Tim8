@@ -31,8 +31,8 @@ import takeyourseat.model.User;
 public class ProfileActivity extends AppCompatActivity {
 
 
-    private TextView nameView, addressView, emailView;
-    private EditText nameEdit, addressEdit, emailEdit;
+    private TextView nameView, lastNameView, addressView, emailView;
+    private EditText nameEdit, lastNameEdit, addressEdit, emailEdit;
     private Button saveBtn, cancelBtn, editProfileBtn, editPasswordBtn;
     private ApiService apiService;
     private DatabaseHelper databaseHelper;
@@ -47,11 +47,13 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         nameView = (TextView)findViewById(R.id.textViewName);
+        lastNameView = (TextView)findViewById(R.id.textViewLastName);
         addressView = (TextView)findViewById(R.id.textViewAddress);
         emailView = (TextView)findViewById(R.id.textViewEmail);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
         nameEdit = (EditText)findViewById(R.id.editTextName);
+        lastNameEdit = (EditText)findViewById(R.id.editTextLastName);
         addressEdit = (EditText)findViewById(R.id.editTextAddress);
         emailEdit = (EditText)findViewById(R.id.edittTextEmail);
 
@@ -108,7 +110,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        nameView.setText(name + " " + lastName);
+        nameView.setText(name);
+        lastNameView.setText(lastName);
         addressView.setText(address);
         emailView.setText(email);
 
@@ -126,16 +129,19 @@ public class ProfileActivity extends AppCompatActivity {
         toggleButtonAndTextVisibility(View.GONE, View.VISIBLE);
 
         nameEdit.setText(nameView.getText().toString().trim());
+        lastNameEdit.setText(lastNameView.getText().toString().trim());
         addressEdit.setText(addressView.getText().toString().trim());
         emailEdit.setText(emailView.getText().toString().trim());
     }
 
     private void save() {
         String name = nameEdit.getText().toString();
+        String lastName = lastNameEdit.getText().toString();
         String address = addressEdit.getText().toString();
         String email = emailEdit.getText().toString();
 
         currentUser.setName(name);
+        currentUser.setLastName(lastName);
         currentUser.setAddress(address);
         currentUser.setEmail(email);
 
@@ -156,6 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Log.e("ProfileActivity", e.getMessage());
                     }
                     nameView.setText(currentUser.getName());
+                    lastNameView.setText(currentUser.getLastName());
                     addressView.setText(currentUser.getAddress());
                     emailView.setText(currentUser.getEmail());
                     toggleButtonAndTextVisibility(View.VISIBLE, View.GONE);
@@ -181,10 +188,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void toggleButtonAndTextVisibility(int viewVisibility, int editVisibility) {
         nameView.setVisibility(viewVisibility);
+        lastNameView.setVisibility(viewVisibility);
         addressView.setVisibility(viewVisibility);
         emailView.setVisibility(viewVisibility);
 
         nameEdit.setVisibility(editVisibility);
+        lastNameEdit.setVisibility(editVisibility);
         addressEdit.setVisibility(editVisibility);
         emailEdit.setVisibility(editVisibility);
 

@@ -33,12 +33,10 @@ public class DetailActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
-    private String restaurantName;
-    private int locationId;
-    private String imageUrl;
+    private String name, imageUrl, description, email, phone, website;
+    private int id, locationId;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
-    private int resId;
 
 
     @Override
@@ -46,30 +44,33 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
 
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                restaurantName = null;
+                name = null;
             } else {
-                restaurantName= extras.getString("name");
+                name = extras.getString("name");
                 locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
-                resId = extras.getInt("id");
+                id = extras.getInt("id");
+                description = extras.getString("description");
+                email = extras.getString("email");
+                phone = extras.getString("phone");
+                website = extras.getString("website");
             }
         } else {
-            restaurantName = savedInstanceState.getString("resName");
+            name = savedInstanceState.getString("resName");
             imageUrl = savedInstanceState.getString("imageUrl");
         }
 
         sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        editor.putString("resName",restaurantName);
-        editor.putInt("resId", resId);
+        editor.putString("resName",name);
+        editor.putInt("resId", id);
         editor.commit();
 
         resNameTextView = (TextView) findViewById(R.id.resNameDetail);
-        resNameTextView.setText(restaurantName);
+        resNameTextView.setText(name);
         image = (ImageView)findViewById(R.id.restaurantImage);
         Picasso.with(getBaseContext()).load(imageUrl).resize(300, 200).centerInside().onlyScaleDown().into(image);
         tabs = (TabLayout) findViewById(R.id.tabLayout);
@@ -85,8 +86,12 @@ public class DetailActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putInt("location", locationId);
-        bundle.putString("name", restaurantName);
-        bundle.putInt("id", resId);
+        bundle.putString("name", name);
+        bundle.putString("website", website);
+        bundle.putString("email", email);
+        bundle.putString("phone", phone);
+        bundle.putString("description", description);
+        bundle.putInt("id", id);
 
         MenuFragment menuFragment = new MenuFragment();
         menuFragment.setArguments(bundle);
@@ -123,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("resName", restaurantName);
+        outState.putString("resName", name);
         outState.putString("imageUrl", imageUrl);
     }
 

@@ -1,11 +1,11 @@
 package takeyourseat.fragments;
 
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -104,9 +104,8 @@ public class  InviteFriendsFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Fragment fragment = new AllReservationDetailsFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame,fragment);
+                    transaction.replace(R.id.content_frame, new AllReservationDetailsFragment());
                     transaction.addToBackStack(null);
                     transaction.commit();
             }

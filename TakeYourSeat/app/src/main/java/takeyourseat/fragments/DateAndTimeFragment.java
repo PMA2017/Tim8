@@ -2,14 +2,14 @@ package takeyourseat.fragments;
 
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,16 +67,12 @@ public class DateAndTimeFragment extends Fragment {
         next1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean next = reserve();
-                if(next) {
-                    saveDateAndTime(dateResText,timeResText);
-                    Fragment fragment = new ReservationTablesFragment();
+                if(validateReservation()) {
+                    saveDateAndTime(dateResText, timeResText);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame, fragment);
+                    transaction.replace(R.id.content_frame, new ReservationTablesFragment());
                     transaction.addToBackStack(null);
                     transaction.commit();
-                } else {
-
                 }
             }
         });
@@ -96,13 +92,9 @@ public class DateAndTimeFragment extends Fragment {
         return v;
     }
 
-    private boolean reserve() {
+    private boolean validateReservation() {
         initialize();
-        if(!validate()) {
-            return false;
-        } else {
-            return true;
-        }
+        return validate();
     }
 
     private boolean validate() {
@@ -160,6 +152,8 @@ public class DateAndTimeFragment extends Fragment {
         editor.putString("time",time);
         editor.commit();
 
+        this.getActivity().getIntent().putExtra("date", date);
+        this.getActivity().getIntent().putExtra("time", time);
 
     }
 

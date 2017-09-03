@@ -1,13 +1,13 @@
 package takeyourseat.fragments;
 
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +48,7 @@ public class ReservationTablesFragment extends Fragment {
     private ArrayList<RestaurantTable> allRestaurantTables = new ArrayList<RestaurantTable>();
     private ApiService apiService;
     private String apiDate, apiTime;
-    private int restaurantId, userId;
+    private int restaurantId, userId, counter;
 
     public ReservationTablesFragment() {
         // Required empty public constructor
@@ -66,9 +66,9 @@ public class ReservationTablesFragment extends Fragment {
         apiService = ApiUtils.getApiService();
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
-        apiDate = prefs.getString("date", null); //dd-mm-yyy
-        apiTime = prefs.getString("time", null); //hh:mm
-        restaurantId = prefs.getInt("resId", 0);
+        apiDate = getActivity().getIntent().getExtras().getString("date", null); //dd-mm-yyy
+        apiTime = getActivity().getIntent().getExtras().getString("time", null); //hh:mm
+        restaurantId = getActivity().getIntent().getExtras().getInt("id", 0);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,19 +80,32 @@ public class ReservationTablesFragment extends Fragment {
                 String apiHour = apiTime.substring(0, 1);
                 String apiMinute = apiTime.substring(3, 4);
 
+                counter = 0;
+
                 for(int i = 0; i < chosenTables.size(); i++) {
                     Reservation res = new Reservation();
                     res.setUser(userId);
                     res.setRestaurantTable(chosenTables.get(i).getId());
                     res.setStartDate(generateStartDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute)); //yyyy-mm-ddThh:mm:ss
                     res.setEndDate(generateEndDateString(apiYear, apiMonth, apiDay, apiHour, apiMinute));
-                    apiService.insertReservation(res);
+                    apiService.insertReservation(res).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            counter++;
+                            if(counter == chosenTables.size()) {
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.content_frame, new InviteFriendsFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
                 }
-                Fragment fragment = new ReservationOtherDetailsFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame,fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
             }
         });
 

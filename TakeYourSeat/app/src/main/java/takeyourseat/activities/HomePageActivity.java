@@ -109,23 +109,15 @@ public class HomePageActivity extends AppCompatActivity {
                                     public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                                         if(response.isSuccessful()) {
                                             if(response.body().size() == 1 && name.equals(response.body().get(0).getName())) {
-                                                int resId = response.body().get(0).getId();
-                                                String resName = response.body().get(0).getName();
-                                                String description = response.body().get(0).getDescription();
-                                                String email = response.body().get(0).getEmail();
-                                                String phone = response.body().get(0).getPhone();
-                                                String website = response.body().get(0).getWebste();
-                                                String image = response.body().get(0).getImage();
-                                                int location = response.body().get(0).getLocation();
                                                 Intent detailView = new Intent(HomePageActivity.this, DetailActivity.class);
-                                                detailView.putExtra("id", resId);
-                                                detailView.putExtra("name",resName);
-                                                detailView.putExtra("description",description);
-                                                detailView.putExtra("email",email);
-                                                detailView.putExtra("phone",phone);
-                                                detailView.putExtra("website",website);
-                                                detailView.putExtra("image", image);
-                                                detailView.putExtra("location", location);
+                                                detailView.putExtra("id", response.body().get(0).getId());
+                                                detailView.putExtra("name", response.body().get(0).getName());
+                                                detailView.putExtra("description", response.body().get(0).getDescription());
+                                                detailView.putExtra("email", response.body().get(0).getEmail());
+                                                detailView.putExtra("phone", response.body().get(0).getPhone());
+                                                detailView.putExtra("website", response.body().get(0).getWebste());
+                                                detailView.putExtra("image", response.body().get(0).getImage());
+                                                detailView.putExtra("location", response.body().get(0).getLocation());
                                                 startActivity(detailView);
                                             }
                                         }
@@ -202,7 +194,8 @@ public class HomePageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                HomePageActivity.this.adapter.getFilter().filter(s);
+                if(HomePageActivity.this.adapter != null)
+                    HomePageActivity.this.adapter.getFilter().filter(s);
             }
 
             @Override

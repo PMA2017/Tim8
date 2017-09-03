@@ -15,8 +15,7 @@ import com.example.anica.takeyourseat.R;
  */
 public class AboutFragment extends Fragment {
 
-    private EditText description;
-
+    private EditText descriptionEdit;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -27,35 +26,33 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        String restaurantDesc;
-        String restaurantEmail;
-        String phone;
-        String website;
+        String description, email, phone, website;
+
         if (savedInstanceState == null) {
             Bundle extras = getActivity().getIntent().getExtras();
             if(extras == null) {
-                restaurantDesc= null;
-                restaurantEmail = null;
+                description = null;
+                email = null;
                 phone = null;
                 website = null;
             } else {
-                restaurantDesc= extras.getString("description");
-                restaurantEmail = extras.getString("email");
-                phone = extras.getString("phone");
-                website = extras.getString("website");
+                description= getArguments().getString("description");
+                email = getArguments().getString("email");
+                phone = getArguments().getString("phone");
+                website = getArguments().getString("website");
             }
         } else {
-            restaurantDesc= (String) savedInstanceState.getSerializable("description");
-            restaurantEmail= (String) savedInstanceState.getSerializable("email");
-            phone= (String) savedInstanceState.getSerializable("phone");
-            website= (String) savedInstanceState.getSerializable("website");
+            description = (String) savedInstanceState.getSerializable("description");
+            email = (String) savedInstanceState.getSerializable("email");
+            phone = (String) savedInstanceState.getSerializable("phone");
+            website = (String) savedInstanceState.getSerializable("website");
         }
         // Inflate the layout for this fragment
        View v = inflater.inflate(R.layout.fragment_about, container, false);
-        description = (EditText) v.findViewById(R.id.description);
-        description.setText(restaurantDesc + "\nEmail:" + restaurantEmail + "\nPhone:" + phone + "\nWebsite:" + website);
-        description.setFocusable(false);
-        description.setClickable(false);
+        descriptionEdit = (EditText) v.findViewById(R.id.description);
+        descriptionEdit.setText(description + "\nEmail:" + email + "\nPhone:" + phone + "\nWebsite:" + website);
+        descriptionEdit.setFocusable(false);
+        descriptionEdit.setClickable(false);
         return v;
     }
 
