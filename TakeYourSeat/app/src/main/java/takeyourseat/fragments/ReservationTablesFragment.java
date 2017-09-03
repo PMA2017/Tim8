@@ -1,13 +1,9 @@
 package takeyourseat.fragments;
 
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +13,9 @@ import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,9 +23,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.db.DatabaseHelper;
 import takeyourseat.model.Reservation;
 import takeyourseat.model.ReservationTable;
-import takeyourseat.model.Restaurant;
 import takeyourseat.model.RestaurantTable;
 
 /**
@@ -49,6 +45,7 @@ public class ReservationTablesFragment extends Fragment {
     private ApiService apiService;
     private String apiDate, apiTime;
     private int restaurantId, userId, counter;
+    private DatabaseHelper databaseHelper;
 
     public ReservationTablesFragment() {
         // Required empty public constructor
@@ -65,10 +62,11 @@ public class ReservationTablesFragment extends Fragment {
         next = (Button) v.findViewById(R.id.next2);
         apiService = ApiUtils.getApiService();
 
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("resDetails", Context.MODE_PRIVATE);
         apiDate = getActivity().getIntent().getExtras().getString("date", null); //dd-mm-yyy
         apiTime = getActivity().getIntent().getExtras().getString("time", null); //hh:mm
         restaurantId = getActivity().getIntent().getExtras().getInt("id", 0);
+
+        userId = getDatabaseHelper().getCurrentUser().getId();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +100,6 @@ public class ReservationTablesFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-
                         }
                     });
                 }
@@ -110,9 +107,6 @@ public class ReservationTablesFragment extends Fragment {
         });
 
         relativeLayout = (RelativeLayout) v.findViewById(R.id.tableRelative);
-
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        userId = sharedPreferences.getInt("id", -1);
 
         for (int i = 0; i < relativeLayout.getChildCount(); i++) {
             View view = relativeLayout.getChildAt(i);
@@ -138,7 +132,6 @@ public class ReservationTablesFragment extends Fragment {
                                     for (int i = 0; i < response.body().size(); i++) {
                                         allRestaurantTables.add(response.body().get(i));
                                     }
-
                                     handleTableView(apiDate, apiTime);
                                 }
                             }
@@ -307,6 +300,12 @@ public class ReservationTablesFragment extends Fragment {
             }
         }
         return ifExists;
+    }
+    public DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 
 }

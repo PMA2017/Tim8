@@ -1,8 +1,5 @@
 package takeyourseat.activities;
 
-
-
-
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.anica.takeyourseat.R;
 
 import takeyourseat.fragments.DateAndTimeFragment;
-import takeyourseat.fragments.ReservationTablesFragment;
 
 
 public class ReservationActivity extends AppCompatActivity  {
@@ -24,7 +20,6 @@ public class ReservationActivity extends AppCompatActivity  {
         transaction.replace(R.id.content_frame, new DateAndTimeFragment());
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
 
     @Override
