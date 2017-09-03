@@ -46,9 +46,8 @@ public class DetailActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
+            if(extras != null) {
                 name = null;
-            } else {
                 name = extras.getString("name");
                 locationId = extras.getInt("location");
                 imageUrl = extras.getString("image");
@@ -58,16 +57,28 @@ public class DetailActivity extends AppCompatActivity {
                 phone = extras.getString("phone");
                 website = extras.getString("website");
             }
+            else {
+                sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
+                id = sharedPref.getInt("id", 0);
+                name = sharedPref.getString("name", "N/A");
+                imageUrl = sharedPref.getString("imageUrl", "N/A");
+                description = sharedPref.getString("description", "N/A");
+                phone = sharedPref.getString("phone", "N/A");
+                email = sharedPref.getString("email", "N/A");
+                website = sharedPref.getString("website", "N/A");
+                locationId = sharedPref.getInt("locationId", 0);
+            }
         } else {
-            name = savedInstanceState.getString("resName");
+            id = savedInstanceState.getInt("id");
+            name = savedInstanceState.getString("name");
             imageUrl = savedInstanceState.getString("imageUrl");
+            description = savedInstanceState.getString("description");
+            phone = savedInstanceState.getString("phone");
+            email = savedInstanceState.getString("email");
+            website = savedInstanceState.getString("website");
+            locationId = savedInstanceState.getInt("locationId");
         }
 
-        sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
-        editor.putString("resName",name);
-        editor.putInt("resId", id);
-        editor.commit();
 
         resNameTextView = (TextView) findViewById(R.id.resNameDetail);
         resNameTextView.setText(name);
@@ -85,13 +96,14 @@ public class DetailActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         Bundle bundle = new Bundle();
-        bundle.putInt("location", locationId);
+
+        bundle.putInt("id", id);
         bundle.putString("name", name);
         bundle.putString("website", website);
         bundle.putString("email", email);
         bundle.putString("phone", phone);
         bundle.putString("description", description);
-        bundle.putInt("id", id);
+        bundle.putInt("location", locationId);
 
         MenuFragment menuFragment = new MenuFragment();
         menuFragment.setArguments(bundle);
@@ -127,11 +139,29 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("resName", name);
+        outState.putInt("id", id);
+        outState.putString("name", name);
         outState.putString("imageUrl", imageUrl);
-    }
+        outState.putString("description", description);
+        outState.putString("phone", phone);
+        outState.putString("email", email);
+        outState.putString("website", website);
+        outState.putInt("locationId", locationId);
 
+        sharedPref = getSharedPreferences("resDetails", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putInt("id", id);
+        editor.putString("name",name);
+        editor.putString("imageUrl", imageUrl);
+        editor.putString("description", description);
+        editor.putString("phone", phone);
+        editor.putString("email", email);
+        editor.putString("website", website);
+        editor.putInt("locationId", locationId);
+        editor.commit();
+
+        super.onSaveInstanceState(outState);
+    }
 
 }
 

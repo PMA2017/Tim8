@@ -78,15 +78,18 @@ public class OtherFriendsFragment extends Fragment {
 
         users = new ArrayList<>();
         apiService = ApiUtils.getApiService();
+        final User currentUser = getDatabaseHelper().getCurrentUser();
         try {
             apiService.getNonFriends(String.valueOf(id)).enqueue(new Callback<List<User>>() {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                     if (response.isSuccessful()) {
                         for (int i = 0; i < response.body().size(); i++) {
-                            users.add(response.body().get(i).getName() + " " + response.body().get(i).getLastName());
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row,R.id.othersTextView,users);
-                            listOthers.setAdapter(adapter);
+                            if(response.body().get(i).getId() != currentUser.getId()) {
+                                users.add(response.body().get(i).getName() + " " + response.body().get(i).getLastName());
+                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_other_row, R.id.othersTextView, users);
+                                listOthers.setAdapter(adapter);
+                            }
                         }
                         userList = response.body();
                     }

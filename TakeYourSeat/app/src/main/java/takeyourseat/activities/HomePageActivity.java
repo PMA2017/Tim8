@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -81,6 +82,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 if(response.isSuccessful()) {
                     aList = new ArrayList<HashMap<String, String>>();
+                    restaurants = response.body();
                     for(int i=0; i<response.body().size(); i++) {
                         HashMap<String, String> hm = new HashMap<>();
                         hm.put("listview_id", response.body().get(i).getId().toString());
@@ -150,6 +152,8 @@ public class HomePageActivity extends AppCompatActivity {
                 Log.e("HomePageActivity", "Error loading from API");
             }
         });
+
+
 
         navDrawerItemTitles = getResources().getStringArray(R.array.nav_drawer_item_titles);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -285,6 +289,8 @@ public class HomePageActivity extends AppCompatActivity {
             searchRes.setText(search);
         }
     }
+
+
 
     public DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null) {
