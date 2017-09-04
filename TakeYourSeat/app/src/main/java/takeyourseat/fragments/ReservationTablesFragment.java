@@ -55,6 +55,7 @@ public class ReservationTablesFragment extends Fragment {
     private DatabaseHelper databaseHelper;
     private Date date;
 
+    public final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final long HOUR = 3600*1000;
 
     public ReservationTablesFragment() { }
@@ -69,7 +70,7 @@ public class ReservationTablesFragment extends Fragment {
 
         next = (Button) v.findViewById(R.id.next2);
         apiService = ApiUtils.getApiService();
-        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
 
         apiDate = getActivity().getIntent().getExtras().getString("date", null); //yyyy-mm-dd
         apiTime = getActivity().getIntent().getExtras().getString("time", null); //hh:mm
@@ -144,7 +145,7 @@ public class ReservationTablesFragment extends Fragment {
                                     for (int i = 0; i < response.body().size(); i++) {
                                         allRestaurantTables.add(response.body().get(i));
                                     }
-                                    handleTableView(apiDate, apiTime);
+                                    handleTableView();
                                 }
                             }
 
@@ -168,37 +169,36 @@ public class ReservationTablesFragment extends Fragment {
         return v;
     }
 
-    private void handleTableView(String apiDate, String apiTime) {
-
-        String apiYear = apiDate.split("-")[2];
-        String apiMonth = apiDate.split("-")[1];
-        String apiDay = apiDate.split("-")[0];
-
-        String apiHour = apiTime.substring(0, 1);
-        String apiMinute = apiTime.substring(3, 4);
-
-        int apiHourInt = Integer.parseInt(apiHour);
-        int apiHourIntLast = apiHourInt + 3;
+    private void handleTableView() {
+        //date je odabran datum i vreme
 
         for(int i = 0; i < allReservationTables.size(); i++) {
-            //iz baze: yyyy-mm-ddThh:mm:ss
-            //sa api-ja: dd-mm-yyyy i hh:mm
-            String dbDate = allReservationTables.get(i).getStartDate().split("T")[0];
-            String dbTime = allReservationTables.get(i).getStartDate().split("T")[1];
+            Date startDate = new Date();
 
-            String dbYear = dbDate.split("-")[0];
-            String dbMonth = dbDate.split("-")[1];
-            String dbDay = dbDate.split("-")[2];
-
-            String dbHour = dbTime.substring(0, 1);
-            String dbMinute = dbTime.substring(3, 4);
-            int dbHourInt = Integer.parseInt(dbHour);
-            int dbHourLastInt = Integer.parseInt(dbHour) + 3;
-
-            if(dbYear.equals(apiYear) && dbMonth.equals(apiMonth) && dbDay.equals(apiDay)) {
-                if((apiHourInt < dbHourLastInt && apiHourInt > dbHourInt) || (apiHourIntLast > dbHourInt))
-                    unavailableTables.add(allReservationTables.get(i));
+            try {
+                startDate = formatter.parse(allReservationTables.get(i).getStartDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
+//            String dbYear = dbDate.split("-")[0];
+//            String dbMonth = dbDate.split("-")[1];
+//            String dbDay = dbDate.split("-")[2];
+//
+//            String dbHour = dbTime.substring(0, 1);
+//            String dbMinute = dbTime.substring(3, 4);
+//            int dbHourInt = Integer.parseInt(dbHour);
+//            int dbHourLastInt = Integer.parseInt(dbHour) + 3;
+
+//            if(dbYear.equals(apiYear) && dbMonth.equals(apiMonth) && dbDay.equals(apiDay)) {
+//                if((apiHourInt < dbHourLastInt && apiHourInt > dbHourInt) || (apiHourIntLast > dbHourInt))
+//                    unavailableTables.add(allReservationTables.get(i));
+//            }
+
+            if(!startDate.after(date) && !(new Date(startDate.getTime() + 3 * HOUR)).before(date)) {
+                unavailableTables.add(allReservationTables.get(i));
+            }
+
         }
 
         for(int i = 0; i < allRestaurantTables.size(); i++) {
@@ -216,21 +216,21 @@ public class ReservationTablesFragment extends Fragment {
                 btn = (Button) view;
                 if (btn.getText().toString().toLowerCase().contains("table")) {
                     tableButtons.add(btn);
-                    if(ifExistsInUnavailableList(btn.getText().toString())) { //ako postoji u listi zauzetih
+                    if(ifExistsInUnavailableList(btn.getText().toString())) {
                         btn.setEnabled(false);
-                        btn.setBackgroundColor(Color.parseColor("#D12121")); //crvena boja
+                        btn.setBackgroundColor(Color.parseColor("#D12121"));
                     }
-                    else if (ifExistsInAvailableList(btn.getText().toString())){ //ako postoji u listi slobodnih, odnosno u listi stolova za taj restoran
-                        btn.setBackgroundColor(Color.parseColor("#8D6E63")); //braon boja
+                    else if (ifExistsInAvailableList(btn.getText().toString())){
+                        btn.setBackgroundColor(Color.parseColor("#8D6E63"));
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Button clickedBtn = (Button)v;
-                                if(!ifExists(clickedBtn)) { //ako ne postoji u listi dodati ga
-                                    clickedBtn.setBackgroundColor(Color.parseColor("#58D68D")); //zelena boja
+                                if(!ifExists(clickedBtn)) {
+                                    clickedBtn.setBackgroundColor(Color.parseColor("#58D68D"));
                                     chosenTableButtons.add(clickedBtn);
                                 }
-                                else { //ako postoji, obrisati ga
+                                else {
                                     clickedBtn.setBackgroundColor(Color.parseColor("#8D6E63"));
                                     chosenTableButtons.remove(clickedBtn);
                                 }
@@ -238,29 +238,13 @@ public class ReservationTablesFragment extends Fragment {
                         });
 
                     }
-                    else { //ako uopste ne postoji za dati restoran
+                    else {
                         btn.setEnabled(false);
-                        btn.setBackgroundColor(Color.parseColor("#DDDDDD")); //siva boja
+                        btn.setBackgroundColor(Color.parseColor("#DDDDDD"));
                     }
                 }
             }
         }
-    }
-
-
-    private String generateStartDateString(String year, String month, String day, String hour, String minute) {
-        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":00";
-    }
-
-    private String generateEndDateString(String year, String month, String day, String hour, String minute) {
-        String newDay = "";
-        String newHour = "";
-        if(Integer.parseInt(hour) + 3 > 24) {
-            newDay = String.valueOf(Integer.parseInt(day) + 1);
-            newHour = String.valueOf(Integer.parseInt(hour) + 3 - 24);
-            return year + "-" + month + "-" + newDay + "T" + newHour + ":" + minute + ":00";
-        }
-        return year + "-" + month + "-" + day + "T" + String.valueOf(Integer.parseInt(hour) + 3) + ":" + minute + ":00";
     }
 
     private boolean ifExists(Button btn) {
