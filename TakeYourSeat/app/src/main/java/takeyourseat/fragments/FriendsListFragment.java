@@ -130,8 +130,8 @@ public class FriendsListFragment extends Fragment {
                 clickedUser = userList.get(position);
                 alert = new AlertDialog.Builder(
                         getActivity());
-                alert.setTitle("Alert!!");
-                alert.setMessage("Are you sure to delete this friend?");
+                alert.setTitle("Remove friend!!");
+                alert.setMessage("Are you sure to remove this friend?");
                 alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                     @Override

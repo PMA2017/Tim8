@@ -86,7 +86,7 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">Distance</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
@@ -131,7 +131,19 @@
         <item>360</item>
         <item>-1</item>
     </string-array>
-
+    <string name="pref_km">Select the distance</string>
+    <string-array name="pref_km_titles">
+        <item>1 km</item>
+        <item>2 km</item>
+        <item>from 3km to 5km</item>
+        <item>above 5km</item>
+    </string-array>
+    <string-array name="pref_km_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
         <item>Entry 2</item>
@@ -151,7 +163,7 @@
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
-    <string name="pref_title_new_message_notifications">New message notifications</string>
+    <string name="pref_title_new_message_notifications">Receive notification</string>
 
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>

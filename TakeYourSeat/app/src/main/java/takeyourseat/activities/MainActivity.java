@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             getDatabaseHelper().getUserDao().create(user);
-            Toast.makeText(this, "User inserted", Toast.LENGTH_SHORT).show();
+            Log.i("MainActivity", "User added to sql lite database");
         } catch (SQLException e) {
                 e.printStackTrace();
         }

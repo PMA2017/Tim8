@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -81,6 +82,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 if(response.isSuccessful()) {
                     aList = new ArrayList<HashMap<String, String>>();
+                    restaurants = response.body();
                     for(int i=0; i<response.body().size(); i++) {
                         HashMap<String, String> hm = new HashMap<>();
                         hm.put("listview_id", response.body().get(i).getId().toString());
@@ -150,6 +152,8 @@ public class HomePageActivity extends AppCompatActivity {
                 Log.e("HomePageActivity", "Error loading from API");
             }
         });
+
+
 
         navDrawerItemTitles = getResources().getStringArray(R.array.nav_drawer_item_titles);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -252,25 +256,9 @@ public class HomePageActivity extends AppCompatActivity {
                 startActivity(settings);
                 break;
             case R.id.logOut:
-                // ovde treba uzlogovati usera
-                /*SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-                int id = sharedPreferences.getInt("id",0);
-                String id1 = String.valueOf(id);
-                Toast.makeText(this, id1, Toast.LENGTH_SHORT).show();
-                //User user = getDatabaseHelper().getUserDao().queryForId(id);
-                try {
-                    getDatabaseHelper().getUserDao().deleteById(id);
-                    Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
-                    Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
-                    startActivity(logOut);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }*/
                 deleteAll();
-                Toast.makeText(this, "deleteAll", Toast.LENGTH_SHORT).show();
                 Intent logOut = new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(logOut);
-
                 break;
         }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -302,6 +290,8 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
+
+
     public DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
@@ -313,11 +303,9 @@ public class HomePageActivity extends AppCompatActivity {
     {
         try
         {
-            for(User user : getDatabaseHelper().getUserDao().queryForAll())
-            {
-                Dao<User, Integer> dao = getDatabaseHelper().getUserDao();
-                dao.delete(user);
-            }
+            User currentUser = getDatabaseHelper().getCurrentUser();
+            getDatabaseHelper().getUserDao().deleteById(currentUser.getId());
+
         }
         catch(Exception e)
         {
@@ -325,7 +313,7 @@ public class HomePageActivity extends AppCompatActivity {
         }
         finally
         {
-            getDatabaseHelper().close();
+            //getDatabaseHelper().close();
         }
     }
 

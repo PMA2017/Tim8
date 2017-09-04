@@ -29,18 +29,10 @@ public class AboutFragment extends Fragment {
         String description, email, phone, website;
 
         if (savedInstanceState == null) {
-            Bundle extras = getActivity().getIntent().getExtras();
-            if(extras == null) {
-                description = null;
-                email = null;
-                phone = null;
-                website = null;
-            } else {
-                description= getArguments().getString("description");
-                email = getArguments().getString("email");
-                phone = getArguments().getString("phone");
-                website = getArguments().getString("website");
-            }
+            description = getArguments().getString("description");
+            email = getArguments().getString("email");
+            phone = getArguments().getString("phone");
+            website = getArguments().getString("website");
         } else {
             description = (String) savedInstanceState.getSerializable("description");
             email = (String) savedInstanceState.getSerializable("email");

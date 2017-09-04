@@ -88,10 +88,10 @@ public class FriendRequestFragment extends DialogFragment {
                 if(!response.isSuccessful()) {
                     int statusCode = response.code();
                     Log.e("MainActivity", "Response not successful. Status code: " + statusCode);
-                    Toast.makeText(getContext(), "Error in approving friend request.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(), "Error in approving friend request.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Toast.makeText(getContext(), "Friend request approved.", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),"Friend request approved.", Toast.LENGTH_LONG).show();
 
             }
 
