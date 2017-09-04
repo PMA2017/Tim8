@@ -170,8 +170,6 @@ public class ReservationTablesFragment extends Fragment {
     }
 
     private void handleTableView() {
-        //date je odabran datum i vreme
-
         for(int i = 0; i < allReservationTables.size(); i++) {
             Date startDate = new Date();
 
@@ -181,24 +179,9 @@ public class ReservationTablesFragment extends Fragment {
                 e.printStackTrace();
             }
 
-//            String dbYear = dbDate.split("-")[0];
-//            String dbMonth = dbDate.split("-")[1];
-//            String dbDay = dbDate.split("-")[2];
-//
-//            String dbHour = dbTime.substring(0, 1);
-//            String dbMinute = dbTime.substring(3, 4);
-//            int dbHourInt = Integer.parseInt(dbHour);
-//            int dbHourLastInt = Integer.parseInt(dbHour) + 3;
-
-//            if(dbYear.equals(apiYear) && dbMonth.equals(apiMonth) && dbDay.equals(apiDay)) {
-//                if((apiHourInt < dbHourLastInt && apiHourInt > dbHourInt) || (apiHourIntLast > dbHourInt))
-//                    unavailableTables.add(allReservationTables.get(i));
-//            }
-
             if(!startDate.after(date) && !(new Date(startDate.getTime() + 3 * HOUR)).before(date)) {
                 unavailableTables.add(allReservationTables.get(i));
             }
-
         }
 
         for(int i = 0; i < allRestaurantTables.size(); i++) {
@@ -236,7 +219,6 @@ public class ReservationTablesFragment extends Fragment {
                                 }
                             }
                         });
-
                     }
                     else {
                         btn.setEnabled(false);
