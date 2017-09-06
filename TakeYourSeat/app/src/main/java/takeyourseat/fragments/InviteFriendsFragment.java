@@ -12,15 +12,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +44,10 @@ public class  InviteFriendsFragment extends Fragment {
     private EditText searchFriendsInvite;
     private Button next;
     private DatabaseHelper databaseHelper;
-    private ArrayList<String> users;
+    private ArrayList<User> friends;
+    private ArrayList<User> invitedFriends;
     private ApiService apiService;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<User> adapter;
     private User currentUser;
 
 
@@ -58,33 +62,28 @@ public class  InviteFriendsFragment extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_invite_friends, container, false);
+
         listFriends = (ListView) v.findViewById(R.id.listFriends);
         next = (Button) v.findViewById(R.id.next4);
         searchFriendsInvite = (EditText) v.findViewById(R.id.searchFriendsInvite);
         listFriends.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt("id", -1);
-        currentUser = new User();
-        try {
-            currentUser = getDatabaseHelper().getUserDao().queryForAll().get(0);
-            //currentUser = getDatabaseHelper().getUserDao().queryForEq("id", id).get(0);
-        } catch (Exception e) {
-            Log.e("ProfileActivity", e.getMessage());
-        }
+        currentUser = getDatabaseHelper().getCurrentUser();
 
-        users = new ArrayList<>();
+        friends = new ArrayList<>();
         apiService = ApiUtils.getApiService();
+
         try {
-            apiService.getFriends(String.valueOf(id)).enqueue(new Callback<List<User>>() {
+            apiService.getFriends(String.valueOf(currentUser.getId())).enqueue(new Callback<List<User>>() {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                     if (response.isSuccessful()) {
                         for (int i = 0; i < response.body().size(); i++) {
-                            users.add(response.body().get(i).getName() + " " + response.body().get(i).getLastName());
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.friend_invite_row,R.id.checkedTextView, users);
+                            friends.add(response.body().get(i));
+                            adapter = new ArrayAdapter<User>(getActivity(), R.layout.friend_invite_row, R.id.checkedTextView, friends);
                             listFriends.setAdapter(adapter);
                             registerForContextMenu(listFriends);
                         }
@@ -104,10 +103,20 @@ public class  InviteFriendsFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame, new AllReservationDetailsFragment());
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content_frame, new AllReservationDetailsFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        listFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User user = (User) parent.getItemAtPosition(position);
+                //istestirati ovo
+                Log.d("nl", String.valueOf(user.getId()));
+                //ako ovo radi, onda cemo lako ubaciti sve u bazu jer imamo ceo objekat
             }
         });
 
@@ -130,6 +139,13 @@ public class  InviteFriendsFragment extends Fragment {
 
         return v;
     }
+
+    private boolean ifExistsInInvitedFriendsList() {
+        boolean exists = false;
+
+        return exists;
+    }
+
     public DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);

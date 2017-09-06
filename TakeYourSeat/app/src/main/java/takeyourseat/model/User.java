@@ -121,4 +121,9 @@ public class User {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return name + " " + lastName;
+    }
+
 }
