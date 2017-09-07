@@ -73,6 +73,9 @@ public interface ApiService {
     @GET("api/data/getfriends/{value}")
     Call<List<User>> getFriends(@Path("value") String userId);
 
+    @GET("api/data/getreservations/{value}")
+    Call<List<Reservation>> getReservations(@Path("value") String userId);
+
     @GET("api/data/getnonfriends/{value}")
     Call<List<User>> getNonFriends(@Path("value") String userId);
 

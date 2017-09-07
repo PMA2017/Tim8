@@ -22,7 +22,6 @@ public class FriendsListsActivity extends AppCompatActivity {
     private TabLayout tabFriends;
     private ViewPager view;
     private ViewPagerAdapter viewPagerAdapter;
-    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

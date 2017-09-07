@@ -1,18 +1,14 @@
 package takeyourseat.fragments;
 
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +28,6 @@ import java.util.StringTokenizer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import takeyourseat.activities.MainActivity;
-import takeyourseat.activities.RegisterActivity;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.model.Comment;

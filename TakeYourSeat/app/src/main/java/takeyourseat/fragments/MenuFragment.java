@@ -1,8 +1,6 @@
 package takeyourseat.fragments;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,7 +22,6 @@ import takeyourseat.adapters.ExpandableAdapter;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.model.MenuItem;
-import takeyourseat.model.ReservationTable;
 
 /**
  * A simple {@link Fragment} subclass.

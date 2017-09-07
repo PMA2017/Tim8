@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
     String name,lastName,email1,address,pass,token,image;
     private DatabaseHelper databaseHelper;
     private int id;
-
-    User user;
-
     private ApiService apiService;
 
 
