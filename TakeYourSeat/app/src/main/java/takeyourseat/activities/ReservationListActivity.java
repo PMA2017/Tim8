@@ -3,6 +3,7 @@ package takeyourseat.activities;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -14,8 +15,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import takeyourseat.data.remote.ApiService;
+import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.db.DatabaseHelper;
 import takeyourseat.dialogs.DeleteDialog;
+import takeyourseat.model.Reservation;
 
 public class ReservationListActivity extends AppCompatActivity {
 
@@ -29,6 +41,12 @@ public class ReservationListActivity extends AppCompatActivity {
     private EditText invitedFriends;
     private boolean showDeleteDialog;
     private boolean showResDetail;
+    private int userId;
+    ArrayAdapter<String> adapter;
+    private ApiService apiService;
+    private DatabaseHelper databaseHelper;
+    private ArrayList<String> res;
+    private List<Reservation> reservations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +58,34 @@ public class ReservationListActivity extends AppCompatActivity {
             showResDetail = savedInstanceState.getBoolean("showResDetail");
         }
         resList = (ListView) findViewById(R.id.listReservations);
-        String[] items = {"Reservation 1","Reservation 2","Reservation 3","Reservation 4","Reservation 5","Reservation 6","Reservation 7","Reservation 8"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.reservation_list_item,R.id.reservationTextView, items);
-        resList.setAdapter(adapter);
+        userId = getDatabaseHelper().getCurrentUser().getId();
+        res = new ArrayList<>();
+        reservations = new ArrayList<>();
+        apiService = ApiUtils.getApiService();
+        try {
+            apiService.getReservations(String.valueOf(userId)).enqueue(new Callback<List<Reservation>>() {
+                @Override
+                public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
+                    if (response.isSuccessful()) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            res.add(response.body().get(i).getStartDate() + " " + response.body().get(i).getEndDate());
+                            adapter = new ArrayAdapter<String>(ReservationListActivity.this, R.layout.reservation_list_item,R.id.reservationTextView, res);
+                            resList.setAdapter(adapter);
+                            registerForContextMenu(resList);
+                        }
+                        reservations = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Reservation>> call, Throwable t) {
+                    Log.e("ListReservation", "error loading from API");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("ListReservations", ex.getMessage());
+        }
         registerForContextMenu(resList);
     }
 
@@ -117,6 +160,13 @@ public class ReservationListActivity extends AppCompatActivity {
             outState.putBoolean("showResDetail",showResDetail);
             outState.putBoolean("showDeleteDialog",showDeleteDialog);
         }
+    }
+
+    public DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 }
 
