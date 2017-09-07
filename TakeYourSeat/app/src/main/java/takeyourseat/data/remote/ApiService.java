@@ -12,9 +12,11 @@ import takeyourseat.model.Location;
 import takeyourseat.model.MenuItem;
 import takeyourseat.model.Rating;
 import takeyourseat.model.Reservation;
+import takeyourseat.model.ReservationFriends;
 import takeyourseat.model.ReservationTable;
 import takeyourseat.model.Restaurant;
 import takeyourseat.model.RestaurantTable;
+import takeyourseat.model.TableReservation;
 import takeyourseat.model.User;
 
 /**
@@ -82,4 +84,10 @@ public interface ApiService {
 
     @GET("api/data/sendFriendRequest/{userId}/{friendId}")
     Call<Boolean> sendFriendRequest(@Path("userId") String userId, @Path("friendId") String friendId);
+
+    @PUT("api/data/insert/reservationFriends")
+    Call<String> insertReservationFriends(@Body ReservationFriends reservationFriends);
+
+    @PUT("api/data/insert/tableReservation")
+    Call<String> insertTableReservation(@Body TableReservation tableReservation);
 }
