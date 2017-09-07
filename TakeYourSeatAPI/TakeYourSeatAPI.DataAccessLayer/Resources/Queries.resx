@@ -135,10 +135,11 @@ FROM TakeYourSeatDB.INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = '{0}'</value>
   </data>
   <data name="SelectReservationByRestaurant" xml:space="preserve">
-    <value>SELECT rt.Id, rt.Number, res.StartDate FROM Reservation res INNER JOIN RestaurantTable rt ON 
-res.RestaurantTable = rt.Id INNER JOIN 
- Restaurant r ON rt.Restaurant = r.Id
-	where r.Id = {0}</value>
+    <value>SELECT rt.Id, rt.Number, res.StartDate 
+FROM Reservation res
+INNER JOIN TableReservation tr ON res.Id = tr.ReservationId
+INNER JOIN RestaurantTable rt ON rt.Id = tr.TableId
+WHERE rt.Restaurant = {0}</value>
   </data>
   <data name="SelectWhere" xml:space="preserve">
     <value>SELECT {0} FROM [{1}] WHERE [{2}] = '{3}'</value>
