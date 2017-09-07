@@ -108,10 +108,11 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT rt.Id, rt.Number, res.StartDate FROM Reservation res INNER JOIN RestaurantTable rt ON 
-        ///res.RestaurantTable = rt.Id INNER JOIN 
-        /// Restaurant r ON rt.Restaurant = r.Id
-        ///	where r.Id = {0}.
+        ///   Looks up a localized string similar to SELECT rt.Id, rt.Number, res.StartDate
+        ///FROM Reservation res
+        ///INNER JOIN TableReservation tr ON res.Id = tr.ReservationId
+        ///INNER JOIN  RestaurantTable rt ON rt.Id = tr.TableId
+        ///where rt.Restaurant = {0}.
         /// </summary>
         internal static string SelectReservationByRestaurant {
             get {
