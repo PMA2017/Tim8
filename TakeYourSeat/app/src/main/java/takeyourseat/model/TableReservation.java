@@ -12,11 +12,9 @@ public class TableReservation {
     @SerializedName("Id")
     @Expose
     private Integer id;
-
     @SerializedName("ReservationId")
     @Expose
     private Integer reservationId;
-
     @SerializedName("TableId")
     @Expose
     private Integer tableId;
