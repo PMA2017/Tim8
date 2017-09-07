@@ -87,17 +87,17 @@ public class ReservationTablesFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ArrayList<String> tablesIds = new ArrayList<String>();
+                ArrayList<String> tableIds = new ArrayList<String>();
                 getChosenTablesFromButtons();
 
                 for(int i = 0; i < chosenTables.size(); i++) {
-                    tablesIds.add(String.valueOf(chosenTables.get(i).getId()));
+                    tableIds.add(String.valueOf(chosenTables.get(i).getId()));
                 }
 
                 Bundle args = new Bundle();
                 args.putString("startDate", formatter.format(date));
                 args.putString("endDate", formatter.format(new Date(date.getTime() + 3 * HOUR)));
-                args.putStringArrayList("tableIds", tablesIds);
+                args.putStringArrayList("tableIds", tableIds);
 
                 InviteFriendsFragment fragment = new InviteFriendsFragment();
                 fragment.setArguments(args);

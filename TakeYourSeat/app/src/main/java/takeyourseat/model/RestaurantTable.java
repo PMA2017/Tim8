@@ -12,9 +12,11 @@ public class RestaurantTable {
     @SerializedName("Id")
     @Expose
     private Integer id;
+
     @SerializedName("Number")
     @Expose
     private Integer number;
+
     @SerializedName("Restaurant")
     @Expose
     private Integer restaurant;

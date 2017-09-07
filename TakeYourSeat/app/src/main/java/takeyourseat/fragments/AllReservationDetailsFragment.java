@@ -52,7 +52,7 @@ public class AllReservationDetailsFragment extends Fragment {
     private int userId;
     private ArrayList<String> tableIds;
     private int[] friendIds;
-    private int counter, friendCounter;
+    private int counter, friendCounter, reservationId;
 
     public AllReservationDetailsFragment() {
         // Required empty public constructor
@@ -99,58 +99,59 @@ public class AllReservationDetailsFragment extends Fragment {
                 for(int i = 0; i < tableIds.size(); i++) {
                     //ovde treba dodati samo jednu rezervaciju
                     //i vise torki u tablereservation gde ce reservationid biti isti (ukoliko ima vise stolova)
-
                     apiService.insertReservation(createReservation()).enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.isSuccessful()) {
-                                int reservationId = Integer.valueOf(response.body().replaceAll("\\.0*$", ""));
-                                for(int i = 0; i < tableIds.size(); i++) {
-                                    counter++;
-                                    if(counter == tableIds.size()) {
-                                        for(int j = 0; j < friendIds.length; j++) {
-                                            friendCounter++;
-                                            if(friendCounter == friendIds.length) {
-                                                //otici na home activity
-                                            }
-                                            else {
-                                                apiService.insertReservationFriends(createReservationFriends(reservationId, friendIds[j])).enqueue(new Callback<String>() {
-                                                    @Override
-                                                    public void onResponse(Call<String> call, Response<String> response) {
-                                                        
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<String> call, Throwable t) {
-
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        apiService.insertTableReservation(createTableReservation(Integer.valueOf(tableIds.get(i)), reservationId)).enqueue(new Callback<String>() {
-                                            @Override
-                                            public void onResponse(Call<String> call, Response<String> response) {
-
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<String> call, Throwable t) {
-
-                                            }
-                                        });
-                                    }
-                                }
-
+                                reservationId = Integer.valueOf(response.body().replaceAll("\\.0*$", ""));
                             }
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-
+                            Log.e("error", "error in inserting reservation");
                         }
                     });
+
+//                    for(int i = 0; i < tableIds.size(); i++) {
+//                        counter++;
+//                        if(counter == tableIds.size()) {
+//                            for(int j = 0; j < friendIds.length; j++) {
+//                                friendCounter++;
+//                                if(friendCounter == friendIds.length) {
+//                                    //otici na home activity
+//                                }
+//                                else {
+//                                    apiService.insertReservationFriends(createReservationFriends(reservationId, friendIds[j])).enqueue(new Callback<String>() {
+//                                        @Override
+//                                        public void onResponse(Call<String> call, Response<String> response) {
+//                                            Log.d("ins", "Inserted reservationfriends");
+//                                        }
+//
+//                                        @Override
+//                                        public void onFailure(Call<String> call, Throwable t) {
+//                                            Log.e("error", "error in inserting reservationfriends");
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        }
+//                        else {
+//                            apiService.insertTableReservation(createTableReservation(Integer.valueOf(tableIds.get(i)), reservationId)).enqueue(new Callback<String>() {
+//                                @Override
+//                                public void onResponse(Call<String> call, Response<String> response) {
+//                                    Log.d("ins", "Inserted tablereservation");
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<String> call, Throwable t) {
+//                                    Log.e("error", "error in inserting tablereservation");
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                }
 
 //                    apiService.insertReservation(createReservation(Integer.valueOf(tableIds.get(i)))).enqueue(new Callback<String>() {
 //                        @Override
