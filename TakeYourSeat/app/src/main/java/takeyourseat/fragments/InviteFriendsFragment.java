@@ -3,8 +3,6 @@ package takeyourseat.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,13 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 

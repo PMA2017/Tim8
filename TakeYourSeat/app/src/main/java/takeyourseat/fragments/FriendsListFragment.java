@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
+import takeyourseat.db.DatabaseHelper;
 import takeyourseat.model.User;
 
 /**
@@ -49,6 +51,7 @@ public class FriendsListFragment extends Fragment {
     private List<User> userList;
     private User clickedUser;
     private int userId;
+    private DatabaseHelper databaseHelper;
 
 
     public FriendsListFragment() {
@@ -73,8 +76,8 @@ public class FriendsListFragment extends Fragment {
         listMyFriends = (ListView) frView.findViewById(R.id.listMyFriends);
         searchFriends = (EditText) frView.findViewById(R.id.searchFriends);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        userId = sharedPreferences.getInt("id", -1);
+        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        userId = getDatabaseHelper().getCurrentUser().getId();
 
 
         users = new ArrayList<>();
@@ -203,6 +206,13 @@ public class FriendsListFragment extends Fragment {
             String search = savedInstanceState.getString("search");
             searchFriends.setText(search);
         }
+    }
+
+    public DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 
 }

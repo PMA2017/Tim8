@@ -1,9 +1,6 @@
 package takeyourseat.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +15,6 @@ import com.example.anica.takeyourseat.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
