@@ -27,6 +27,7 @@
     <string name="time">Time</string>
     <string name="invite">Invite friends</string>
     <string name="reserve">Reserve</string>
+    <string name="finish">Finish reservation</string>
     <string name="chooseTable">Choose tables</string>
     <string name="datePicker">Date picker</string>
     <string name="timePicker">Time picker</string>

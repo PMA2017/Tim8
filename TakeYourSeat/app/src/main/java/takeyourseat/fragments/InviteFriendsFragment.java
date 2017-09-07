@@ -45,11 +45,12 @@ public class  InviteFriendsFragment extends Fragment {
     private Button next;
     private DatabaseHelper databaseHelper;
     private ArrayList<User> friends;
-    private ArrayList<User> invitedFriends;
+    private ArrayList<User> invitedFriends = new ArrayList<User>();
     private ApiService apiService;
     ArrayAdapter<User> adapter;
     private User currentUser;
-
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
 
     public InviteFriendsFragment() {
         // Required empty public constructor
@@ -83,10 +84,10 @@ public class  InviteFriendsFragment extends Fragment {
                     if (response.isSuccessful()) {
                         for (int i = 0; i < response.body().size(); i++) {
                             friends.add(response.body().get(i));
-                            adapter = new ArrayAdapter<User>(getActivity(), R.layout.friend_invite_row, R.id.checkedTextView, friends);
-                            listFriends.setAdapter(adapter);
-                            registerForContextMenu(listFriends);
                         }
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.friend_invite_row, R.id.checkedTextView, friends);
+                        listFriends.setAdapter(adapter);
+                        registerForContextMenu(listFriends);
                     }
                 }
 
@@ -103,8 +104,16 @@ public class  InviteFriendsFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle arguments = getArguments();
+
+                arguments.putStringArray("friendNames", getNames());
+                arguments.putIntArray("friendIds", getIds());
+
+                AllReservationDetailsFragment fragment = new AllReservationDetailsFragment();
+                fragment.setArguments(arguments);
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, new AllReservationDetailsFragment());
+                transaction.replace(R.id.content_frame, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -114,9 +123,11 @@ public class  InviteFriendsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User user = (User) parent.getItemAtPosition(position);
-                //istestirati ovo
-                Log.d("nl", String.valueOf(user.getId()));
-                //ako ovo radi, onda cemo lako ubaciti sve u bazu jer imamo ceo objekat
+
+                if(ifExistsInInvitedFriendsList(user.getId()))
+                    invitedFriends.remove(user);
+                else
+                    invitedFriends.add(user);
             }
         });
 
@@ -140,10 +151,36 @@ public class  InviteFriendsFragment extends Fragment {
         return v;
     }
 
-    private boolean ifExistsInInvitedFriendsList() {
+    private boolean ifExistsInInvitedFriendsList(int id) {
         boolean exists = false;
 
+        for(int i = 0; i < invitedFriends.size(); i++)
+            if(id == invitedFriends.get(i).getId()) {
+                exists = true;
+                break;
+            }
+
         return exists;
+    }
+
+    private String[] getNames() {
+        String[] names = new String[invitedFriends.size()];
+
+        for(int i = 0; i < invitedFriends.size(); i++) {
+            names[i] = invitedFriends.get(i).getName() + " " + invitedFriends.get(i).getLastName();
+        }
+
+        return names;
+    }
+
+    private int[] getIds() {
+        int[] ids = new int[invitedFriends.size()];
+
+        for(int i = 0; i < invitedFriends.size(); i++) {
+            ids[i] = invitedFriends.get(i).getId();
+        }
+
+        return ids;
     }
 
     public DatabaseHelper getDatabaseHelper() {

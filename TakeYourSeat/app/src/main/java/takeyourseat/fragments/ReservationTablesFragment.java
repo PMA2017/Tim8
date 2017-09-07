@@ -88,34 +88,25 @@ public class ReservationTablesFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                counter = 0;
-
+                ArrayList<String> tablesIds = new ArrayList<String>();
                 getChosenTablesFromButtons();
 
                 for(int i = 0; i < chosenTables.size(); i++) {
-                    Reservation res = new Reservation();
-                    res.setUser(userId);
-                    res.setRestaurantTable(chosenTables.get(i).getId());
-                    res.setStartDate(formatter.format(date));
-                    res.setEndDate(formatter.format(new Date(date.getTime() + 3 * HOUR)));
-                    apiService.insertReservation(res).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            counter++;
-                            if(counter == chosenTables.size()) {
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                transaction.replace(R.id.content_frame, new InviteFriendsFragment());
-                                transaction.addToBackStack(null);
-                                transaction.commit();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Log.e("Detail", "error loading from API");
-                        }
-                    });
+                    tablesIds.add(String.valueOf(chosenTables.get(i).getId()));
                 }
+
+                Bundle args = new Bundle();
+                args.putString("startDate", formatter.format(date));
+                args.putString("endDate", formatter.format(new Date(date.getTime() + 3 * HOUR)));
+                args.putStringArrayList("tableIds", tablesIds);
+
+                InviteFriendsFragment fragment = new InviteFriendsFragment();
+                fragment.setArguments(args);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content_frame, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

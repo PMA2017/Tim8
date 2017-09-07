@@ -46,6 +46,7 @@ public class TableFragment extends Fragment {
             public void onClick(View v) {
                 Intent reservation = new Intent(getActivity(), ReservationActivity.class);
                 reservation.putExtra("id", getArguments().getInt("id"));
+                reservation.putExtra("restaurantName", getArguments().getString("name"));
                 startActivity(reservation);
             }
         });
