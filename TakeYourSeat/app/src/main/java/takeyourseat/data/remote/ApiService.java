@@ -96,4 +96,12 @@ public interface ApiService {
 
     @GET("api/data/getby/reservation/user/{value}")
     Call<List<Reservation>> getReservationsByUser(@Path("value") String userId);
+
+    @GET("api/data/getby/reservation/id/{value}")
+    Call<List<Reservation>> getReservationById(@Path("value") String resId);
+
+    @GET("api/data/getby/tableReservation/reservationId/{value}")
+    Call<List<TableReservation>> getTablereservationByResId(@Path("value") String resevationId);
+
+
 }

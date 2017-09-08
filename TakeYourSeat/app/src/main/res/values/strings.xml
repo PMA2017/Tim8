@@ -24,6 +24,8 @@
     <string name="change">Change profile picture</string>
     <string name="reservation">Reservations</string>
     <string name="date">Date</string>
+    <string name="startDate">Start date</string>
+    <string name="endDate">End date</string>
     <string name="time">Time</string>
     <string name="invite">Invite friends</string>
     <string name="reserve">Reserve</string>
