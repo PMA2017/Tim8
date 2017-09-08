@@ -36,7 +36,7 @@
 
         <activity
             android:name="takeyourseat.activities.MainActivity"
-            android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity android:name="takeyourseat.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name="takeyourseat.activities.HomePageActivity"
-            android:label="@string/homePage"></activity>
+            android:label="@string/homePage" />
         <activity
             android:name="takeyourseat.activities.SettingsActivity"
             android:label="@string/settings"
@@ -145,11 +145,11 @@
         <activity android:name="takeyourseat.activities.DialogActivity">
             <intent-filter>
                 <action android:name="takeyourseat.activities.DialogActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name="takeyourseat.activities.CloseByRestaurantsActivity"></activity>
     </application>
 
 </manifest>
