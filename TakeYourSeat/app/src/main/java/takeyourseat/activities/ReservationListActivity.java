@@ -1,5 +1,6 @@
 package takeyourseat.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.db.DatabaseHelper;
 import takeyourseat.dialogs.DeleteDialog;
 import takeyourseat.model.Reservation;
+import takeyourseat.model.User;
 
 public class ReservationListActivity extends AppCompatActivity {
 
@@ -42,10 +45,9 @@ public class ReservationListActivity extends AppCompatActivity {
     private boolean showDeleteDialog;
     private boolean showResDetail;
     private int userId;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<Reservation> adapter;
     private ApiService apiService;
     private DatabaseHelper databaseHelper;
-    private ArrayList<String> res;
     private List<Reservation> reservations;
 
     @Override
@@ -57,98 +59,108 @@ public class ReservationListActivity extends AppCompatActivity {
             showDeleteDialog = savedInstanceState.getBoolean("showDeleteDialog");
             showResDetail = savedInstanceState.getBoolean("showResDetail");
         }
+
         resList = (ListView) findViewById(R.id.listReservations);
         userId = getDatabaseHelper().getCurrentUser().getId();
-        res = new ArrayList<>();
-        reservations = new ArrayList<>();
         apiService = ApiUtils.getApiService();
-        try {
-            apiService.getReservations(String.valueOf(userId)).enqueue(new Callback<List<Reservation>>() {
-                @Override
-                public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
-                    if (response.isSuccessful()) {
-                        for (int i = 0; i < response.body().size(); i++) {
-                            res.add(response.body().get(i).getStartDate() + " " + response.body().get(i).getEndDate());
-                            adapter = new ArrayAdapter<String>(ReservationListActivity.this, R.layout.reservation_list_item,R.id.reservationTextView, res);
-                            resList.setAdapter(adapter);
-                            registerForContextMenu(resList);
-                        }
-                        reservations = response.body();
+
+        reservations = new ArrayList<>();
+
+        apiService.getReservationsByUser(String.valueOf(userId)).enqueue(new Callback<List<Reservation>>() {
+            @Override
+            public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
+                if(response.isSuccessful()) {
+                    for(int i = 0; i < response.body().size(); i++) {
+                        reservations.add(response.body().get(i));
                     }
+                    Log.d("resp", "success");
+                    adapter = new ArrayAdapter<>(ReservationListActivity.this, R.layout.reservation_list_item, R.id.reservationTextView, reservations);
+                    resList.setAdapter(adapter);
+                    registerForContextMenu(resList);
                 }
-
-                @Override
-                public void onFailure(Call<List<Reservation>> call, Throwable t) {
-                    Log.e("ListReservation", "error loading from API");
-                }
-            });
-        }
-        catch (Exception ex) {
-            Log.e("ListReservations", ex.getMessage());
-        }
-        registerForContextMenu(resList);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.reservation_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.viewRes: {
-               showResDetail();
-
             }
-            case R.id.delRes: {
-                showDeleteDialog();
+
+            @Override
+            public void onFailure(Call<List<Reservation>> call, Throwable t) {
+                Log.d("err", " nosuccess");
             }
-        }
-            return super.onContextItemSelected(item);
+        });
 
-    }
-    private void showDeleteDialog(){
-        showDeleteDialog = true;
-        showResDetail = false;
-        dialogDel = new DeleteDialog(ReservationListActivity.this).prepareDialog();
-        dialogDel.show();
-    }
+        resList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Reservation reservation = (Reservation) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getBaseContext(), ReservationDetailActivity.class);
 
-    private void showResDetail() {
-        showResDetail = true;
-        showDeleteDialog = false;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View mView = LayoutInflater.from(this).inflate(R.layout.activity_reservation_detail, null);
-        builder.setView(mView);
-        dialogRes = builder.create();
-        dialogRes.show();
-        resRes = (TextView) mView.findViewById(R.id.resNameText);
-        resDate = (TextView) mView.findViewById(R.id.resDateText);
-        resTime = (TextView) mView.findViewById(R.id.resTimeText);
-        invitedFriends = (EditText) mView.findViewById(R.id.resFriendsText);
-        invitedFriends.setEnabled(false);
-        invitedFriends.setFocusable(false);
-        invitedFriends.setClickable(false);
+                intent.putExtra("id", reservation.getId());
+                intent.putExtra("startDate", reservation.getStartDate());
+                intent.putExtra("endDate", reservation.getEndDate());
 
-        resRes.setText("Restaurant 1");
-        resDate.setText("12-05-2017");
-        resTime.setText("16:00");
-        invitedFriends.setText("Marko,Janko,Goran");
+                startActivity(intent);
+            }
+        });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (showDeleteDialog) {
-            showDeleteDialog();
-        }
-        if(showResDetail) {
-            showResDetail();
-        }
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        MenuInflater inflater = this.getMenuInflater();
+//        inflater.inflate(R.menu.reservation_menu, menu);
+//    }
+//
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.viewRes: {
+//               showResDetail();
+//
+//            }
+//            case R.id.delRes: {
+//                showDeleteDialog();
+//            }
+//        }
+//            return super.onContextItemSelected(item);
+//
+//    }
+//    private void showDeleteDialog(){
+//        showDeleteDialog = true;
+//        showResDetail = false;
+//        dialogDel = new DeleteDialog(ReservationListActivity.this).prepareDialog();
+//        dialogDel.show();
+//    }
+//
+//    private void showResDetail() {
+//        showResDetail = true;
+//        showDeleteDialog = false;
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        View mView = LayoutInflater.from(this).inflate(R.layout.activity_reservation_detail, null);
+//        builder.setView(mView);
+//        dialogRes = builder.create();
+//        dialogRes.show();
+//        resRes = (TextView) mView.findViewById(R.id.resNameText);
+//        resDate = (TextView) mView.findViewById(R.id.resDateText);
+//        resTime = (TextView) mView.findViewById(R.id.resTimeText);
+//        invitedFriends = (EditText) mView.findViewById(R.id.resFriendsText);
+//        invitedFriends.setEnabled(false);
+//        invitedFriends.setFocusable(false);
+//        invitedFriends.setClickable(false);
+//
+//        resRes.setText("Restaurant 1");
+//        resDate.setText("12-05-2017");
+//        resTime.setText("16:00");
+//        invitedFriends.setText("Marko,Janko,Goran");
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (showDeleteDialog) {
+//            showDeleteDialog();
+//        }
+//        if(showResDetail) {
+//            showResDetail();
+//        }
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

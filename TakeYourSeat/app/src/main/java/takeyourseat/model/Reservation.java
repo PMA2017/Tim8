@@ -54,4 +54,9 @@ public class Reservation {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return getStartDate().split("T")[0] + " - " + getEndDate().split("T")[0];
+    }
+
 }

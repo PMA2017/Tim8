@@ -74,7 +74,7 @@ public interface ApiService {
     Call<List<User>> getFriends(@Path("value") String userId);
 
     @GET("api/data/getreservations/{value}")
-    Call<List<Reservation>> getReservations(@Path("value") String userId);
+    Call<List<Reservation>> getReservations(@Path("value") String restaurantId);
 
     @GET("api/data/getnonfriends/{value}")
     Call<List<User>> getNonFriends(@Path("value") String userId);
@@ -93,4 +93,7 @@ public interface ApiService {
 
     @PUT("api/data/insert/tableReservation")
     Call<String> insertTableReservation(@Body TableReservation tableReservation);
+
+    @GET("api/data/getby/reservation/user/{value}")
+    Call<List<Reservation>> getReservationsByUser(@Path("value") String userId);
 }
