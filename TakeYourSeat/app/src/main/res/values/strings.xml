@@ -75,6 +75,7 @@
         <item>Reservations</item>
         <item>Profile</item>
         <item>Friends</item>
+        <item>Close By Restaurants</item>
     </string-array>
     <string name="title_activity_nav_drawer">NavDrawerAct</string>
 

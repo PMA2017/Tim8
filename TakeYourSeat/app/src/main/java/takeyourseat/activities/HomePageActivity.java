@@ -220,6 +220,10 @@ public class HomePageActivity extends AppCompatActivity {
                     Intent friends = new Intent(HomePageActivity.this, FriendsListsActivity.class);
                     startActivity(friends);
                 }
+                if(position == 4) {
+                    Intent closeByRestaurants = new Intent(HomePageActivity.this, CloseByRestaurantsActivity.class);
+                    startActivity(closeByRestaurants);
+                }
 
             }
 
