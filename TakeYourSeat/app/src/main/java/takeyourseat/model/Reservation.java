@@ -21,6 +21,9 @@ public class Reservation {
     @SerializedName("User")
     @Expose
     private Integer user;
+    @SerializedName("RestaurantId")
+    @Expose
+    private Integer restaurantId;
 
     public Integer getId() {
         return id;
@@ -52,6 +55,14 @@ public class Reservation {
 
     public void setUser(Integer user) {
         this.user = user;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     @Override
