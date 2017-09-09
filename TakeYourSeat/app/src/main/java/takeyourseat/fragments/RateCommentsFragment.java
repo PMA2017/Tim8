@@ -39,7 +39,7 @@ import takeyourseat.model.Rating;
 public class RateCommentsFragment extends Fragment  {
 
     private ListView commentsList;
-    private RatingBar rate;
+    private RatingBar ratingBar;
     private Button addComment;
     private AlertDialog dialog;
     private RatingBar rateComments;
@@ -81,7 +81,7 @@ public class RateCommentsFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rate_comments, container, false);
-        rate = (RatingBar) v.findViewById(R.id.ratingBar);
+        ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
 
         commentsList = (ListView) v.findViewById(R.id.commentsList);
         addComment = (Button) v.findViewById(R.id.addComment);
@@ -125,11 +125,10 @@ public class RateCommentsFragment extends Fragment  {
                             sum += ratings.get(i);
                         }
                         int size = ratings.size();
-                        double rank = sum.doubleValue() / size;
-                        rate.setStepSize(0.01f);
-                        String a = String.valueOf(rank);
-                        rate.setRating(Float.parseFloat(a));
-                        rate.invalidate();
+                        float rank = sum.floatValue() / size;
+                        ratingBar.setStepSize(0.01f);
+                        ratingBar.setRating(rank);
+                        ratingBar.invalidate();
                     }
                 }
                 @Override
@@ -163,7 +162,7 @@ public class RateCommentsFragment extends Fragment  {
             int id = sharedPreferences.getInt("id",0);
             comment.setUser(id);
 
-            Rating rate = new Rating();
+            final Rating rate = new Rating();
             StringTokenizer tokens = new StringTokenizer(rateNum, ".");
             String rankString = tokens.nextToken();
             int rank = Integer.parseInt(rankString);
@@ -201,7 +200,15 @@ public class RateCommentsFragment extends Fragment  {
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()) {
                         if(response.body() != null) {
-                            Toast.makeText(getActivity(), "Created new rate with ID: " + response.body(), Toast.LENGTH_LONG);
+                            ratings.add(rate.getRank());
+                            sum = 0;
+                            for(int rating : ratings) {
+                                sum += rating;
+                            }
+                            int size = ratings.size();
+                            float rank = sum.floatValue() / size;
+                            ratingBar.setRating(rank);
+                            ratingBar.invalidate();
                             dialog.dismiss();
                         }
                         else {
