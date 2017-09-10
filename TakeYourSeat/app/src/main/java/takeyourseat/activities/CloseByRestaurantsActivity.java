@@ -1,5 +1,6 @@
 package takeyourseat.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -7,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,6 @@ import com.example.anica.takeyourseat.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +23,6 @@ import retrofit2.Response;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.model.Location;
-import takeyourseat.model.ReservationTable;
 import takeyourseat.model.Restaurant;
 
 public class CloseByRestaurantsActivity extends AppCompatActivity {
@@ -47,12 +45,12 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
         apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     for (int i = 0; i < response.body().size(); i++) {
                         apiService.getLocationById(String.valueOf(response.body().get(i).getLocation())).enqueue(new Callback<List<Location>>() {
                             @Override
                             public void onResponse(Call<List<Location>> call, Response<List<Location>> response) {
-                                if(response.isSuccessful()) {
+                                if (response.isSuccessful()) {
                                     Location loc = response.body().get(0);
 
                                     //ovde sad treba proveravati da li upada ova vrednost i tek onda dodati u listu restorana
@@ -67,19 +65,8 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
                         });
                     }
 
-                    LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                    Location currentLocation = getCurrentLocation();
 
-                    isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                    isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-                    LocationListener locationListener = new CustomLocationListener();
-
-                    if (ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-
-                        ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-                    }
-
-                    LocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
                 }
             }
@@ -105,13 +92,42 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
 //
 //        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 //
-        double dist = 6371 * c;
-        if(dist < distance) {
-
-        }
+//        double dist = 6371 * c;
+//        if(dist < distance) {
 //
+//        }
+////
         return true;
     }
+
+    private Location getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new CustomLocationListener();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 500.0f, locationListener);
+        android.location.Location gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        //if there are no gps satelites, fetch location from network
+        if(gpsLocation == null) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 500.0f, locationListener);
+            gpsLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+        double latitude=0;
+        double longitude=0;
+        latitude = gpsLocation.getLatitude();
+        longitude = gpsLocation.getLongitude();
+
+        Location location = new Location();
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
+        return location;
+}
 
 //    private Location getLocationForRestaurant() {
 //
@@ -121,7 +137,6 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(android.location.Location location) {
-
         }
 
         @Override
