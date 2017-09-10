@@ -141,6 +141,11 @@ INNER JOIN TableReservation tr ON res.Id = tr.ReservationId
 INNER JOIN RestaurantTable rt ON rt.Id = tr.TableId
 WHERE rt.Restaurant = {0}</value>
   </data>
+  <data name="SelectRestaurantsWithLocation" xml:space="preserve">
+    <value>select r.Id, r.Name, r.Description, r.Image, r.Phone, r.Email, r.Webste, r.Address, r.Location, l.Latitude, l.Longitude from Restaurant r
+join Location l
+on r.Location = l.Id</value>
+  </data>
   <data name="SelectWhere" xml:space="preserve">
     <value>SELECT {0} FROM [{1}] WHERE [{2}] = '{3}'</value>
   </data>

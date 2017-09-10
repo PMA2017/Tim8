@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TakeYourSeatAPI.DataAccessLayer
@@ -62,6 +63,11 @@ namespace TakeYourSeatAPI.DataAccessLayer
         public string GetDeleteFriendsQuery(int userId, int friendId)
         {
             return string.Format(Resources.Queries.DeleteFriends, userId, friendId);
+        }
+
+        public string GetRestaurantsWithLocationQuery()
+        {
+            return Resources.Queries.SelectRestaurantsWithLocation;
         }
     }
 }

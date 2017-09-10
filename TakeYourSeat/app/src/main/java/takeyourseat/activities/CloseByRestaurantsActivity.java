@@ -29,8 +29,8 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
 
     private ApiService apiService;
     private ArrayList<Restaurant> restaurants;
-    private boolean isGPSEnabled, isNetworkEnabled;
     private int distance;
+    private Location currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,35 +39,21 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         distance = Integer.valueOf(sharedPref.getString("sync_km", "0"));
-
+        currentLocation = getCurrentLocation();
         apiService = ApiUtils.getApiService();
+        restaurants = new ArrayList<>();
 
-        apiService.getAllRestaurants().enqueue(new Callback<List<Restaurant>>() {
+        apiService.getRestaurantsWithLocation().enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 if (response.isSuccessful()) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        apiService.getLocationById(String.valueOf(response.body().get(i).getLocation())).enqueue(new Callback<List<Location>>() {
-                            @Override
-                            public void onResponse(Call<List<Location>> call, Response<List<Location>> response) {
-                                if (response.isSuccessful()) {
-                                    Location loc = response.body().get(0);
-
-                                    //ovde sad treba proveravati da li upada ova vrednost i tek onda dodati u listu restorana
-                                    //restaurants.add(response.body().get(i));
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<Location>> call, Throwable t) {
-
-                            }
-                        });
+                        Restaurant restaurant = response.body().get(i);
+                        if(isInRadius(restaurant.getLatitude(), restaurant.getLongitude())) {
+                            restaurants.add(restaurant);
+                        }
                     }
-
-                    Location currentLocation = getCurrentLocation();
-
-
+                    // ovde uraditi prikaz
                 }
             }
 
@@ -77,27 +63,15 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
             }
         });
 
-//        https://developers.google.com/maps/documentation/javascript/geometry?hl=el#Distance
+
 }
 
-    private boolean isInRadius(int latitude, int longitude) {
-//        double latDistance = Math.toRadians(userLat - latitude);
-//        double lngDistance = Math.toRadians(userLng - longitude);
-//
-//        double a = (Math.sin(latDistance / 2) * Math.sin(latDistance / 2))
-//                    + (Math.cos(Math.toRadians(userLat)))
-//                    * (Math.cos(Math.toRadians(venueLat)))
-//                    * (Math.sin(lngDistance / 2))
-//                    * (Math.sin(lngDistance / 2));
-//
-//        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//
-//        double dist = 6371 * c;
-//        if(dist < distance) {
-//
-//        }
-////
-        return true;
+
+    private boolean isInRadius(Double restaurantLatitude, Double restaurantLongitude) {
+        float[] results = new float[1];
+        android.location.Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), restaurantLatitude, restaurantLongitude, results);
+        float distanceInMeters = results[0];
+        return distanceInMeters < distance*1000;
     }
 
     private Location getCurrentLocation() {
@@ -128,10 +102,6 @@ public class CloseByRestaurantsActivity extends AppCompatActivity {
 
         return location;
 }
-
-//    private Location getLocationForRestaurant() {
-//
-//    }
 
     private class CustomLocationListener implements LocationListener {
 

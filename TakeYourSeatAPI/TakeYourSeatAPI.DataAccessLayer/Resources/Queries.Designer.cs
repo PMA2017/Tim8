@@ -121,6 +121,17 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to select r.Id, r.Name, r.Description, r.Image, r.Phone, r.Email, r.Webste, r.Address, r.Location, l.Latitude, l.Longitude from Restaurant r
+        ///join Location l
+        ///on r.Location = l.Id.
+        /// </summary>
+        internal static string SelectRestaurantsWithLocation {
+            get {
+                return ResourceManager.GetString("SelectRestaurantsWithLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT {0} FROM [{1}] WHERE [{2}] = &apos;{3}&apos;.
         /// </summary>
         internal static string SelectWhere {

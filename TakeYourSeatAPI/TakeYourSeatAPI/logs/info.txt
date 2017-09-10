@@ -54,3 +54,13 @@ INFO  2017-06-18 07:32:52,487 391010ms APILogger              SendNotification  
 INFO  2017-06-18 07:34:17,453 475976ms APILogger              SendNotification   - Notification sent successfully
 INFO  2017-06-18 07:35:37,574 556097ms APILogger              SendNotification   - Notification sent successfully
 ERROR 2017-06-18 07:52:02,708 23031ms APILogger              AddFriendship      - Specified cast is not valid.
+ERROR 2017-09-10 15:05:27,927 79957ms APILogger              Insert             - Cannot insert explicit value for identity column in table 'Reservation' when IDENTITY_INSERT is set to OFF.
+ERROR 2017-09-10 15:05:28,013 80044ms APILogger              FinishReservation  - Cannot insert explicit value for identity column in table 'Reservation' when IDENTITY_INSERT is set to OFF.
+ERROR 2017-09-10 15:12:03,686 86943ms APILogger              Insert             - The INSERT statement conflicted with the FOREIGN KEY constraint "Reservation_User". The conflict occurred in database "TakeYourSeatDB", table "dbo.User", column 'Id'.
+The statement has been terminated.
+ERROR 2017-09-10 15:12:03,742 87000ms APILogger              FinishReservation  - The INSERT statement conflicted with the FOREIGN KEY constraint "Reservation_User". The conflict occurred in database "TakeYourSeatDB", table "dbo.User", column 'Id'.
+The statement has been terminated.
+ERROR 2017-09-10 19:01:52,650 26911ms APILogger              urantsWithLocation - Id
+ERROR 2017-09-10 19:01:52,703 26964ms APILogger              urantsWithLocation - Id
+ERROR 2017-09-10 19:06:05,229 10002ms APILogger              urantsWithLocation - Location
+ERROR 2017-09-10 19:06:05,290 10063ms APILogger              urantsWithLocation - Location

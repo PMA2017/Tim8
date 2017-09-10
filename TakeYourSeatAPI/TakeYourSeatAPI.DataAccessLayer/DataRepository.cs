@@ -293,5 +293,37 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 _connection.Close();
             }
         }
+
+        public List<Dictionary<string, object>> GetAllRestaurantsWithLocation()
+        {
+            var columnNames = GetColumnNames("Restaurant");
+            columnNames.Add("Latitude");
+            columnNames.Add("Longitude");
+            var query = _queryProvider.GetRestaurantsWithLocationQuery();
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                _connection.Open();
+                var retVal = new List<Dictionary<string, object>>();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    var row = columnNames.ToDictionary(column => column, column => reader[column]);
+                    retVal.Add(row);
+                }
+                reader.Close();
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
     }
 }

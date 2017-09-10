@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TakeYourSeatAPI.Business;
 using TakeYourSeatAPI.Business.Model;
+using TakeYourSeatAPI.Model;
 
 namespace TakeYourSeatAPI.Controllers
 {
@@ -193,6 +194,46 @@ namespace TakeYourSeatAPI.Controllers
             try
             {
                 var retVal = _dataService.AddFriendship(userId, friendId);
+                return Ok(retVal);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Data/FinishReservation")]
+        public IHttpActionResult FinishReservation(CompleteReservation data)
+        {
+            try
+            {
+                var reservation = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Reservation);
+                reservation.Remove("Id");
+
+                _logger.Info("Reservation data : " + data.Reservation);
+                _logger.Info("Number of tables: " + data.TableIds.Count.ToString());
+                _logger.Info("Number of friends: " + data.TableIds.Count.ToString());
+
+                var retVal = _dataService.CompleteReservation(reservation, data.FriendIds, data.TableIds);
+                return Ok(retVal);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Data/GetRestaurantsWithLocation")]
+        public IHttpActionResult GetRestaurantsWithLocation()
+        {
+            try
+            {
+                var retVal = _dataService.GetAllRestaurantsWithLocation();
                 return Ok(retVal);
             }
             catch (Exception ex)

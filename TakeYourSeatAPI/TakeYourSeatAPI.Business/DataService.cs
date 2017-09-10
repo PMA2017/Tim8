@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TakeYourSeatAPI.DataAccessLayer;
 
@@ -98,6 +99,32 @@ namespace TakeYourSeatAPI.Business
             var secondResult = _dataRepository.Insert("Friends", secondPair.Keys.ToList(), secondPair.Values.ToList());
 
             return firstResult.ToString() != "-1" && secondResult.ToString() != "-1";
+        }
+
+        public bool CompleteReservation(Dictionary<string, string> reservation, List<string> friendIds, List<string> tableIds)
+        {
+            var reservationId = Insert("Reservation", reservation);
+
+            foreach(var friendId in friendIds)
+            {
+                var invitedFriend = new Dictionary<string, string>();
+                invitedFriend.Add(reservationId.ToString(), friendId);
+                Insert("ReservationFriends", invitedFriend);
+            }
+
+            foreach (var tableId in tableIds)
+            {
+                var choosenTable = new Dictionary<string, string>();
+                choosenTable.Add(reservationId.ToString(), tableId);
+                Insert("TableReservation", choosenTable);
+            }
+
+            return true;
+        }
+
+        public object GetAllRestaurantsWithLocation()
+        {
+            return _dataRepository.GetAllRestaurantsWithLocation();
         }
     }
 }

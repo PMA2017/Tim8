@@ -33,6 +33,12 @@ public class Restaurant {
     @SerializedName("Location")
     @Expose
     private Integer location;
+    @SerializedName("Latitude")
+    @Expose
+    private Double latitude;
+    @SerializedName("Longitude")
+    @Expose
+    private Double longitude;
 
     public Integer getId() {
         return id;
@@ -104,6 +110,22 @@ public class Restaurant {
 
     public void setLocation(Integer location) {
         this.location = location;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
 }
