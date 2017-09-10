@@ -109,7 +109,7 @@ public interface ApiService {
     Call<List<TableReservation>> getTablereservationByResId(@Path("value") String resevationId);
 
     @POST("api/data/finishreservation")
-    Call<Boolean> finishReservation(@Body CompleteReservation completeReservation);
+    Call<Boolean> finishReservation(@Path("data") CompleteReservation completeReservation);
 
     @GET("api/data/getrestaurantswithlocation")
     Call<List<Restaurant>> getRestaurantsWithLocation();

@@ -118,8 +118,6 @@ public class AllReservationDetailsFragment extends Fragment {
                     Log.e("Finish reservation", ex.getMessage());
                 }
             }
-
-
         });
 
         return v;
