@@ -126,14 +126,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="takeyourseat.activities.ProfileActivity" />
         </activity>
-        <activity
-            android:name="takeyourseat.activities.ProfilePictureActivity"
-            android:label="@string/change"
-            android:parentActivityName="takeyourseat.activities.ProfileActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="takeyourseat.activities.ProfileActivity" />
-        </activity>
 
         <service android:name="takeyourseat.services.CustomFirebaseMessagingService">
             <intent-filter>

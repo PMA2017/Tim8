@@ -111,6 +111,8 @@ public class AllReservationDetailsFragment extends Fragment {
                                 Intent intent = new Intent(getActivity(), HomePageActivity.class);
                                 startActivity(intent);
                             }
+                            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Error in finishing the reservation.", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
 
                         @Override

@@ -33,7 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ApiService apiService;
     private DatabaseHelper databaseHelper;
     private User currentUser;
-    private ImageView profilePicture;
     private int userId;
 
 
@@ -46,7 +45,6 @@ public class ProfileActivity extends AppCompatActivity {
         lastNameView = (TextView)findViewById(R.id.textViewLastName);
         addressView = (TextView)findViewById(R.id.textViewAddress);
         emailView = (TextView)findViewById(R.id.textViewEmail);
-        profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
         nameEdit = (EditText)findViewById(R.id.editTextName);
         lastNameEdit = (EditText)findViewById(R.id.editTextLastName);
@@ -57,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
         editPasswordBtn = (Button)findViewById(R.id.editPassword);
         saveBtn = (Button)findViewById(R.id.saveProfile);
         cancelBtn = (Button)findViewById(R.id.cancelProfile);
-        profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
         currentUser = getDatabaseHelper().getCurrentUser();
         userId = currentUser.getId();
@@ -67,16 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
         String pass = currentUser.getPassword();
         String email = currentUser.getEmail();
         String address = currentUser.getAddress();
-        String image = currentUser.getImage();
-
-
-        profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profilePicture = new Intent(ProfileActivity.this, ProfilePictureActivity.class);
-                startActivity(profilePicture);
-            }
-        });
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
