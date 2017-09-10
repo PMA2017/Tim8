@@ -105,7 +105,14 @@ public class AllReservationDetailsFragment extends Fragment {
                     apiService.finishReservation(reservation).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                            boolean isSuccessful = response.isSuccessful();
+                            if(response.isSuccessful()) {
+                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Reservation finished.", Toast.LENGTH_SHORT);
+                                toast.show();
+                                Intent intent = new Intent(getActivity(), HomePageActivity.class);
+                                startActivity(intent);
+                            }
+                            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Error in finishing the reservation.", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
 
                         @Override
@@ -118,8 +125,6 @@ public class AllReservationDetailsFragment extends Fragment {
                     Log.e("Finish reservation", ex.getMessage());
                 }
             }
-
-
         });
 
         return v;

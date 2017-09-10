@@ -70,7 +70,6 @@ public class ReservationTablesFragment extends Fragment {
         next = (Button) v.findViewById(R.id.next2);
         apiService = ApiUtils.getApiService();
 
-
         apiDate = getActivity().getIntent().getExtras().getString("date", null); //yyyy-mm-dd
         apiTime = getActivity().getIntent().getExtras().getString("time", null); //hh:mm
         restaurantId = getActivity().getIntent().getExtras().getInt("id", 0);
