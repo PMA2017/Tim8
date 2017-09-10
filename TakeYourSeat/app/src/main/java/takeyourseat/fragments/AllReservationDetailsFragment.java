@@ -125,6 +125,7 @@ public class AllReservationDetailsFragment extends Fragment {
         res.setUser(userId);
         res.setStartDate(getArguments().getString("startDate"));
         res.setEndDate(getArguments().getString("endDate"));
+        res.setRestaurantId(getActivity().getIntent().getExtras().getInt("id", 0));
 
         return res;
     }
