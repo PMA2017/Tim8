@@ -181,8 +181,8 @@ public class OtherFriendsFragment extends Fragment {
     }
 
     private void sendFriendRequest(int friendId) {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("id", -1);
+        User currentUser = getDatabaseHelper().getCurrentUser();
+        int userId = currentUser.getId();
         apiService.sendFriendRequest(Integer.toString(userId), Integer.toString(friendId)).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

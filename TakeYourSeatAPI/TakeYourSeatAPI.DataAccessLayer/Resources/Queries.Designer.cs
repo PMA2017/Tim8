@@ -166,5 +166,14 @@ namespace TakeYourSeatAPI.DataAccessLayer.Resources {
                 return ResourceManager.GetString("Update", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE ReservationFriends SET Status = &apos;1&apos; WHERE ReservationId = &apos;{0}&apos; AND UserId = &apos;{1}&apos;.
+        /// </summary>
+        internal static string UpdateInvitationStatusQuery {
+            get {
+                return ResourceManager.GetString("UpdateInvitationStatusQuery", resourceCulture);
+            }
+        }
     }
 }

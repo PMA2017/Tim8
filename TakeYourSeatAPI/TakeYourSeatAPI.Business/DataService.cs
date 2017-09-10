@@ -101,7 +101,7 @@ namespace TakeYourSeatAPI.Business
             return firstResult.ToString() != "-1" && secondResult.ToString() != "-1";
         }
 
-        public bool CompleteReservation(Dictionary<string, string> reservation, List<string> friendIds, List<string> tableIds)
+        public object CompleteReservation(Dictionary<string, string> reservation, List<string> friendIds, List<string> tableIds)
         {
             var reservationId = Insert("Reservation", reservation);
 
@@ -122,12 +122,17 @@ namespace TakeYourSeatAPI.Business
                 Insert("TableReservation", choosenTable);
             }
 
-            return true;
+            return reservationId;
         }
 
         public object GetAllRestaurantsWithLocation()
         {
             return _dataRepository.GetAllRestaurantsWithLocation();
+        }
+
+        public bool UpdateInvitationStatus(string reservationId, string userId)
+        {
+            return _dataRepository.UpdateInvitationStatus(reservationId, userId);
         }
     }
 }

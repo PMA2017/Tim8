@@ -113,4 +113,7 @@ public interface ApiService {
 
     @GET("api/data/getrestaurantswithlocation")
     Call<List<Restaurant>> getRestaurantsWithLocation();
+
+    @PUT("api/data/updateinvitationstatus/{reservationId}/{userId}")
+    Call<Boolean> updateInvitationStatus(@Path("reservationId") String reservationId, @Path("userId") String userId);
 }

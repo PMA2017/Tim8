@@ -64,3 +64,56 @@ ERROR 2017-09-10 19:01:52,650 26911ms APILogger              urantsWithLocation 
 ERROR 2017-09-10 19:01:52,703 26964ms APILogger              urantsWithLocation - Id
 ERROR 2017-09-10 19:06:05,229 10002ms APILogger              urantsWithLocation - Location
 ERROR 2017-09-10 19:06:05,290 10063ms APILogger              urantsWithLocation - Location
+ERROR 2017-09-10 23:36:35,593 192261ms APILogger              SendNotification   - Error sent from FCM server, after sending request : {"multicast_id":8307665207138251847,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"NotRegistered"}]} , for following device info: {"to":"ei5j68xqTDA:APA91bFG-wIl2-hXDJ6900rZDQ9Lw8TY3fgVHZ4TZIcjZgt-U9jd3a3Gz4BQsrkn8v2qwEcie6ZbgNP45q7J_8D2EQ4dhxew_vmPfgpeH7E7aDHOYcVploeeZfY427g_9xOqAh3gpW40","notification":{"title":"New Friend Request","click_action":"takeyourseat.activities.DialogActivity","sound":"default"},"data":{"userId":"9","friendId":"8","userName":"ghcjcvi","userLastName":"i"}}
+ERROR 2017-09-10 23:56:37,228 558757ms APILogger              SendNotification   - Error sent from FCM server, after sending request : {"multicast_id":8289370056676024046,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"NotRegistered"}]} , for following device info: {"to":"ei5j68xqTDA:APA91bFG-wIl2-hXDJ6900rZDQ9Lw8TY3fgVHZ4TZIcjZgt-U9jd3a3Gz4BQsrkn8v2qwEcie6ZbgNP45q7J_8D2EQ4dhxew_vmPfgpeH7E7aDHOYcVploeeZfY427g_9xOqAh3gpW40","notification":{"title":"New Friend Request","click_action":"takeyourseat.activities.DialogActivity","sound":"default"},"data":{"userId":"9","friendId":"8","userName":"ghcjcvi","userLastName":"i"}}
+INFO  2017-09-10 23:59:26,537 728065ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:00:13,864 775393ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:00:32,726 794255ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:10:49,684 1411212ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:22:51,747 2133276ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:22:51,752 2133281ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:22:51,753 2133282ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:22:51,766 2133294ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["[\"6\",\"7\"]"],"FriendIds":["[\"12\"]"]}
+ERROR 2017-09-11 00:23:00,604 2142133ms APILogger              Insert             - Conversion failed when converting the varchar value '["12"]' to data type int.
+ERROR 2017-09-11 00:23:00,641 2142169ms APILogger              FinishReservation  - Conversion failed when converting the varchar value '["12"]' to data type int.
+INFO  2017-09-11 00:26:39,670 2361199ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:26:39,671 2361200ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:26:39,672 2361201ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:26:39,676 2361204ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["\"6\""],"FriendIds":["\"12\""]}
+ERROR 2017-09-11 00:26:42,042 2363571ms APILogger              Insert             - Conversion failed when converting the varchar value '"12"' to data type int.
+ERROR 2017-09-11 00:26:42,060 2363588ms APILogger              FinishReservation  - Conversion failed when converting the varchar value '"12"' to data type int.
+INFO  2017-09-11 00:28:34,848 2476377ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:28:34,876 2476404ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:28:34,878 2476407ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:28:34,880 2476408ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["12"]}
+INFO  2017-09-11 00:33:03,756 2745285ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:34:50,404 2851933ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:34:50,406 2851935ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:34:50,407 2851935ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:34:50,408 2851936ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["12"]}
+INFO  2017-09-11 00:40:59,940 3221468ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:41:10,081 3231609ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:41:10,081 3231610ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:41:10,082 3231610ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:41:10,083 3231611ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["14"]}
+INFO  2017-09-11 00:43:27,775 3369303ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 00:43:33,222 3374751ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 00:43:33,224 3374752ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 00:43:33,224 3374753ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 00:43:33,226 3374754ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["14"]}
+INFO  2017-09-11 01:03:41,475 4583004ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 01:03:44,930 4586458ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 01:03:44,931 4586460ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 01:03:44,932 4586460ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 01:03:44,933 4586461ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["14"]}
+INFO  2017-09-11 01:07:00,957 4782486ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 01:31:53,610  9862ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 01:31:53,652  9904ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 01:31:53,652  9904ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 01:31:53,807 10058ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["14"]}
+INFO  2017-09-11 01:32:02,634 18886ms APILogger              SendNotification   - Notification sent successfully
+INFO  2017-09-11 01:35:20,843 217095ms APILogger              FinishReservation  - Reservation data : {"EndDate":"2017-09-10T21:45:00","RestaurantId":1,"StartDate":"2017-09-10T18:45:00","User":8}
+INFO  2017-09-11 01:35:20,844 217096ms APILogger              FinishReservation  - Number of tables: 1
+INFO  2017-09-11 01:35:20,845 217096ms APILogger              FinishReservation  - Number of friends: 1
+INFO  2017-09-11 01:35:20,845 217097ms APILogger              FinishReservation  - All data: {"Reservation":"{\"EndDate\":\"2017-09-10T21:45:00\",\"RestaurantId\":1,\"StartDate\":\"2017-09-10T18:45:00\",\"User\":8}","TableIds":["6"],"FriendIds":["14"]}
+INFO  2017-09-11 01:35:25,876 222128ms APILogger              SendNotification   - Notification sent successfully

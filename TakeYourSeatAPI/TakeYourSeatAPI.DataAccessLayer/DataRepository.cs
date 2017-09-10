@@ -325,5 +325,27 @@ namespace TakeYourSeatAPI.DataAccessLayer
                 _connection.Close();
             }
         }
+
+        public bool UpdateInvitationStatus(string reservationId, string userId)
+        {
+            var query = _queryProvider.GetUpdateInvitationStatusQuery(reservationId, userId);
+            var sqlCommand = new SqlCommand(query, _connection);
+
+            try
+            {
+                _connection.Open();
+                var retVal = sqlCommand.ExecuteNonQuery();
+                return retVal != 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                throw;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
     }
 }

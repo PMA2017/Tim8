@@ -69,5 +69,10 @@ namespace TakeYourSeatAPI.DataAccessLayer
         {
             return Resources.Queries.SelectRestaurantsWithLocation;
         }
+
+        public string GetUpdateInvitationStatusQuery(string reservationId, string userId)
+        {
+            return string.Format(Resources.Queries.UpdateInvitationStatusQuery, reservationId, userId);
+        }
     }
 }
