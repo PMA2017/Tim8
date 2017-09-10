@@ -108,14 +108,17 @@ namespace TakeYourSeatAPI.Business
             foreach(var friendId in friendIds)
             {
                 var invitedFriend = new Dictionary<string, string>();
-                invitedFriend.Add(reservationId.ToString(), friendId);
+                invitedFriend.Add("ReservationId", reservationId.ToString());
+                invitedFriend.Add("UserId", friendId);
+                invitedFriend.Add("Status", "0");
                 Insert("ReservationFriends", invitedFriend);
             }
 
             foreach (var tableId in tableIds)
             {
                 var choosenTable = new Dictionary<string, string>();
-                choosenTable.Add(reservationId.ToString(), tableId);
+                choosenTable.Add("ReservationId", reservationId.ToString());
+                choosenTable.Add("TableId", tableId);
                 Insert("TableReservation", choosenTable);
             }
 

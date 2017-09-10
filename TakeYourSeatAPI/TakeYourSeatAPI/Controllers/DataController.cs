@@ -209,12 +209,14 @@ namespace TakeYourSeatAPI.Controllers
         {
             try
             {
-                var reservation = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Reservation);
-                reservation.Remove("Id");
-
                 _logger.Info("Reservation data : " + data.Reservation);
                 _logger.Info("Number of tables: " + data.TableIds.Count.ToString());
-                _logger.Info("Number of friends: " + data.TableIds.Count.ToString());
+                _logger.Info("Number of friends: " + data.FriendIds.Count.ToString());
+
+                _logger.Info("All data: " + JsonConvert.SerializeObject(data));
+
+                var reservation = JsonConvert.DeserializeObject<Dictionary<string, string>>(data.Reservation);
+                reservation.Remove("Id");
 
                 var retVal = _dataService.CompleteReservation(reservation, data.FriendIds, data.TableIds);
                 return Ok(retVal);

@@ -150,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Created new user with ID: " + response.body(), Toast.LENGTH_LONG);
                         Intent logIn = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(logIn);
+                        finish();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Failed to create new user", Toast.LENGTH_LONG);

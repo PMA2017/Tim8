@@ -93,9 +93,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                         if(users.size() > 0) {
                             Intent intent = new Intent(SplashScreenActivity.this, HomePageActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -126,4 +128,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //startSplashScreenThread();
+    }
 }

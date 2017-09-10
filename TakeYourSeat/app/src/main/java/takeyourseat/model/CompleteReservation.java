@@ -13,7 +13,7 @@ public class CompleteReservation {
 
     @SerializedName("Reservation")
     @Expose
-    private Reservation reservation;
+    private String reservation;
 
     @SerializedName("TableIds")
     @Expose
@@ -40,11 +40,11 @@ public class CompleteReservation {
         this.friendIds = friendIds;
     }
 
-    public Reservation getReservation() {
+    public String getReservation() {
         return reservation;
     }
 
-    public void setReservation(Reservation reservation) {
+    public void setReservation(String reservation) {
         this.reservation = reservation;
     }
 }

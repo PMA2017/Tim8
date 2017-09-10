@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anica.takeyourseat.R;
+import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.w3c.dom.Text;
@@ -100,17 +101,22 @@ public class AllReservationDetailsFragment extends Fragment {
                 reservation.setTableIds(tableIds);
                 reservation.setFriendIds(getFriendIds());
 
-                apiService.finishReservation(reservation).enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                try {
+                    apiService.finishReservation(reservation).enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            boolean isSuccessful = response.isSuccessful();
+                        }
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<Boolean> call, Throwable t) {
-
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            Log.e("On failure", t.getMessage());
+                        }
+                    });
+                }
+                catch (Exception ex) {
+                    Log.e("Finish reservation", ex.getMessage());
+                }
             }
 
 
@@ -119,7 +125,7 @@ public class AllReservationDetailsFragment extends Fragment {
         return v;
     }
 
-    private Reservation createReservation() {
+    private String createReservation() {
         Reservation res = new Reservation();
 
         res.setUser(userId);
@@ -127,7 +133,7 @@ public class AllReservationDetailsFragment extends Fragment {
         res.setEndDate(getArguments().getString("endDate"));
         res.setRestaurantId(getActivity().getIntent().getExtras().getInt("id", 0));
 
-        return res;
+        return new Gson().toJson(res);
     }
 
     private ArrayList<String> getFriendIds() {
