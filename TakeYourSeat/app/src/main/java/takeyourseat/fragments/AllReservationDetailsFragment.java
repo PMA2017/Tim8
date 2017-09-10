@@ -33,6 +33,7 @@ import takeyourseat.activities.HomePageActivity;
 import takeyourseat.data.remote.ApiService;
 import takeyourseat.data.remote.ApiUtils;
 import takeyourseat.db.DatabaseHelper;
+import takeyourseat.model.CompleteReservation;
 import takeyourseat.model.EnumValues;
 import takeyourseat.model.Reservation;
 import takeyourseat.model.ReservationFriends;
@@ -52,7 +53,6 @@ public class AllReservationDetailsFragment extends Fragment {
     private int userId;
     private ArrayList<String> tableIds;
     private int[] friendIds;
-    private int counter, friendCounter, reservationId;
 
     public AllReservationDetailsFragment() {
         // Required empty public constructor
@@ -90,100 +90,30 @@ public class AllReservationDetailsFragment extends Fragment {
         friendIds = getArguments().getIntArray("friendIds");
 
         userId = getDatabaseHelper().getCurrentUser().getId();
-        counter = 0;
-        friendCounter = 0;
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < tableIds.size(); i++) {
-                    //ovde treba dodati samo jednu rezervaciju
-                    //i vise torki u tablereservation gde ce reservationid biti isti (ukoliko ima vise stolova)
-                    apiService.insertReservation(createReservation()).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            if(response.isSuccessful()) {
-                                reservationId = Integer.valueOf(response.body().replaceAll("\\.0*$", ""));
-                            }
-                        }
+                CompleteReservation reservation = new CompleteReservation();
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Log.e("error", "error in inserting reservation");
-                        }
-                    });
+                reservation.setReservation(createReservation());
+                reservation.setTableIds(tableIds);
+                reservation.setFriendIds(getFriendIds());
 
-//                    for(int i = 0; i < tableIds.size(); i++) {
-//                        counter++;
-//                        if(counter == tableIds.size()) {
-//                            for(int j = 0; j < friendIds.length; j++) {
-//                                friendCounter++;
-//                                if(friendCounter == friendIds.length) {
-//                                    //otici na home activity
-//                                }
-//                                else {
-//                                    apiService.insertReservationFriends(createReservationFriends(reservationId, friendIds[j])).enqueue(new Callback<String>() {
-//                                        @Override
-//                                        public void onResponse(Call<String> call, Response<String> response) {
-//                                            Log.d("ins", "Inserted reservationfriends");
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<String> call, Throwable t) {
-//                                            Log.e("error", "error in inserting reservationfriends");
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }
-//                        else {
-//                            apiService.insertTableReservation(createTableReservation(Integer.valueOf(tableIds.get(i)), reservationId)).enqueue(new Callback<String>() {
-//                                @Override
-//                                public void onResponse(Call<String> call, Response<String> response) {
-//                                    Log.d("ins", "Inserted tablereservation");
-//                                }
-//
-//                                @Override
-//                                public void onFailure(Call<String> call, Throwable t) {
-//                                    Log.e("error", "error in inserting tablereservation");
-//                                }
-//                            });
-//                        }
-//                    }
-//
-//                }
+                apiService.finishReservation(reservation).enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
 
-//                    apiService.insertReservation(createReservation(Integer.valueOf(tableIds.get(i)))).enqueue(new Callback<String>() {
-//                        @Override
-//                        public void onResponse(Call<String> call, Response<String> response) {
-//                            if(response.isSuccessful()) {
-//                                int id = Integer.valueOf(response.body().replaceAll("\\.0*$", ""));
-//                                apiService.insertReservationFriends(createReservationFriends(id)).enqueue(new Callback<String>() {
-//                                    @Override
-//                                    public void onResponse(Call<String> call, Response<String> response) {
-//                                        counter++;
-//                                        if(counter == tableIds.size()) {
-//                                            Toast.makeText(getActivity(), "Reservation successfully finished.", Toast.LENGTH_LONG);
-//                                            Intent intent = new Intent(getActivity(), HomePageActivity.class);
-//                                            startActivity(intent);
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<String> call, Throwable t) {
-//                                        Log.e("Detail", "Error inserting ReservationFriends using API");
-//                                    }
-//                                });
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<String> call, Throwable t) {
-//                            Log.e("Detail", "error loading from API");
-//                        }
-//                    });
-                }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                    }
+                });
             }
+
+
         });
 
         return v;
@@ -199,23 +129,13 @@ public class AllReservationDetailsFragment extends Fragment {
         return res;
     }
 
-    private ReservationFriends createReservationFriends(int reservationId, int friendId) {
-        ReservationFriends reservationFriends = new ReservationFriends();
+    private ArrayList<String> getFriendIds() {
+        ArrayList<String> ids = new ArrayList<>();
 
-        reservationFriends.setReservationId(reservationId);
-        reservationFriends.setUserId(friendId);
-        reservationFriends.setStatus(EnumValues.SENT_REQUEST_STATUS);
+        for(int i =0; i < friendIds.length; i++)
+            ids.add(String.valueOf(friendIds[i]));
 
-        return reservationFriends;
-    }
-
-    private TableReservation createTableReservation(int tableId, int reservationId) {
-        TableReservation tableReservation = new TableReservation();
-
-        tableReservation.setTableId(tableId);
-        tableReservation.setReservationId(reservationId);
-
-        return tableReservation;
+        return ids;
     }
 
     public DatabaseHelper getDatabaseHelper() {

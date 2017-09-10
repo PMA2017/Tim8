@@ -5,9 +5,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import takeyourseat.model.Comment;
+import takeyourseat.model.CompleteReservation;
 import takeyourseat.model.Location;
 import takeyourseat.model.MenuItem;
 import takeyourseat.model.Rating;
@@ -106,5 +108,6 @@ public interface ApiService {
     @GET("api/data/getby/tableReservation/reservationId/{value}")
     Call<List<TableReservation>> getTablereservationByResId(@Path("value") String resevationId);
 
-
+    @POST("api/data/finishreservation")
+    Call<Boolean> finishReservation(@Path("value") CompleteReservation completeReservation);
 }
