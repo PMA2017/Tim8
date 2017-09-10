@@ -93,6 +93,7 @@ public class ReservationListActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), ReservationDetailActivity.class);
 
                 intent.putExtra("id", reservation.getId());
+                intent.putExtra("resId", reservation.getRestaurantId());
                 intent.putExtra("startDate", reservation.getStartDate());
                 intent.putExtra("endDate", reservation.getEndDate());
 

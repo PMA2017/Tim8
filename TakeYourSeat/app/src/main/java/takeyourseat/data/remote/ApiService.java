@@ -37,6 +37,9 @@ public interface ApiService {
     @GET("api/data/getby/restaurant/name/{value}")
     Call<List<Restaurant>> getRestaurantByName(@Path("value") String name);
 
+    @GET("api/data/getby/restaurant/id/{value}")
+    Call<List<Restaurant>> getRestaurantById(@Path("value") String id);
+
     @PUT("api/data/insert/user")
     Call<String> insertUser(@Body User user);
 
