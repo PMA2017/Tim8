@@ -40,6 +40,8 @@ public class Restaurant {
     @Expose
     private Double longitude;
 
+    private Float distance;
+
     public Integer getId() {
         return id;
     }
@@ -128,4 +130,11 @@ public class Restaurant {
         this.longitude = longitude;
     }
 
+    public Float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Float distance) {
+        this.distance = distance;
+    }
 }

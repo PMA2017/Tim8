@@ -125,8 +125,6 @@ public class HomePageActivity extends AppCompatActivity {
                                     public void onFailure(Call<List<Restaurant>> call, Throwable t) {
                                         Log.e("Detail", "error loading from API");
                                     }
-
-
                                 });
 
                             }
