@@ -106,10 +106,7 @@ public class AllReservationDetailsFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful()) {
-                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Reservation finished.", Toast.LENGTH_SHORT);
-                                toast.show();
-                                Intent intent = new Intent(getActivity(), HomePageActivity.class);
-                                startActivity(intent);
+                                finishReservation();
                             }
                             Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Error in finishing the reservation.", Toast.LENGTH_SHORT);
                             toast.show();
@@ -124,10 +121,18 @@ public class AllReservationDetailsFragment extends Fragment {
                 catch (Exception ex) {
                     Log.e("Finish reservation", ex.getMessage());
                 }
+                finishReservation();
             }
         });
 
         return v;
+    }
+
+    private void finishReservation() {
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Reservation finished.", Toast.LENGTH_SHORT);
+        toast.show();
+        Intent intent = new Intent(getActivity(), HomePageActivity.class);
+        startActivity(intent);
     }
 
     private String createReservation() {
