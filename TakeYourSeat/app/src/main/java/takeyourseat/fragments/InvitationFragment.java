@@ -40,16 +40,20 @@ public class InvitationFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         apiService = ApiUtils.getApiService();
+
         String title = "New invitation";
         String senderFullName = getArguments().getString("senderFullName");
         String restaurantName = getArguments().getString("restaurantName");
         String startDate = getArguments().getString("startDate");
-        String endDate = getArguments().getString("endDate");
+        String date = startDate.split("T")[0];
+        String time = startDate.split("T")[1];
+
         reservationId = getArguments().getString("reservationId");
         friendId = getArguments().getString("friendId");
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setMessage("Accept invitation from " + senderFullName + "?\n\nRestaurant: " + restaurantName+"\nStart: " + startDate + "\nEnd: " + endDate);
+        alertDialogBuilder.setMessage("Accept invitation from " + senderFullName + "?\n\nRestaurant: " + restaurantName+"\nDate: " + date + "\nTime: " + time);
 
         alertDialogBuilder.setPositiveButton("YES",  new DialogInterface.OnClickListener() {
             @Override

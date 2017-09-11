@@ -19,9 +19,6 @@ public class InviteDialogActivity extends AppCompatActivity {
 
         Bundle args = new Bundle();
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
         String senderFullName = getIntent().getExtras().getString("senderFullName");
         String restaurantName = getIntent().getExtras().getString("restaurantName");
         String startDate = getIntent().getExtras().getString("startDate");
