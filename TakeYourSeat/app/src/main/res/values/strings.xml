@@ -137,16 +137,16 @@
     </string-array>
     <string name="pref_km">Select distance for restaurant search</string>
     <string-array name="pref_km_titles">
-        <item>1 km</item>
-        <item>2 km</item>
-        <item>From 3 km to 5 km</item>
-        <item>More than 5 km</item>
+        <item>Under 1 km</item>
+        <item>Under 2 km</item>
+        <item>Under 5 km</item>
+        <item>Under 10 km</item>
     </string-array>
     <string-array name="pref_km_values">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
         <item>5</item>
+        <item>10</item>
     </string-array>
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
